@@ -1,0 +1,414 @@
+/* ── Kiron · Global Styles ───────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --cream:      #F5F0E8;
+  --olive:      #4A5E3A;
+  --olive-dark: #374930;
+  --brown:      #8B4513;
+  --ink:        #1C1C1A;
+  --muted:      #9A8F7E;
+  --border:     #DDD8CE;
+  --white:      #FFFFFF;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  line-height: 1.2;
+}
+
+a { color: var(--olive); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Nav ─────────────────────────────────────────────────────────────────── */
+
+nav {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+}
+
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.nav-links a:hover { color: var(--ink); text-decoration: none; }
+
+/* ── Hero ─────────────────────────────────────────────────────────────────── */
+
+.hero {
+  padding: 100px 0 80px;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--olive);
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 900;
+  color: var(--ink);
+  max-width: 800px;
+  margin: 0 auto 24px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--olive);
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 540px;
+  margin: 0 auto 48px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+  text-decoration: none;
+}
+
+.btn:hover { opacity: 0.88; transform: translateY(-1px); text-decoration: none; }
+
+.btn-primary {
+  background: var(--olive);
+  color: var(--white);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+}
+
+.btn-icon { font-size: 1.2rem; }
+
+/* ── App preview placeholder ─────────────────────────────────────────────── */
+
+.app-preview {
+  margin: 60px auto 0;
+  max-width: 700px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────────────── */
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ── Features ────────────────────────────────────────────────────────────── */
+
+.features {
+  padding: 80px 0;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.features-header h2 { font-size: 2.2rem; margin-bottom: 12px; }
+.features-header p { color: var(--muted); max-width: 480px; margin: 0 auto; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px 28px;
+}
+
+.feature-icon {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+.feature-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── Pricing ─────────────────────────────────────────────────────────────── */
+
+.pricing {
+  padding: 80px 0;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.pricing-header h2 { font-size: 2.2rem; margin-bottom: 12px; }
+.pricing-header p { color: var(--muted); }
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.pricing-card {
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 36px 32px;
+  position: relative;
+}
+
+.pricing-card.featured {
+  border-color: var(--olive);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--olive);
+  color: var(--white);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.pricing-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.pricing-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.pricing-period {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.pricing-trial {
+  font-size: 0.85rem;
+  color: var(--olive);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.pricing-features {
+  list-style: none;
+  margin-bottom: 32px;
+}
+
+.pricing-features li {
+  font-size: 0.95rem;
+  color: var(--muted);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.pricing-features li::before {
+  content: '✓ ';
+  color: var(--olive);
+  font-weight: 600;
+}
+
+/* ── CTA ─────────────────────────────────────────────────────────────────── */
+
+.cta {
+  padding: 100px 0;
+  text-align: center;
+}
+
+.cta h2 { font-size: 2.5rem; margin-bottom: 16px; }
+.cta p { color: var(--muted); margin-bottom: 40px; font-size: 1.1rem; }
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+}
+
+footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  color: var(--muted);
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ── Legal pages ─────────────────────────────────────────────────────────── */
+
+.legal {
+  padding: 80px 0;
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+.legal h1 { font-size: 2.5rem; margin-bottom: 8px; }
+
+.legal-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 48px;
+}
+
+.legal h2 {
+  font-size: 1.3rem;
+  margin: 40px 0 12px;
+}
+
+.legal p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.legal ul {
+  color: var(--muted);
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+
+.legal ul li { margin-bottom: 8px; }
+
+.legal a { color: var(--olive); }
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .hero { padding: 60px 0 48px; }
+  .nav-links { display: none; }
+  footer .container { flex-direction: column; align-items: flex-start; }
+}
