@@ -183,23 +183,48 @@ nav .container {
 
 .btn-icon { font-size: 1rem; }
 
-/* ── App preview placeholder ─────────────────────────────────────────────── */
+/* ── Screenshot gallery ──────────────────────────────────────────────────── */
 
 .app-preview {
-  margin: 60px auto 0;
-  max-width: 700px;
-  background: var(--paper-shadow);
-  border: 1.5px solid var(--border);
-  border-radius: 4px;
-  height: 360px;
+  margin: 60px -40px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.app-preview::-webkit-scrollbar {
+  display: none;
+}
+
+.app-preview-track {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  gap: 14px;
+  padding: 0 40px 8px;
+  width: max-content;
+}
+
+.app-preview-track img {
+  height: 480px;
+  width: auto;
+  border-radius: 28px;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .app-preview {
+    margin: 48px -20px 0;
+  }
+  .app-preview-track {
+    padding: 0 20px 8px;
+    gap: 10px;
+  }
+  .app-preview-track img {
+    height: 380px;
+    border-radius: 22px;
+  }
 }
 
 /* ── Divider ─────────────────────────────────────────────────────────────── */
