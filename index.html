@@ -3,9 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kiron — Build. Train. Track.</title>
-  <meta name="description" content="Kiron is an AI workout tracker that turns any AI-generated fitness plan into a structured training program. Ask ChatGPT or Claude to write your plan, paste it in, and start training. Build. Train. Track." />
+  <title>Kiron — AI Workout Tracker for iOS &amp; Android</title>
+  <meta name="description" content="Kiron is an AI workout tracker that turns any AI-generated fitness plan into a structured training program. Ask ChatGPT or Claude to write your plan, paste it in, and start training." />
   <meta name="keywords" content="AI workout tracker, AI fitness program, workout plan app, gym workout logger, strength training app, AI personal trainer" />
+  <link rel="canonical" href="https://trykiron.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Kiron" />
+  <meta property="og:title" content="Kiron — AI Workout Tracker for iOS &amp; Android" />
+  <meta property="og:description" content="Ask ChatGPT or Claude to write your workout plan. Paste it into Kiron and you're ready to train — no manual setup, no spreadsheets." />
+  <meta property="og:url" content="https://trykiron.com/" />
+  <meta property="og:image" content="https://trykiron.com/logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kiron — AI Workout Tracker for iOS &amp; Android" />
+  <meta name="twitter:description" content="Ask ChatGPT or Claude to write your workout plan. Paste it into Kiron and you're ready to train — no manual setup, no spreadsheets." />
+  <meta name="twitter:image" content="https://trykiron.com/logo.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Kiron",
+        "description": "Kiron is an AI workout tracker that turns any AI-generated fitness plan into a structured training program. Ask ChatGPT or Claude to write your plan, paste it in, and start training.",
+        "url": "https://trykiron.com",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": ["iOS", "Android"],
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Weekly",
+            "price": "4.99",
+            "priceCurrency": "USD",
+            "description": "Full app access with 3-day free trial"
+          },
+          {
+            "@type": "Offer",
+            "name": "Annual",
+            "price": "49.99",
+            "priceCurrency": "USD",
+            "description": "Full app access, best value"
+          }
+        ],
+        "featureList": [
+          "AI workout plan parser",
+          "Automatic workout scheduling",
+          "Gym workout logger",
+          "Exercise library with muscle targeting",
+          "Strength progress and PR tracking",
+          "Apple Health sync",
+          "Google Health Connect sync"
+        ],
+        "publisher": {
+          "@type": "Organization",
+          "name": "Berkeley Labs",
+          "url": "https://trykiron.com"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "Kiron",
+        "url": "https://trykiron.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://trykiron.com/logo.png"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "help@trykiron.com",
+          "contactType": "customer support"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I use any AI to build my plan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — ChatGPT, Claude, Gemini, or any AI that can output a structured workout plan. Just ask it to write your program and paste the result into Kiron."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if my plan isn't formatted perfectly?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kiron's parser is designed to handle real AI output — messy formatting, varied terminology, and all. It maps exercises, sets, reps, and rest periods automatically."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Kiron support cardio and non-lifting workouts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The exercise library covers strength, cardio, carries, timed holds, and bodyweight movements. Anything your AI plan includes, Kiron can track."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Apple Health sync work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When you complete a workout, Kiron automatically writes it to Apple Health (and Google Health Connect on Android) — no extra steps needed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a free trial?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — 3 days free on the weekly plan. No credit card required to start."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/png" href="favicon.png" />
 </head>

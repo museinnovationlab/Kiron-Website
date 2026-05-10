@@ -1,0 +1,44 @@
+# Kiron
+
+> Kiron is an AI workout tracker app for iOS and Android that converts AI-generated fitness plans into structured training programs. Paste a workout plan from ChatGPT, Claude, or any AI chatbot — Kiron automatically maps every exercise, set, and rep into a full training schedule.
+
+## What is Kiron?
+
+Kiron solves a specific problem: AI chatbots like ChatGPT and Claude can write detailed workout programs, but there was no easy way to track them in a structured app. Kiron's AI parser reads the output and automatically creates a full program — exercises, sets, reps, weights, rest days, and multi-phase schedules — ready to follow day by day.
+
+## Key Features
+
+- **AI workout plan parser**: paste any AI-generated plan (ChatGPT, Claude, Gemini, etc.) and Kiron maps every exercise, set, and rep automatically
+- **Automatic workout scheduling**: multi-phase programs, rest days, and deload weeks all handled on your calendar
+- **Gym workout logger**: log sets, weights, and reps with an interface designed for the gym floor
+- **Exercise library**: 1,000+ exercises with muscle targeting, instructions, cardio, carries, and timed holds
+- **Progress tracking**: workout history, volume trends, and personal records in one place
+- **Apple Health sync**: completed workouts automatically write to Apple Health (iOS) and Google Health Connect (Android)
+
+## How it works
+
+1. Ask ChatGPT, Claude, or any AI chatbot to write your workout program — tell it your goals, schedule, and available equipment
+2. Copy the AI's response and paste it into Kiron
+3. Kiron reads the plan and automatically creates your full program
+4. Follow your schedule day by day, log sets and weights, and track progress over time
+
+## Pricing
+
+- **Weekly**: $4.99 per week — full app access, 3-day free trial, no credit card required
+- **Annual**: $49.99 per year — full app access, best value (~80% savings vs weekly)
+
+## Availability
+
+- iOS: available on the Apple App Store
+- Android: available on Google Play
+
+## Company
+
+Kiron is built by Berkeley Labs. Support: help@trykiron.com
+
+## Pages
+
+- [Home](https://trykiron.com/)
+- [Support](https://trykiron.com/support.html)
+- [Privacy Policy](https://trykiron.com/privacy.html)
+- [Terms of Service](https://trykiron.com/terms.html)
