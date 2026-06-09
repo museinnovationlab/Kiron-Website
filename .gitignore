@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+*.log
+*.swp
+.idea/
+.vscode/
+
+# Secrets — none expected in this static site, but never commit these if added
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.netlify/
+
+# Dependencies (if any tooling is added later)
+node_modules/
