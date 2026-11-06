@@ -24,7 +24,7 @@ Kiron solves a specific problem: AI chatbots like ChatGPT and Claude can write d
 
 ## Pricing
 
-- **Weekly**: $4.99 per week — full app access, 3-day free trial, no credit card required
+- **Weekly**: $4.99 per week — full app access, 3-day free trial
 - **Annual**: $49.99 per year — full app access, best value (~80% savings vs weekly)
 
 ## Availability
