@@ -2,7 +2,7 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["TEAMID.com.kiron"],
+        "appIDs": ["DM93DYTY8K.com.kiron"],
         "components": [
           { "/": "/w/*", "comment": "A shared workout" },
           { "/": "/g/*", "comment": "A shared gym" }
