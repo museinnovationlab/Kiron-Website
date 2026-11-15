@@ -4,30 +4,220 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
-  <title>Open in Kiron</title>
+  <title>Shared from Kiron</title>
+  <!-- The edge function netlify/edge-functions/share-preview.js puts the workout's own name and
+       exercises in these for a link's preview in Messages; these are what shows without it. -->
   <meta property="og:title" content="Shared from Kiron" />
   <meta property="og:description" content="A workout or gym setup, ready to add in Kiron." />
   <meta property="og:image" content="https://trykiron.com/og-image.png" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="icon" type="image/png" href="/favicon.png" />
-  <style>.share { max-width: 560px; margin: 0 auto; padding: 80px 0; text-align: center; } .share p { color: var(--muted); margin: 16px 0 32px; } .share .btn { display: inline-block; margin: 6px; }</style>
+  <style>
+    /* .btn sets display, which would otherwise win over the hidden attribute. */
+    [hidden] { display: none !important; }
+    .share { max-width: 600px; margin: 0 auto; padding: 56px 0 80px; }
+    .share-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+    .share h1 { font-size: clamp(2.6rem, 9vw, 4rem); font-weight: 400; overflow-wrap: anywhere; }
+    .share-meta { color: var(--muted); margin-top: 8px; }
+    .share-list { list-style: none; margin: 28px 0 8px; border-top: 1.5px solid var(--border); }
+    .share-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 2px; border-bottom: 1.5px solid var(--border); }
+    .share-list .name { font-weight: 600; overflow-wrap: anywhere; }
+    .share-list .line { font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; white-space: nowrap; color: var(--navy); }
+    .share-status { color: var(--muted); margin: 28px 0 8px; }
+    .share-get { margin-top: 48px; padding: 28px; background: var(--paper-shadow); border-radius: 16px; }
+    .share-get h2 { font-size: 2rem; font-weight: 400; }
+    .share-get p { color: var(--ink); margin: 8px 0 20px; }
+    .share-get .btn-group { justify-content: flex-start; gap: 12px; }
+    .share-get .btn { padding: 12px 20px; }
+    @media (max-width: 600px) {
+      .share { padding-top: 36px; }
+      .share-list li { flex-wrap: wrap; gap: 2px 16px; }
+      .share-get { padding: 22px 18px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="share">
-      <h1 id="title">Someone shared a workout with you</h1>
-      <p>Get Kiron to add it to your workouts. If you already have it, open it in Kiron.</p>
-      <a id="open" href="kiron://" class="btn btn-primary">Open in Kiron</a>
-      <a href="https://apps.apple.com/us/app/kiron-build-train-track/id6761926770" class="btn btn-secondary">App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=com.kiron" class="btn btn-secondary">Google Play</a>
+  <nav>
+    <div class="container">
+      <a href="/" class="nav-logo">
+        <img src="/runner.png" alt="" />
+        <span class="nav-logo-wordmark">Kiron</span>
+      </a>
     </div>
-  </div>
+  </nav>
+
+  <main class="container">
+    <div class="share">
+      <p class="share-eyebrow" id="eyebrow">Shared workout</p>
+      <h1 id="title">Someone shared a workout with you</h1>
+      <p class="share-meta" id="meta" hidden></p>
+      <ul class="share-list" id="list" hidden></ul>
+      <p class="share-status" id="status" aria-live="polite">Loading the workout…</p>
+
+      <section class="share-get" aria-labelledby="get-title">
+        <h2 id="get-title">Do it in Kiron</h2>
+        <p id="get-text">Open this link on your phone to add the workout to yours in Kiron. It needs Kiron 1.2 or later.</p>
+        <div class="btn-group">
+          <a id="open" href="kiron://" class="btn btn-primary">Open in Kiron</a>
+          <a href="https://apps.apple.com/us/app/kiron-build-train-track/id6761926770" class="btn btn-secondary">App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.kiron" class="btn btn-secondary">Google Play</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
   <script>
-    var m = location.pathname.match(/^\/(w|g)\/([A-Za-z0-9]{20})/);
-    if (m) {
-      document.getElementById("open").href = "kiron://" + m[1] + "/" + m[2];
-      if (m[1] === "g") document.getElementById("title").textContent = "Someone shared their gym setup with you";
-    }
+    // Shows what was shared, read from Kiron's database the way the app reads it. A share holds a
+    // workout's exercises, sets, reps, times and distances (never weights), or a gym's equipment;
+    // anyone with the link can read it until it expires (firestore.rules). It's anyone's input, so
+    // every word goes in with textContent, never as HTML.
+    (function () {
+      var PROJECT = "kiron-5422e";
+      var EQUIPMENT = {
+        full_gym: "Full gym", barbell: "Barbell", dumbbells: "Dumbbells", machines: "Machines",
+        kettlebells: "Kettlebells", bands: "Resistance bands", bodyweight_only: "Bodyweight only",
+        cardio_machines: "Cardio machines"
+      };
+      var $ = function (id) { return document.getElementById(id); };
+      var match = location.pathname.match(/^\/(w|g)\/([A-Za-z0-9]{20})\/?$/);
+      if (!match) return gone();
+      var kind = match[1] === "w" ? "workout" : "gym";
+      var id = match[2];
+      $("open").href = "kiron://" + match[1] + "/" + id;
+      if (kind === "gym") {
+        $("eyebrow").textContent = "Shared gym";
+        $("title").textContent = "Someone shared their gym setup with you";
+        $("status").textContent = "Loading the gym…";
+        $("get-title").textContent = "Add it in Kiron";
+        $("get-text").textContent = "Open this link on your phone to add the gym to yours in Kiron. It needs Kiron 1.2 or later.";
+      }
+
+      // Firestore's public REST API. A local preview can read an emulator instead:
+      // http://localhost:8765/w/<id>?emulator=8080 (only from localhost).
+      var api = "https://firestore.googleapis.com/v1";
+      var local = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+      var port = new URLSearchParams(location.search).get("emulator");
+      if (local && /^\d{2,5}$/.test(port || "")) api = "http://127.0.0.1:" + port + "/v1";
+
+      fetch(api + "/projects/" + PROJECT + "/databases/(default)/documents/shares/" + id)
+        .then(function (response) {
+          // The rules refuse an expired share and a missing one alike.
+          if (response.status === 403 || response.status === 404) return null;
+          if (!response.ok) throw new Error(String(response.status));
+          return response.json();
+        })
+        .then(function (doc) {
+          var share = doc && read(fields(doc.fields));
+          if (!share || share.kind !== kind) return gone();
+          if (share.kind === "workout") showWorkout(share); else showGym(share);
+        })
+        .catch(function () {
+          $("status").textContent = "Couldn't load it just now. Check your connection and open the link again, or open it in Kiron.";
+        });
+
+      // Firestore's typed values ({ stringValue: "…" }) as plain ones.
+      function value(v) {
+        if (!v || typeof v !== "object") return null;
+        if ("stringValue" in v) return v.stringValue;
+        if ("integerValue" in v) return Number(v.integerValue);
+        if ("doubleValue" in v) return Number(v.doubleValue);
+        if ("booleanValue" in v) return v.booleanValue;
+        if ("arrayValue" in v) return (v.arrayValue.values || []).map(value);
+        if ("mapValue" in v) return fields(v.mapValue.fields);
+        return null;
+      }
+      function fields(f) {
+        var out = {};
+        for (var key in f || {}) out[key] = value(f[key]);
+        return out;
+      }
+      var text = function (s, max) { return typeof s === "string" && s.trim() ? s.trim().slice(0, max) : null; };
+      var count = function (n) { return typeof n === "number" && isFinite(n) && n > 0 ? n : null; };
+
+      // The same checks the app makes on a share it reads (src/features/share/share.ts).
+      function read(raw) {
+        if (raw.v !== 1 || !text(raw.name, 80)) return null;
+        if (raw.kind === "workout" && Array.isArray(raw.exercises)) {
+          var exercises = raw.exercises.slice(0, 40).map(function (e) {
+            return e && text(e.name, 80) && ["strength", "cardio", "timed"].indexOf(e.type) >= 0
+              ? { name: text(e.name, 80), type: e.type, sets: count(e.sets), reps: count(e.reps), seconds: count(e.seconds), miles: count(e.miles) }
+              : null;
+          }).filter(Boolean);
+          return exercises.length ? { kind: "workout", name: text(raw.name, 80), exercises: exercises } : null;
+        }
+        if (raw.kind === "gym" && Array.isArray(raw.equipment)) {
+          return { kind: "gym", name: text(raw.name, 80), equipment: raw.equipment.filter(function (e) { return EQUIPMENT[e]; }) };
+        }
+        return null;
+      }
+
+      // Miles where people run in miles, kilometers everywhere else.
+      var miles = /-(US|GB|LR|MM)$/i.test(navigator.language || "en-US");
+      var round1 = function (n) { return Math.round(n * 10) / 10; };
+      function minutes(seconds) {
+        var total = Math.round(seconds / 60);
+        if (total < 60) return total + " min";
+        var hours = Math.floor(total / 60), rest = total % 60;
+        return rest ? hours + " h " + rest + " min" : hours + " h";
+      }
+      // "4 × 5", "20 min, 2 mi", "3 × 45 s": as the app's preview says it (exerciseLine).
+      function line(e) {
+        if (e.type === "strength") {
+          if (e.sets && e.reps) return e.sets + " × " + e.reps;
+          return e.sets ? e.sets + " sets" : "";
+        }
+        var time = e.seconds ? (e.seconds >= 120 ? minutes(e.seconds) : e.seconds + " s") : null;
+        var distance = e.miles ? (miles ? round1(e.miles) + " mi" : round1(e.miles * 1.60934) + " km") : null;
+        var both = [time, distance].filter(Boolean).join(", ");
+        return e.type === "timed" && e.sets && both ? e.sets + " × " + both : both;
+      }
+
+      function row(name, detail) {
+        var li = document.createElement("li");
+        var left = document.createElement("span");
+        left.className = "name";
+        left.textContent = name;
+        li.appendChild(left);
+        if (detail) {
+          var right = document.createElement("span");
+          right.className = "line";
+          right.textContent = detail;
+          li.appendChild(right);
+        }
+        return li;
+      }
+
+      function show(name, meta, items) {
+        document.title = name + " · Shared from Kiron";
+        $("title").textContent = name;
+        $("meta").textContent = meta;
+        $("meta").hidden = false;
+        var list = $("list");
+        items.forEach(function (item) { list.appendChild(item); });
+        list.hidden = items.length === 0;
+        $("status").hidden = true;
+      }
+
+      function showWorkout(share) {
+        var n = share.exercises.length;
+        show(share.name, n + (n === 1 ? " exercise" : " exercises") + ", shared from Kiron",
+          share.exercises.map(function (e) { return row(e.name, line(e)); }));
+      }
+
+      function showGym(share) {
+        show(share.name, share.equipment.length ? "A gym setup, shared from Kiron" : "A gym with no equipment picked yet",
+          share.equipment.map(function (e) { return row(EQUIPMENT[e]); }));
+      }
+
+      function gone() {
+        $("title").textContent = "This link has expired";
+        $("status").textContent = "Shared workouts and gyms last 180 days. Ask whoever sent it for a new link.";
+        $("status").hidden = false;
+        $("open").hidden = true;
+        $("get-title").textContent = "Get Kiron";
+        $("get-text").textContent = "Build your own workouts from any plan, and track every set.";
+      }
+    })();
   </script>
 </body>
 </html>
