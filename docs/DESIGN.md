@@ -78,7 +78,7 @@ light and dark.
 | `SetTick` (`PencilRing` + `PenTick`) | `SetTick`, `TickList` | each beat's "03 / 07" and the story's lists: the pencil ring, ticked in red pen |
 | `PenCheck` | `PenCheck`, `CheckList` | what's included in a plan |
 | `TallyMarks` | `TallyMarks` | counting the three steps on the dark band |
-| `Stamp` | `Stamp` | "Best value" on the annual plan: double border, -3°, League Gothic |
+| `Stamp` | `Stamp` | "Save 80%" on the annual plan: double border, -3°, League Gothic |
 | `Highlighter`, `PenCircle`, `PencilDot`, `DayMarks`, `RecoveryRing` | not on the page | the loop and the dot are in the icon field; the rest belong to screens the screenshots show |
 | `Caveat` (the streak caption) | `.hand` | "3 days free": one or two words at display size, never body text |
 
@@ -119,7 +119,7 @@ tally of five, the underline), drawn a little bolder, so the field is partly in 
 - **Story**: seven beats, each with its set tick and "0N / 07 · TOPIC" label; lists ticked like sets; notes on a
   card behind the log's red margin line.
 - **Works with**: a successSoft wash, cards with success badges.
-- **Pricing**: the paywall's two packages as cards; the annual one chosen (red outline) and stamped.
+- **Pricing**: the paywall's two packages as cards; the annual one chosen (red outline) and stamped with what it saves.
 - **Get Kiron**: an accentSoft wash, both stores.
 - **FAQ**: one card of the app's sheet rows.
 - **Words pages** (privacy, terms, delete-data, the blog, support): a raised sheet with the red margin line.

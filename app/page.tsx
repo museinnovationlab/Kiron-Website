@@ -12,14 +12,15 @@ import { TallyMarks } from "@/components/marks";
 import { CONNECTIONS, FAQ, FAQ_PLACEHOLDER, GET, HERO, PRICING, SITE, WHY } from "@/content/site";
 
 /* The home page, in Bearing's order: the glyph field, the sticky nav, the hero with three phones, the dark "why"
-   band, the scroll story, one band on where workouts go, pricing, the download section, the FAQ and the footer.
+   band, the scroll story, the "works with" band (switching apps, Health, sharing), pricing, the download section, the
+   FAQ and the footer.
    Every word and screenshot comes from content/site.ts. */
 
 export const metadata: Metadata = { alternates: { canonical: `${SITE.url}/` } };
 
 const price = (s: string) => s.replace(/[^0-9.]/g, "");
 
-/* The old home page's structured data, kept: the app, the company, and the FAQ. */
+/* The old home page's structured data, kept and brought up to 1.2: the app, the company, and the FAQ. */
 const STRUCTURED = {
   "@context": "https://schema.org",
   "@graph": [
@@ -35,16 +36,19 @@ const STRUCTURED = {
         name: p.name,
         price: price(p.price),
         priceCurrency: "USD",
-        description: p.feature ? "Full app access, best value" : "Full app access with 3-day free trial",
+        description: `Full app access, ${p.note}`,
       })),
       featureList: [
-        "AI workout plan parser",
-        "Automatic workout scheduling",
-        "Gym workout logger",
-        "Exercise library with muscle targeting",
-        "Strength progress and PR tracking",
-        "Apple Health sync",
-        "Google Health Connect sync",
+        "36 ready-made workout programs, strength to marathon",
+        "Program builder from a few answers",
+        "Plan import from pasted text or up to four photos",
+        "Change any day's workout for time, another gym's equipment or sore muscles, with Undo",
+        "Set-by-set logging with last time's numbers, warm-up sets, supersets, reps in reserve and a plate calculator",
+        "Runs, rides, swims and rows in the same plan as lifting",
+        "Muscle recovery that counts lifting, cardio and other apps' workouts",
+        "Progress charts, weekly, monthly and yearly reports, badges and streaks",
+        "Workout history import from Fitbod, Strong and Hevy",
+        "Apple Health and Health Connect sync",
       ],
       publisher: { "@type": "Organization", name: "Berkeley Labs LLC", url: SITE.url },
     },
@@ -120,7 +124,7 @@ export default function Home() {
 
       <ScrollStory />
 
-      {/* ============ WHERE WORKOUTS GO ============ */}
+      {/* ============ WORKS WITH ============ */}
       <section className="band-green" id={CONNECTIONS.id} data-placeholder={CONNECTIONS.placeholder ? "copy" : undefined}>
         <div className="wrap sync">
           <div>

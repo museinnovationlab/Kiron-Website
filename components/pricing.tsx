@@ -3,9 +3,10 @@ import PenTitle from "./pen-title";
 import { CheckList, Stamp } from "./marks";
 import { PRICING } from "@/content/site";
 
-/* Two plans side by side, as today's site has them, drawn as the app's paywall draws its packages: cards, the chosen
-   one with the red outline a chosen card gets in the app (PressableCard `selected`), and the annual plan wearing the
-   PR stamp, which lands as it comes into view. The figures are today's site's; the stores set the real ones. */
+/* Two plans side by side, drawn as the app's paywall draws its packages: cards, the chosen one with the red outline a
+   chosen card gets in the app (PressableCard `selected`), and the annual plan wearing the PR stamp with what it
+   saves, which lands as it comes into view. The figures are the App Store's (checked 2026-11-15); the stores set the
+   real ones where each visitor lives, as the fine print says. */
 export default function Pricing() {
   return (
     <section className="band-white" id="pricing" data-placeholder={PRICING.placeholder ? "copy" : undefined}>
@@ -19,7 +20,7 @@ export default function Pricing() {
         <div className="plans">
           {PRICING.plans.map((plan) => (
             <div className={`card plan${plan.feature ? " feature" : ""}`} key={plan.name}>
-              {plan.feature && <Stamp label="Best value" />}
+              {plan.stamp && <Stamp label={plan.stamp} />}
               <div className="name">{plan.name}</div>
               <div className="price">
                 {plan.price}

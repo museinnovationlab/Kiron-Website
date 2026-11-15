@@ -12,7 +12,7 @@ import { pageMeta } from "@/lib/meta";
 
 export const metadata: Metadata = pageMeta({
   title: "Support — Kiron",
-  description: "Get help with Kiron — contact our support team with questions about the AI workout tracker app.",
+  description: "Get help with Kiron: email help@trykiron.com about your account, your subscription, a program or a bug.",
   canonical: `${SITE.url}/support.html`,
 });
 

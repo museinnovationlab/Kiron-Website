@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 import { GLYPHS } from "../components/glyphs.ts";
-import { BEATS, CONNECTIONS, HERO } from "../content/site.ts";
+import { BEATS, CONNECTIONS, FAQ, GET, HERO, PLACEHOLDERS, PRICING, SITE, STORY, WHY } from "../content/site.ts";
 
 const sha = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
 
@@ -58,4 +58,19 @@ test("every screenshot the page names is in public/shots", () => {
   const shots = [...HERO.shots, ...BEATS.map((b) => b.shot), CONNECTIONS.shot];
   for (const { file } of shots) assert.ok(existsSync(`public/shots/${file}.png`), file);
   assert.equal(BEATS.length, 7);
+});
+
+/* Strava is in Kiron 1.2 but switched off (the PostHog flag `strava`) until Strava approves the app, so the site
+   mustn't promise it yet: not in the home page's words, nor in llms.txt. When the flag is on for everyone, take this
+   test out with the words that add it (docs/PLACEHOLDERS.md). */
+test("the site doesn't promise Strava before it's switched on", () => {
+  const words = JSON.stringify({ HERO, WHY, STORY, BEATS, CONNECTIONS, PRICING, GET, FAQ, SITE });
+  assert.doesNotMatch(words, /strava/i);
+  assert.doesNotMatch(readFileSync("public/llms.txt", "utf8"), /strava/i);
+});
+
+test("the preview bar counts what's left: every placeholder screenshot, no placeholder words", () => {
+  const shots = [...HERO.shots, ...BEATS.map((b) => b.shot), CONNECTIONS.shot];
+  assert.equal(PLACEHOLDERS.screens, shots.filter((s) => s.placeholder).length);
+  assert.equal(PLACEHOLDERS.words, 0);
 });

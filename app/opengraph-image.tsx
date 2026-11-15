@@ -4,9 +4,10 @@ import { ImageResponse } from "next/og";
 import { HERO } from "@/content/site";
 
 /* The link preview (Open Graph, 1200×630), drawn at build time as Jist's is: the runner and the wordmark, the hero's
-   headline and the app's three words on the app's paper. The faces are copies of the app's own (assets/fonts, from
-   its @expo-google-fonts packages, OFL licences beside them), since this renderer can't read next/font's files. */
-export const alt = "Kiron: your AI wrote the workout. Kiron runs it.";
+   headline (its pen word in red) and the hero's three words on the app's paper, so the card always says what the page
+   says. The faces are copies of the app's own (assets/fonts, from its @expo-google-fonts packages, OFL licences beside
+   them), since this renderer can't read next/font's files. */
+export const alt = `Kiron: ${HERO.heading.join(" ")}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -14,6 +15,8 @@ const PAPER = "#F2EDE6";
 const INK = "#23201C";
 const RED = "#A8463A";
 const MUTED = "#655C54";
+// a longer headline gets smaller type, so it stays within four lines above the tagline
+const HEADLINE_SIZE = HERO.heading.join(" ").length > 36 ? 96 : 112;
 
 export default async function OpengraphImage() {
   // literal paths, so the build traces these three files and not the whole project
@@ -31,13 +34,13 @@ export default async function OpengraphImage() {
             <div style={{ fontFamily: "League Gothic", fontSize: 64, letterSpacing: 4, color: INK }}>KIRON</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontFamily: "League Gothic", fontSize: 112, lineHeight: 0.95, color: INK, display: "flex", flexWrap: "wrap", maxWidth: 760 }}>
+            <div style={{ fontFamily: "League Gothic", fontSize: HEADLINE_SIZE, lineHeight: 0.95, color: INK, display: "flex", flexWrap: "wrap", maxWidth: 760 }}>
               <span>{HERO.heading[0].toUpperCase()}&nbsp;</span>
               <span style={{ color: RED }}>{HERO.heading[1].toUpperCase()}&nbsp;</span>
               <span>{HERO.heading[2].toUpperCase()}</span>
             </div>
             <div style={{ marginTop: 30, fontFamily: "Plex Mono", fontSize: 26, letterSpacing: 5, color: MUTED }}>
-              BUILD · TRAIN · TRACK
+              {HERO.eyebrow.toUpperCase()}
             </div>
           </div>
         </div>
