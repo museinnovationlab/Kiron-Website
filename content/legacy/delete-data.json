@@ -1,0 +1,9 @@
+{
+  "importedFrom": "origin/main (2059dd7)",
+  "title": "Delete Your Data — Kiron",
+  "description": null,
+  "canonical": null,
+  "h1": "Delete Your Data",
+  "date": "Last updated: April 11, 2026",
+  "body": "<h2>How to delete your account and data</h2>\n<p>You can permanently delete your Kiron account and all associated data directly from within the app:</p>\n<ol>\n  <li>Open the Kiron app and log in</li>\n  <li>Tap the <strong>Settings</strong> tab</li>\n  <li>Scroll to the bottom and tap <strong>Delete account</strong></li>\n  <li>Confirm deletion when prompted</li>\n</ol>\n<p>This will immediately and permanently delete:</p>\n<ul>\n  <li>Your account and login credentials</li>\n  <li>All workout programs and plans</li>\n  <li>All workout history and session logs</li>\n  <li>All set and exercise logs</li>\n  <li>Your profile and personal information (age, weight, height)</li>\n  <li>Your app preferences</li>\n</ul>\n\n<h2>Request deletion by email</h2>\n<p>If you no longer have access to the app, you can request deletion by emailing us at <a href=\"mailto:help@trykiron.com\">help@trykiron.com</a> with the subject line <strong>\"Delete my account\"</strong> and the email address associated with your account. We will process your request within 30 days.</p>\n\n<h2>What data is retained</h2>\n<p>Once deleted, no personal data is retained. Aggregated, anonymous analytics data (which cannot be linked back to you) may be retained for product improvement purposes.</p>\n\n<h2>Questions</h2>\n<p>If you have questions about data deletion, contact us at <a href=\"mailto:help@trykiron.com\">help@trykiron.com</a>.</p>"
+}

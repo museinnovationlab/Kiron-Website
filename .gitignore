@@ -5,13 +5,20 @@
 .idea/
 .vscode/
 
-# Secrets — none expected in this static site, but never commit these if added
+# Secrets: none in this site. Never commit these if one is ever added.
 .env
 .env.*
 !.env.example
 *.pem
 *.key
-.netlify/
 
-# Dependencies (if any tooling is added later)
+# Build output and dependencies
 node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Hosting tools' local state (project links, never secrets we want in git)
+.vercel
+.netlify/

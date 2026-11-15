@@ -1,0 +1,47 @@
+{
+  "importedFrom": "origin/main (2059dd7)",
+  "title": "Blog — Kiron",
+  "description": "Practical guides on AI workout plans, hybrid training, muscle recovery, and how to actually stick to a program — from the team behind Kiron.",
+  "canonical": "https://trykiron.com/blog/",
+  "og": {
+    "description": "Practical guides on AI workout plans, hybrid training, muscle recovery, and how to actually stick to a program."
+  },
+  "intro": "Practical guides on AI workout plans, hybrid training, and recovery — written to be useful whether or not you ever use Kiron.",
+  "posts": [
+    {
+      "href": "/blog/chatgpt-workout-plan-into-app.html",
+      "slug": "chatgpt-workout-plan-into-app",
+      "meta": "July 17, 2026 · AI Training",
+      "title": "How to Turn a ChatGPT Workout Plan Into a Program You Can Actually Track",
+      "excerpt": "ChatGPT writes surprisingly good workout plans — and then leaves you with a wall of text. Here's how to prompt for a better plan, sanity-check it before you trust it, and four honest ways to track it (only one of which is ours)."
+    },
+    {
+      "href": "/blog/running-and-lifting-same-week.html",
+      "slug": "running-and-lifting-same-week",
+      "meta": "July 17, 2026 · Hybrid Training",
+      "title": "Running and Lifting in the Same Week: A Schedule That Actually Works",
+      "excerpt": "The three spacing rules that stop your squats and your intervals from wrecking each other, three weekly templates to steal, and how to keep a hybrid week in one place."
+    },
+    {
+      "href": "/blog/muscle-recovery-time-between-workouts.html",
+      "slug": "muscle-recovery-time-between-workouts",
+      "meta": "July 17, 2026 · Recovery",
+      "title": "How Long Should Muscles Recover Between Workouts? A Guide by Muscle Group",
+      "excerpt": "Realistic recovery windows by muscle group, why soreness is a bad readiness signal, the signs you're training a muscle too soon — and how to plan your split around all of it."
+    },
+    {
+      "href": "/blog/multi-phase-training-plan-without-coach.html",
+      "slug": "multi-phase-training-plan-without-coach",
+      "meta": "July 17, 2026 · Programming",
+      "title": "How to Follow a Multi-Phase Training Plan (Base, Build, Peak) Without a Coach",
+      "excerpt": "Phased plans fail at the seams — the transitions, not the workouts. What each phase is for, why self-coached athletes drift off schedule, and three ways to keep a 16-week plan on track."
+    },
+    {
+      "href": "/blog/workout-spreadsheet-vs-app.html",
+      "slug": "workout-spreadsheet-vs-app",
+      "meta": "July 17, 2026 · Tracking",
+      "title": "Workout Spreadsheet vs. App: An Honest Comparison From People Who Sell the App",
+      "excerpt": "Spreadsheets are free, flexible, and have powered decades of PRs — sometimes they're genuinely the better tool. When each one wins, and the three signs it's time to switch."
+    }
+  ]
+}
