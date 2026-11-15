@@ -1,0 +1,21 @@
+{
+  "checked": "2026-11-15",
+  "price-annual": "$49.99 a year",
+  "price-weekly": "$4.99 a week",
+  "price-annual-monthly": "about $4.17 a month",
+  "price-weekly-yearly": "about $259 a year",
+  "two-year-cost": "$99.98",
+  "trial": "a 3-day free trial on the weekly plan",
+  "pricing-sentence": "Kiron costs $49.99 a year (about $4.17 a month) or $4.99 a week, and the weekly plan starts with a 3-day free trial.",
+  "free-tier-sentence": "Kiron has no free version: it's free to download, and a subscription unlocks programs and logging.",
+  "cta-sentence": "The weekly plan starts with a 3-day free trial, and you can cancel in the App Store or Google Play before it ends.",
+  "cell-monthly": "None (weekly is $4.99)",
+  "cell-yearly": "$49.99",
+  "cell-lifetime": "None",
+  "cell-free-tier": "No",
+  "cell-trial": "3 days (weekly plan)",
+  "cell-two-years": "$99.98",
+  "cell-platforms": "iPhone and Android",
+  "cell-watch": "No (reads heart rate from Health afterwards)",
+  "cell-offline": "No: needs a connection to open a workout"
+}
