@@ -1,0 +1,57 @@
+# CLAUDE.md: Kiron's marketing site (trykiron.com)
+
+**Next.js 16 (App Router, TypeScript)**, built from Bearing's site (`../../Bearing/Bearing-Website`) in Kiron's colours,
+faces and words, as Jist's site was. It replaces the plain-HTML site that `main` still holds.
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm test         # node --test: the story's beat picker, share reading, the fixed files, glyphs, screenshots
+npm run build    # runs the tests, then builds
+```
+
+## Where it lives: two sites until the switch
+
+- **trykiron.com is still the OLD site on Netlify**, deployed from `main` of museinnovationlab/Kiron-Website. Netlify
+  limits deploys per month. **Don't push `main`** (nor merge into it) until the switch in `docs/SWITCH.md`.
+- **This site is on Vercel**, project `kiron-website` in the berkeley-labs team ("Tay's projects", Pro). Not connected
+  to Git yet: previews deploy from a checkout with `vercel deploy` (the CLI is signed in). Preview links sit behind
+  Vercel's login. Framework must be Next.js; no `vercel.json` (one with `framework: null` broke Bearing's once).
+- The branch is local only: GitHub shows no Netlify statuses for any branch, so whether Netlify builds pushed
+  branches couldn't be confirmed. Push only once that's known.
+
+## The addresses that cannot move
+
+Every address the old site answered still answers (`docs/SITEMAP.md`, checked by `scripts/check-site.mjs`):
+
+- `/blog/` keeps its trailing slash (`skipTrailingSlashRedirect`, `proxy.ts`); posts at `/blog/<slug>.html`.
+- `/privacy`, `/terms`, `/support`, `/delete-data`, each with and without `.html` (rewrites in `next.config.mjs`). The
+  shipped app opens `/privacy` and `/terms` without `.html`; App Store Connect, the sitemap and Google have `.html`.
+- `/w/<id>` and `/g/<id>`: share links (`components/share-page.tsx`, `lib/share.ts`); any id answers 200.
+- `public/.well-known/*`: byte-identical to the old files, served as JSON, never redirected. `test/site.test.mjs` and
+  the check script hold their hashes. Change them only with the app.
+- The **bare domain** is the main one; www redirects to it (the opposite of Bearing and Jist).
+
+## Words from the old site
+
+Privacy, terms, delete-data and the blog are the old site's words, imported from git by
+`npm run import:legacy` into `content/legacy/*.json` (never hand-edit those). Until the switch, edit the old site's
+HTML on `main`'s side and import again. After the switch, edit the JSON's `body` (it's the page's HTML).
+
+## Placeholders
+
+Screenshots (1.2.0 store set) and home-page words (today's site) are placeholders until the app's screens are final:
+`docs/PLACEHOLDERS.md`. Everything on the home page comes from `content/site.ts`; delete a block's `placeholder: true`
+when it's replaced.
+
+## Checking a deployment
+
+```bash
+vercel env run -- node scripts/check-site.mjs https://<preview>.vercel.app
+```
+`vercel env run` hands the script a short-lived token for the preview's login (never printed). At the switch:
+`node scripts/check-site.mjs https://trykiron.com --www --share w/<real id>`.
+
+## Writing to Taylor
+
+Plain language, the why behind each step. Paths contain spaces: wrap them in single quotes in commands.

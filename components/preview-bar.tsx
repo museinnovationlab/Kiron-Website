@@ -8,7 +8,8 @@ export default function PreviewBar() {
   return (
     <div className="preview-bar" role="note">
       <b>Preview</b>
-      {PLACEHOLDER_SOURCE} Both are placeholders.
+      <span className="long">{PLACEHOLDER_SOURCE} Both are placeholders.</span>
+      <span className="short">Placeholder screens and words.</span>
     </div>
   );
 }
