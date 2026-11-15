@@ -1,23 +1,23 @@
 {
   "title": "A Sample Post With a Five-Column Table — Kiron",
-  "description": "Not a real post: the test suite's sample, in the shape a new post takes, with a table wide enough to scroll on a phone.",
+  "description": "Not a real post: the test suite's sample, built from every block a comparison post uses. Kiron is {{kiron:price-annual}}.",
   "canonical": "https://trykiron.com/blog/sample-post-with-a-table.html",
   "slug": "sample-post-with-a-table",
   "h1": "A Sample Post With a Five-Column Table",
   "date": "November 15, 2026",
   "og": {
     "title": "A Sample Post With a Five-Column Table",
-    "description": "The test suite's sample post, with a table."
+    "description": "The test suite's sample post. Kiron is {{kiron:price-weekly}} or {{kiron:price-annual}}."
   },
   "twitter": {
     "title": "A Sample Post With a Five-Column Table",
-    "description": "The test suite's sample post, with a table."
+    "description": "The test suite's sample post. Kiron is {{ kiron:price-annual }}."
   },
   "jsonLd": {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "A Sample Post With a Five-Column Table",
-    "description": "Not a real post: the test suite's sample, in the shape a new post takes, with a table wide enough to scroll on a phone.",
+    "description": "Not a real post: the test suite's sample. {{kiron:pricing-sentence}}",
     "datePublished": "2026-11-15",
     "dateModified": "2026-11-15",
     "author": { "@type": "Organization", "name": "Kiron" },
@@ -29,5 +29,5 @@
     },
     "mainEntityOfPage": "https://trykiron.com/blog/sample-post-with-a-table.html"
   },
-  "body": "<p>This post isn't real. It's the sample the tests read (test/blog.test.mjs), and a copy dropped into content/blog shows how a post with a wide table looks on a phone.</p>\n\n<h2>A table with a header row</h2>\n<p>Five columns, the most a comparison post uses. On a phone the table scrolls sideways inside its box, and the first column stays put.</p>\n<table>\n  <caption>Sample comparison, \"made up\" numbers</caption>\n  <thead>\n    <tr><th>Feature</th><th>App one</th><th>App two</th><th>App three</th><th>App four</th></tr>\n  </thead>\n  <tbody>\n    <tr><th>Ready-made programs</th><td>36, from a first 5K to a marathon</td><td>None</td><td>A few templates</td><td>Some, on the paid plan</td></tr>\n    <tr><th>Change today's workout</th><td>Shorter or longer, another gym, add a finisher, with Undo</td><td>Shorter or longer</td><td>No</td><td>No</td></tr>\n    <tr><th>Price</th><td>$4.99 a week or $49.99 a year</td><td>$9.99 a month</td><td>Free, with a paid plan</td><td>$5 a month</td></tr>\n  </tbody>\n</table>\n\n<h2>And a short one</h2>\n<table>\n  <thead><tr><th>Plan</th><th>Price</th></tr></thead>\n  <tbody><tr><td>Weekly</td><td>$4.99</td></tr><tr><td>Annual</td><td>$49.99</td></tr></tbody>\n</table>\n<p>A two-column table fits a phone as it is, so it doesn't scroll.</p>"
+  "body": "<p class=\"disclosure\">We make Kiron, so weigh this post knowing that. It isn't a real post: it's the sample the tests read (test/blog.test.mjs), and a copy dropped into content/blog shows how each block looks.</p>\n\n<aside class=\"verdict\">\n  <h2>The short answer</h2>\n  <ul>\n    <li>Pick app one if you want a program to follow.</li>\n    <li>Pick app two if you only want a log.</li>\n    <li>Pick app three if you never pay for apps.</li>\n  </ul>\n  <p>Prices checked {{kiron:checked}}.</p>\n</aside>\n\n<h2>A table with a header row</h2>\n<p>Five columns, the most a comparison post uses. On a phone the table scrolls sideways inside its box, and the first column stays put.</p>\n<div class=\"table-wrap\"><table>\n  <caption>Sample comparison, \"made up\" numbers</caption>\n  <thead>\n    <tr><th>Feature</th><th>App one</th><th>App two</th><th>App three</th><th>App four</th></tr>\n  </thead>\n  <tbody>\n    <tr><th>Ready-made programs</th><td>36, from a first 5K to a marathon</td><td>None</td><td>A few templates</td><td>Some, on the paid plan</td></tr>\n    <tr><th>Change today's workout</th><td>Shorter or longer, another gym, add a finisher, with Undo</td><td>Shorter or longer</td><td>No</td><td>No</td></tr>\n    <tr><th>Price</th><td>{{kiron:price-weekly}} or {{kiron:price-annual}}</td><td>$9.99 a month</td><td>Free, with a paid plan</td><td>$5 a month</td></tr>\n  </tbody>\n</table></div>\n\n<h2>And a short one</h2>\n<table>\n  <thead><tr><th>Plan</th><th>Price</th></tr></thead>\n  <tbody><tr><td>Weekly</td><td>{{kiron:price-weekly}}</td></tr><tr><td>Annual</td><td>{{kiron:price-annual}}</td></tr></tbody>\n</table>\n<p>This one has no box of its own, so the site adds one. A two-column table fits a phone as it is, so it doesn't scroll.</p>\n\n<!-- update:kiron-pricing -->\n<p>{{kiron:pricing-sentence}} <a href=\"/#get\">Get Kiron</a>.</p>\n<!-- /update:kiron-pricing -->\n\n<div class=\"sources\">\n  <h2>Sources</h2>\n  <ul>\n    <li><a href=\"https://example.com/a/very/long/address/that/would/widen/a/phone/page/if/it/could/not/wrap-anywhere\">An example source with a long address</a>, read November 15, 2026</li>\n    <li><a href=\"https://example.com/pricing\">An example pricing page</a>, read November 15, 2026</li>\n  </ul>\n</div>\n<p class=\"updated\">Updated November 15, 2026: prices checked against each app's store page.</p>"
 }

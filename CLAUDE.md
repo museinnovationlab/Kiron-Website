@@ -39,8 +39,9 @@ Privacy, terms, delete-data and the blog are the old site's words, imported from
 HTML on `main`'s side and import again. After the switch, edit the JSON's `body` (it's the page's HTML).
 
 **New posts** need no code: `content/blog/<slug>.json` (the old posts' shape) plus a card in `content/blog/index.json`,
-newest first (`docs/POSTS.md`, read by `lib/blog.ts`, checked by `npm test`). They describe Kiron 1.2, so they go live
-with the switch, which waits for 1.2 in both stores.
+newest first; Kiron's prices and plans come from `content/blog/kiron.json` as `{{kiron:<key>}}`, and `"draft": true`
+builds a post for review without listing it (`docs/POSTS.md`, read by `lib/blog.ts`, checked by `npm test`). They
+describe Kiron 1.2, so they go live with the switch, which waits for 1.2 in both stores.
 
 ## The look is the app's
 

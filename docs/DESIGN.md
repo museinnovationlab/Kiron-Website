@@ -123,6 +123,8 @@ tally of five, the underline), drawn a little bolder, so the field is partly in 
 - **Get Kiron**: an accentSoft wash, both stores.
 - **FAQ**: one card of the app's sheet rows.
 - **Words pages** (privacy, terms, delete-data, the blog, support): a raised sheet with the red margin line.
+- **Blog posts** add a muted disclosure line, a verdict card on the app's paper with pen-checked points, comparison
+  tables that scroll inside their own box on a phone, and a sources list in smaller type (`docs/POSTS.md`).
 - **Share page**: the shared workout's rows on a card, like the app's plan page; Open in Kiron in an accentSoft box.
 
 ## Not yet

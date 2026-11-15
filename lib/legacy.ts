@@ -27,8 +27,11 @@ export type BlogIndex = {
   posts: PostCard[];
 };
 
-/** A post, old or new (content/legacy/blog/<slug>.json, content/blog/<slug>.json). `body` is its HTML, without an h1. */
+/** A post, old or new (content/legacy/blog/<slug>.json, content/blog/<slug>.json). `body` is its HTML, without an h1.
+    A new post can be a draft: built at its address for review, marked noindex, and left off the blog's list and the
+    sitemap until `draft` is false (docs/POSTS.md). */
 export type Post = {
+  draft?: boolean;
   title: string;
   description: string;
   canonical: string;

@@ -48,8 +48,9 @@ const POSTS = {
   "workout-spreadsheet-vs-app": "Workout Spreadsheet vs. App: An Honest Comparison From People Who Sell the App",
 };
 // Posts written for this site (content/blog, docs/POSTS.md), read from this checkout: the site it builds must serve
-// them as it serves the old ones. None yet is fine. (Against the old site, these are the ones it doesn't have.)
-const NEW_POSTS = newPostsInCheckout();
+// them as it serves the old ones. None yet is fine. (Against the old site, these are the ones it doesn't have.) A
+// draft is checked the other way round: its page answers, marked noindex, and neither the blog nor the sitemap has it.
+const { listed: NEW_POSTS, drafts: DRAFTS } = newPostsInCheckout();
 const ALL_POSTS = { ...NEW_POSTS, ...POSTS };
 const SITEMAP = [
   `${ORIGIN}/`,
@@ -166,22 +167,35 @@ const h1Is = (text) => (r) => {
 /** an element whose class list includes this class */
 const hasClass = (cls) => (r) => (new RegExp(`class="[^"]*\\b${cls}\\b`).test(r.text) ? null : `no element with class ${cls}`);
 const ogImage = () => (r) => (metaContent(r.text, "property", "og:image") ? null : "no og:image");
+const isNoindex = () => (r) =>
+  /<meta name="robots" content="[^"]*noindex/.test(head(r.text)) ? null : "not marked noindex (a draft would reach search engines)";
 const notNoindex = () => (r) =>
   /noindex/i.test(r.robots || "") || /<meta name="robots" content="[^"]*noindex/.test(head(r.text))
     ? "marked noindex (search engines would drop it)"
     : null;
 
-/** content/blog's posts, { slug: h1 }, from this checkout (an index of cards, or { posts: [...] }). */
+/** content/blog's posts from this checkout, { listed: { slug: h1 }, drafts: { slug: h1 } }, each h1 with Kiron's facts
+    (content/blog/kiron.json) filled in as the site fills them. The index is a list of cards, or { posts: [...] }. */
 function newPostsInCheckout() {
   const dir = new URL("../content/blog/", import.meta.url);
+  const json = (name) => JSON.parse(readFileSync(new URL(name, dir), "utf8"));
   let index;
   try {
-    index = JSON.parse(readFileSync(new URL("index.json", dir), "utf8"));
+    index = json("index.json");
   } catch {
-    return {};
+    return { listed: {}, drafts: {} };
   }
-  const cards = Array.isArray(index) ? index : (index.posts ?? []);
-  return Object.fromEntries(cards.map(({ slug }) => [slug, JSON.parse(readFileSync(new URL(`${slug}.json`, dir), "utf8")).h1]));
+  let facts = {};
+  try {
+    facts = json("kiron.json");
+  } catch {}
+  const fill = (text) => text.replace(/\{\{\s*kiron:([\w.-]+)\s*\}\}/g, (all, key) => facts[key] ?? all);
+  const posts = { listed: {}, drafts: {} };
+  for (const { slug } of Array.isArray(index) ? index : (index.posts ?? [])) {
+    const post = json(`${slug}.json`);
+    posts[post.draft ? "drafts" : "listed"][slug] = fill(post.h1);
+  }
+  return posts;
 }
 
 /* ---------------------------------------------------------------- the checks --------------------------------- */
@@ -205,8 +219,12 @@ const postCount = Object.keys(ALL_POSTS).length;
 await check("blog", "/blog/", {
   status: 200,
   type: html,
-  body: [canonical(`${ORIGIN}/blog/`), has(...Object.keys(ALL_POSTS).map((s) => `/blog/${s}.html`))],
-  ok: `canonical /blog/, links all ${postCount} posts`,
+  body: [
+    canonical(`${ORIGIN}/blog/`),
+    has(...Object.keys(ALL_POSTS).map((s) => `/blog/${s}.html`)),
+    hasNot(...Object.keys(DRAFTS).map((s) => `/blog/${s}.html`)),
+  ],
+  ok: `canonical /blog/, links all ${postCount} posts${Object.keys(DRAFTS).length ? `, none of the ${Object.keys(DRAFTS).length} drafts` : ""}`,
 });
 await check("blog without its slash", "/blog", { redirect: "/blog/" });
 await check("blog (old file name)", "/blog/index.html", { status: 200, type: html, body: [canonical(`${ORIGIN}/blog/`)] });
@@ -216,6 +234,14 @@ for (const [slug, h1] of Object.entries(ALL_POSTS)) {
     type: html,
     body: [h1Is(h1), canonical(`${ORIGIN}/blog/${slug}.html`), ld("Article"), ogImage()],
     ok: "its h1, canonical, Article JSON-LD",
+  });
+}
+for (const [slug, h1] of Object.entries(DRAFTS)) {
+  await check(`draft ${slug}`, `/blog/${slug}.html`, {
+    status: 200,
+    type: html,
+    body: [h1Is(h1), canonical(`${ORIGIN}/blog/${slug}.html`), isNoindex()],
+    ok: "a draft: its h1, canonical, noindex",
   });
 }
 await check("post without .html", `/blog/${Object.keys(POSTS)[0]}`, {
@@ -242,8 +268,8 @@ await check("a page with a trailing slash", "/privacy/", { redirect: "/privacy" 
 await check("sitemap.xml", "/sitemap.xml", {
   status: 200,
   type: /xml/,
-  body: [has(...SITEMAP.map((u) => `<loc>${u}</loc>`))],
-  ok: `all ${SITEMAP.length} addresses`,
+  body: [has(...SITEMAP.map((u) => `<loc>${u}</loc>`)), hasNot(...Object.keys(DRAFTS).map((s) => `/blog/${s}.html`))],
+  ok: `all ${SITEMAP.length} addresses${Object.keys(DRAFTS).length ? ", no drafts" : ""}`,
 });
 await check("robots.txt", "/robots.txt", {
   status: 200,

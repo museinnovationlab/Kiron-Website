@@ -1,9 +1,16 @@
 [
   {
+    "href": "/blog/sample-draft.html",
+    "slug": "sample-draft",
+    "meta": "November 20, 2026 · Comparisons",
+    "title": "A Sample Draft",
+    "excerpt": "Not a real post: a draft, built at its address but on no list."
+  },
+  {
     "href": "/blog/sample-post-with-a-table.html",
     "slug": "sample-post-with-a-table",
     "meta": "November 15, 2026 · Comparisons",
     "title": "A Sample Post With a Five-Column Table",
-    "excerpt": "Not a real post: the test suite's sample, in the shape a new post takes, with a table wide enough to scroll on a phone."
+    "excerpt": "Not a real post: the test suite's sample, built from every block a comparison post uses. Kiron is {{kiron:price-annual}}."
   }
 ]
