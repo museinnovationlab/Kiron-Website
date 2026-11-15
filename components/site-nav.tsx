@@ -6,7 +6,6 @@
    exists at all. */
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import GetKiron from "./get-kiron";
 
 // "/#…", not "#…": the same links work from the blog, the legal pages, a share page and the 404 (on the home page they
@@ -61,7 +60,11 @@ export default function SiteNav() {
     <nav className={`nav${stuck ? " stuck" : ""}`} aria-label="Main">
       <div className="wrap inner">
         <a className="brand" href="/#top" aria-label="Kiron, home">
-          <Image src="/brand/runner-mark.png" alt="" width={92} height={132} priority />
+          {/* the app's launch runner; in dark mode its dark-mode copy, which carries a faint light edge */}
+          <picture>
+            <source srcSet="/brand/runner-mark-dark.png" media="(prefers-color-scheme: dark)" />
+            <img src="/brand/runner-mark.png" alt="" width={92} height={132} />
+          </picture>
           <span>Kiron</span>
         </a>
         <div className="navlinks">

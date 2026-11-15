@@ -44,7 +44,7 @@ export function sharePage(letter: "w" | "g") {
     const [result, h] = await Promise.all([lookup(letter, id), headers()]);
     return (
       <>
-        <GlyphField className="field" theme="light" cell={96} />
+        <GlyphField className="field" theme="auto" cell={96} />
         <SiteNav />
         <main className="page">
           <div className="wrap">

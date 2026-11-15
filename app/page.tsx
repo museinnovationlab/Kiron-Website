@@ -7,6 +7,8 @@ import Pricing from "@/components/pricing";
 import GetKiron, { StoreLinks } from "@/components/get-kiron";
 import SiteFooter from "@/components/site-footer";
 import JsonLd from "@/components/json-ld";
+import PenTitle from "@/components/pen-title";
+import { TallyMarks } from "@/components/marks";
 import { CONNECTIONS, FAQ, FAQ_PLACEHOLDER, GET, HERO, PRICING, SITE, WHY } from "@/content/site";
 
 /* The home page, in Bearing's order: the glyph field, the sticky nav, the hero with three phones, the dark "why"
@@ -64,20 +66,20 @@ export default function Home() {
   return (
     <>
       <JsonLd data={STRUCTURED} />
-      <GlyphField className="field" theme="light" cell={96} />
+      <GlyphField className="field" theme="auto" cell={96} />
       <SiteNav />
 
       {/* ============ HERO ============ */}
       <header className="hero" id="top" data-placeholder={HERO.placeholder ? "copy" : undefined}>
         <div className="wrap">
           <p className="eyebrow">{HERO.eyebrow}</p>
-          <h1>
+          <PenTitle as="h1" align="center">
             {HERO.heading[0]} <em>{HERO.heading[1]}</em> {HERO.heading[2]}
-          </h1>
+          </PenTitle>
           <p className="lede">{HERO.lede}</p>
           <div className="hero-cta">
             <GetKiron />
-            <a className="btn btn-ghost" href={HERO.secondary.href}>
+            <a className="btn btn-soft" href={HERO.secondary.href}>
               {HERO.secondary.label}
             </a>
           </div>
@@ -96,14 +98,18 @@ export default function Home() {
         <GlyphField className="band-field" theme="dark" cell={104} />
         <div className="wrap">
           <p className="eyebrow">{WHY.eyebrow}</p>
-          <h2 style={{ maxWidth: "16ch" }}>{WHY.heading}</h2>
+          <PenTitle style={{ maxWidth: "16ch" }}>{WHY.heading}</PenTitle>
           <p className="lede" style={{ marginTop: 20 }}>
             {WHY.lede}
           </p>
           <div className="problem-grid">
             {WHY.cards.map((c, i) => (
               <div className="pcard" key={c.title}>
-                <div className="n">{String(i + 1).padStart(2, "0")}</div>
+                {/* counted the way the app counts a streak: tally marks */}
+                <div className="count" data-pen="">
+                  <TallyMarks count={i + 1} />
+                  <span className="sr-only">Step {i + 1}</span>
+                </div>
                 <h3>{c.title}</h3>
                 <p>{c.body}</p>
               </div>
@@ -119,14 +125,14 @@ export default function Home() {
         <div className="wrap sync">
           <div>
             <p className="eyebrow">{CONNECTIONS.eyebrow}</p>
-            <h2 style={{ maxWidth: "15ch" }}>{CONNECTIONS.heading}</h2>
+            <PenTitle style={{ maxWidth: "15ch" }}>{CONNECTIONS.heading}</PenTitle>
             <p className="lede" style={{ marginTop: 20 }}>
               {CONNECTIONS.lede}
             </p>
             <div className="sync-list" style={{ marginTop: 30 }}>
               {CONNECTIONS.cards.map((c) => (
-                <div className="sync-card" key={c.title}>
-                  <p className="eyebrow">{c.label}</p>
+                <div className="card sync-card" key={c.title}>
+                  <span className="badge badge-success">{c.label}</span>
                   <h3>{c.title}</h3>
                   <p>{c.body}</p>
                 </div>
@@ -151,7 +157,9 @@ export default function Home() {
       <section className="band-red" id="get" data-placeholder={GET.placeholder ? "copy" : undefined}>
         <div className="wrap" style={{ textAlign: "center" }}>
           <p className="eyebrow">{GET.eyebrow}</p>
-          <h2 style={{ maxWidth: "18ch", margin: "0 auto" }}>{GET.heading}</h2>
+          <PenTitle align="center" style={{ maxWidth: "18ch" }}>
+            {GET.heading}
+          </PenTitle>
           <p className="lede" style={{ margin: "18px auto 28px" }}>
             {GET.lede}
           </p>
@@ -165,8 +173,8 @@ export default function Home() {
           <p className="eyebrow" style={{ textAlign: "center" }}>
             FAQ
           </p>
-          <h2 style={{ textAlign: "center" }}>Common questions.</h2>
-          <div className="faq">
+          <PenTitle align="center">Common questions.</PenTitle>
+          <div className="card faq">
             {FAQ.map(([q, a], i) => (
               <details key={q} open={i === 0}>
                 <summary>{q}</summary>

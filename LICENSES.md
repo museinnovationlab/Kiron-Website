@@ -90,6 +90,8 @@ SOFTWARE.
 
 ## Kiron's own art
 
-The runner mark (`public/brand/runner-mark.png`, `assets/brand/runner.png`, the app's launch runner), the app icon
+The hand-drawn marks (`components/marks.tsx`, and the pen marks at the end of `components/glyphs.ts`: the paths of the
+app's `HandDrawn.tsx`), the runner mark (`public/brand/runner-mark.png` and `-dark.png`, `assets/brand/runner*.png`,
+the app's launch runner), the app icon
 (`public/brand/app-icon-180.png`, `assets/brand/app-icon-ios.png`), the logo, and the screenshots of the app are
 Berkeley Labs' own.

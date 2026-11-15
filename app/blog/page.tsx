@@ -26,8 +26,12 @@ export default function Blog() {
     <Article title="Blog" lede={index.intro}>
       <div className="posts">
         {index.posts.map((p) => (
-          <a className="post-card" href={p.href} key={p.slug}>
-            <span className="meta">{p.meta}</span>
+          <a className="card post-card" href={p.href} key={p.slug}>
+            {/* "July 17, 2026 · AI Training": the date, and the topic as one of the app's badges */}
+            <span className="meta">
+              <span className="date">{p.meta.split("·")[0]!.trim()}</span>
+              {p.meta.includes("·") && <span className="badge badge-info">{p.meta.split("·")[1]!.trim()}</span>}
+            </span>
             <h2>{p.title}</h2>
             <p>{p.excerpt}</p>
           </a>

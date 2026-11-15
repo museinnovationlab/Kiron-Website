@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Caveat, IBM_Plex_Mono, League_Gothic } from "next/font/google";
 import "./globals.css";
 import PreviewBar from "@/components/preview-bar";
+import PenInk from "@/components/pen-ink";
 import { OG_IMAGES } from "@/lib/og";
 import { SITE } from "@/content/site";
 
@@ -29,7 +30,13 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.png", apple: "/brand/app-icon-180.png" },
 };
 
-export const viewport: Viewport = { themeColor: "#F2EDE6" };
+// the browser's own chrome in the app's page colour, light or dark with the visitor's setting
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F2EDE6" },
+    { media: "(prefers-color-scheme: dark)", color: "#141210" },
+  ],
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -37,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <PreviewBar />
         {children}
+        <PenInk />
       </body>
     </html>
   );

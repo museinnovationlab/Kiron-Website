@@ -8,6 +8,7 @@
 
 import { useEffect, useState } from "react";
 import { APP_STORE_URL, PLAY_STORE_URL } from "./store";
+import PenTitle from "./pen-title";
 import { EQUIPMENT, FIRESTORE, exerciseLine, fetchShare, type Kind, type Lookup } from "@/lib/share";
 
 type Props = { letter: "w" | "g"; kind: Kind; id: string; initial: Lookup; miles: boolean };
@@ -63,10 +64,10 @@ export default function ShareView({ letter, kind, id, initial, miles }: Props) {
   return (
     <div className="share">
       <p className="eyebrow">{gym ? "Shared gym" : "Shared workout"}</p>
-      <h1>{title}</h1>
+      <PenTitle as="h1">{title}</PenTitle>
       {meta && <p className="share-meta">{meta}</p>}
       {rows.length > 0 && (
-        <ul className="share-list">
+        <ul className="card share-list">
           {rows.map(([name, line], i) => (
             <li key={i}>
               <span className="name">{name}</span>
@@ -95,12 +96,12 @@ export default function ShareView({ letter, kind, id, initial, miles }: Props) {
             </a>
           )}
           {APP_STORE_URL && (
-            <a className={`btn${gone ? "" : " btn-ghost"}`} href={APP_STORE_URL}>
+            <a className={`btn${gone ? "" : " btn-soft"}`} href={APP_STORE_URL}>
               App Store
             </a>
           )}
           {PLAY_STORE_URL && (
-            <a className="btn btn-ghost" href={PLAY_STORE_URL}>
+            <a className="btn btn-soft" href={PLAY_STORE_URL}>
               Google Play
             </a>
           )}

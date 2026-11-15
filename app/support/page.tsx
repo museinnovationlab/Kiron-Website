@@ -31,7 +31,7 @@ export default function Support() {
             Write to <span className="address">{SITE.email}</span> from the email address you use for Kiron, and tell us
             what happened and on which phone.
           </p>
-          <a className="btn" href={mailto("Kiron support")}>
+          <a className="btn" href={mailto("Kiron support")} style={{ alignSelf: "flex-start" }}>
             Email {SITE.email}
           </a>
         </div>

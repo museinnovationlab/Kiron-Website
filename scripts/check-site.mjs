@@ -153,6 +153,13 @@ const ld = (...types) => (r) => {
   return missing.length ? `JSON-LD missing ${missing.join(", ")} (has ${got.join(", ") || "none"})` : null;
 };
 const title = (re) => (r) => (re.test(titleOf(r.text)) ? null : `title "${titleOf(r.text)}"`);
+/** an <h1> whose text is exactly this, however it's wrapped inside (the underline's measuring span, say) */
+const h1Is = (text) => (r) => {
+  const found = [...r.text.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/g)].map(([, inner]) => decode(inner.replace(/<[^>]+>/g, "")).trim());
+  return found.includes(text) ? null : `no <h1> reading "${text.slice(0, 50)}" (found: ${found.map((f) => `"${f.slice(0, 40)}"`).join(", ") || "none"})`;
+};
+/** an element whose class list includes this class */
+const hasClass = (cls) => (r) => (new RegExp(`class="[^"]*\\b${cls}\\b`).test(r.text) ? null : `no element with class ${cls}`);
 const ogImage = () => (r) => (metaContent(r.text, "property", "og:image") ? null : "no og:image");
 const notNoindex = () => (r) =>
   /noindex/i.test(r.robots || "") || /<meta name="robots" content="[^"]*noindex/.test(head(r.text))
@@ -188,7 +195,7 @@ for (const [slug, h1] of Object.entries(POSTS)) {
   await check(`post ${slug}`, `/blog/${slug}.html`, {
     status: 200,
     type: html,
-    body: [has(`>${h1.replace(/&/g, "&amp;")}</h1>`), canonical(`${ORIGIN}/blog/${slug}.html`), ld("Article"), ogImage()],
+    body: [h1Is(h1), canonical(`${ORIGIN}/blog/${slug}.html`), ld("Article"), ogImage()],
     ok: "its h1, canonical, Article JSON-LD",
   });
 }
@@ -275,7 +282,8 @@ for (const share of shares) {
         const d = metaContent(r.text, "property", "og:description") || "";
         return /Shared from Kiron\.$/.test(d) ? null : `og:description "${d}"`;
       },
-      has(`kiron://${letter}/${id}`, 'class="share-list"'),
+      has(`kiron://${letter}/${id}`),
+      hasClass("share-list"),
       hasNot(">This link has expired<"),
     ],
     ok: "the preview names it, the page lists it, Open in Kiron",

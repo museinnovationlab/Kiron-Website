@@ -38,6 +38,13 @@ Privacy, terms, delete-data and the blog are the old site's words, imported from
 `npm run import:legacy` into `content/legacy/*.json` (never hand-edit those). Until the switch, edit the old site's
 HTML on `main`'s side and import again. After the switch, edit the JSON's `body` (it's the page's HTML).
 
+## The look is the app's
+
+Bearing gives the format and interactivity; the app's "Soft Log" UI gives the look (Taylor, 2026-11-14). Colours are
+the app's palette as CSS variables, light and dark (the site follows the visitor's setting); `content/app-palette.json`
+is a copy of the app's `palette.js` and `npm test` fails if `app/globals.css` drifts from it. The hand-drawn marks in
+`components/marks.tsx` are the app's own SVG paths. Mapping: `docs/DESIGN.md`.
+
 ## Placeholders
 
 Screenshots (1.2.0 store set) and home-page words (today's site) are placeholders until the app's screens are final:

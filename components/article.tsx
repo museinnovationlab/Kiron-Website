@@ -1,6 +1,7 @@
 import GlyphField from "./glyph-field";
 import SiteNav from "./site-nav";
 import SiteFooter from "./site-footer";
+import PenTitle from "./pen-title";
 
 /* A page of words (the legal pages, a blog post, support) on a sheet of the app's paper, between the nav and the
    footer. `html` is the old site's own markup for the page (content/legacy), ours to trust. */
@@ -23,12 +24,12 @@ export default function Article({
 }) {
   return (
     <>
-      <GlyphField className="field" theme="light" cell={96} />
+      <GlyphField className="field" theme="auto" cell={96} />
       <SiteNav />
       <main className="page">
         <div className="wrap">
           {crumbs && <p className="crumbs">{crumbs}</p>}
-          <h1>{title}</h1>
+          <PenTitle as="h1">{title}</PenTitle>
           {dateline && <p className="dateline">{dateline}</p>}
           {lede && <p className="lede">{lede}</p>}
           {html !== undefined && (

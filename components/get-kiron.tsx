@@ -10,13 +10,14 @@
 import { useEffect, useState } from "react";
 import { APP_STORE_URL, PLAY_STORE_URL, detectPlatform, storeUrlFor, type Platform } from "./store";
 
-type Props = { variant?: "primary" | "ghost"; className?: string; children?: React.ReactNode };
+type Props = { variant?: "primary" | "soft"; className?: string; children?: React.ReactNode };
 
 export default function GetKiron({ variant = "primary", className = "", children }: Props) {
   const [platform, setPlatform] = useState<Platform>("other");
   useEffect(() => setPlatform(detectPlatform()), []);
 
-  const cls = `btn${variant === "ghost" ? " btn-ghost" : ""}${className ? ` ${className}` : ""}`;
+  // the app's Button: primary is the red pill, "soft" its tinted secondary
+  const cls = `btn${variant === "soft" ? " btn-soft" : ""}${className ? ` ${className}` : ""}`;
   const label = children ?? "Get Kiron";
 
   const direct = storeUrlFor(platform);
@@ -60,11 +61,11 @@ export function StoreLinks() {
         </span>
       )}
       {PLAY_STORE_URL ? (
-        <a className="btn btn-ghost" href={PLAY_STORE_URL}>
+        <a className="btn btn-soft" href={PLAY_STORE_URL}>
           Get it on Google Play
         </a>
       ) : (
-        <span className="btn btn-ghost btn-waiting" aria-disabled="true">
+        <span className="btn btn-soft btn-waiting" aria-disabled="true">
           Android: coming soon
         </span>
       )}

@@ -58,7 +58,7 @@ export default async function BlogPost({ params }: Props) {
         after={
           <div className="post-end">
             <GetKiron>Try Kiron free</GetKiron>
-            <a className="btn btn-ghost" href="/blog/">
+            <a className="btn btn-soft" href="/blog/">
               More posts
             </a>
           </div>

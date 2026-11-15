@@ -1,113 +1,133 @@
 ---
 name: Kiron Marketing Site
-description: "Bearing's site, in Kiron's Soft Log: a warm stone page, white cards, and the red pen"
-colors:
-  paper: "#F2EDE6"      # the app's canvas
-  white: "#FFFFFF"      # surface: raised cards
-  sunken: "#E9E2D8"     # wells: inputs, chips
-  line: "#E3DCD1"       # dividers that are only decoration
-  rule: "#CCD8E3"       # the workout log's ruled lines
-  margin: "#E7B3AB"     # the red margin line beside the set numbers
-  line-strong: "#7F756B"
-  ink: "#23201C"        # main text, and the dark band
-  navy: "#33495A"       # secondary headings, ledes
-  muted: "#655C54"      # captions, fine print
-  accent: "#A8463A"     # the red pen: buttons, links, eyebrows
-  accent-deep: "#8F3A30"
-  accent-soft: "#F9E7E2"
-  green: "#466A52"      # done, recovered
-  green-soft: "#DDE9DF"
-  night: "#141210"      # the app's dark canvas: the footer
-  chalk: "#F2EDE6"      # text on the dark band
-  chalk-muted: "#B7ADA3"
-  ring: "#F29B88"       # the rest timer's ring: eyebrows on dark
-typography:
-  display: "League Gothic 400, uppercase, letter-spacing .01em"
-  h1: "clamp(54px, 8.6vw, 108px) / 0.94"
-  h2: "clamp(40px, 5.4vw, 68px) / 0.98"
-  h3: "clamp(26px, 2.6vw, 32px) / 1.04"
-  eyebrow: "IBM Plex Mono 500, 12px, .16em, uppercase, in the red pen"
-  body: "the phone's own face (-apple-system, Segoe UI, Roboto), 16-18px / 1.65"
-  hand: "Caveat 700, one or two words at display size only"
-rounded:
-  button: "999px (the app's pill)"
-  card: "16-18px"
-  phone: "34px bezel, 27px screen"
+description: "Bearing's format and interactivity, drawn in the app's own UI: Soft Log"
+source: "Kiron src/theme and src/components/ui on release/1.2.0 (fd2fabc, 2026-11-14); copy: content/app-palette.json"
 ---
 
 # Design: Kiron's marketing site
 
-**What it is.** Bearing's site (`Bearing-Website`) in Kiron's colours, faces and words, the way Jist's site is
-Bearing's in Jist's. Same format, same pieces: the moving icon field behind the page, the sticky nav with a menu on
-narrow screens, a hero with three tilted phones, a dark band of three numbered cards, a scroll story whose phone sticks
-beside the words (or pins to the bottom of a phone's screen), a band, pricing, the download section, the FAQ and a dark
-footer. Bearing's health-only pieces (`/learn`, `/sources`, the doctor summary, its two-signals colour rule) are left
-out: they belong to a health app.
+**Taylor's direction (2026-11-14):** "The new site should leverage the new ui format and colors etc and styling."
+So the site has two parents:
 
-**Where the look comes from.** The app's own "Soft Log" palette (`src/theme/palette.js` on `release/1.2.0`, merged
-2026-11-10): a warm stone page with white raised cards, sunken wells, and a red pen for the hand-drawn marks (ticks,
-the PR stamp, the tally streak). The main checkout's `feature/launch-polish` still has the older palette; the site
-follows the release. The faces are the app's (`tailwind.config.js`): League Gothic for titles, set in capitals as the
-app sets them, IBM Plex Mono for labels and numbers, Caveat for a word or two of handwriting. Body text is the phone's
-own face, as in the app, so it costs no download.
+- **Bearing's site gives the format and the interactivity**: the page's order, the moving icon field, the scroll
+  story whose phone sticks beside the words on a computer and pins to the bottom of a phone's screen, the dark band,
+  pricing, download, FAQ, footer. (Jist's site was built the same way.) Bearing's health-only pieces (`/learn`,
+  `/sources`, the doctor summary) are left out.
+- **Kiron's app gives the look: its "Soft Log" UI**, not only its colours but how it draws things. The tokens, the
+  shadows, the radii, the type, the kit (card, button, chip, badge, section header) and the hand-drawn marks (the red
+  pen and the pencil) are the app's, from `release/1.2.0`, which has the newest UI. The main Kiron checkout's
+  `feature/launch-polish` branch still has the older palette; the site follows the release.
 
-## How the pieces map onto the app
+Light and dark follow the visitor's system setting, as the app follows the phone's.
 
-| Site | From the app |
-|---|---|
-| Red pill button, soft red second button | "Start Workout" and "Reschedule" on Today |
-| Eyebrows in Plex Mono capitals | Section labels: "SCHEDULE", "ESTIMATED ONE-REP MAX" |
-| League Gothic capitals for every title | "WEEK 1: SQUAT + BENCH", "HISTORY" |
-| The dark band in ink, its eyebrows in coral | The floating rest timer: an ink pill with a coral ring |
-| "Best value" in a crooked red box | The PR stamp, "STRONGEST SET YET" |
-| "3 days free" in Caveat | The streak caption, "10 weeks in a row" |
-| A red line down the left of every page's sheet, and of a note in the story | The red margin line beside the set numbers in the log |
-| Ticks in the story's lists and on the plans | A ticked set, in the app's green |
+## Tokens: app → site
 
-## Colour rules
+Every colour is a CSS variable in `app/globals.css`: light in `:root`, dark in the `prefers-color-scheme: dark`
+block. `content/app-palette.json` is a copy of the app's `palette.js`, and `test/tokens.test.mjs` fails if a variable
+stops matching it, or if a rule writes out a colour the palette doesn't have.
 
-- **The red pen is the brand's mark, so it's spent on actions and labels**: buttons, links, eyebrows, the stamp, the
-  word "Kiron" in the headline. Not on large fills.
-- **Green means done or rested**, as in the app: the ticks, the "Works with" band's wash.
-- **Nothing on the page is pure black or pure white text on colour** except the buttons' white on red, which is the
-  app's own pairing (`onAccent`).
-- Light only, like Bearing's and Jist's sites. The app's dark palette is used for the dark band and the footer.
+| App (`palette.js`) | Site variable | Light | Dark | Used for on the site |
+|---|---|---|---|---|
+| `canvas` | `--canvas` | #F2EDE6 | #141210 | the page, the nav |
+| `surface` | `--surface` | #FFFFFF | #2C2824 | cards, sheets, the stamp's ground |
+| `sunken` | `--sunken` | #E9E2D8 | #211E1B | chips, neutral buttons, badges, the burger |
+| `line` | `--line` | #E3DCD1 | #36312C | row dividers in cards (FAQ, share list, menu) |
+| `rule` | `--rule` | #CCD8E3 | #3B414A | (kept for the log's ruled lines) |
+| `margin` | `--margin` | #E7B3AB | #6A3E37 | the red margin line down a sheet and a note |
+| `lineStrong` | `--line-strong` | #7F756B | #8F857A | the pencil: a set tick's ring, tally marks |
+| `ink` | `--ink` | #23201C | #F2EDE6 | text, titles |
+| `navy` | `--navy` | #33495A | #C3D1DB | ledes, secondary text, nav links |
+| `muted` | `--muted` | #655C54 | #B7ADA3 | mono labels (eyebrows), dates, fine print |
+| `accent` | `--accent` | #A8463A | #F29B88 | the red pen, primary buttons, links |
+| `accentDark` | `--accent-dark` | #8F3A30 | #EC8873 | a primary button, pressed or hovered |
+| `accentSoft` | `--accent-soft` | #F9E7E2 | #43261F | secondary buttons, the share page's box, nav hover |
+| `onAccent` | `--on-accent` | #FFFFFF | #1F0E0A | text on a primary button |
+| `success` | `--success` | #466A52 | #92CCA2 | success badges |
+| `successSoft` | `--success-soft` | #DDE9DF | #213A2B | success badges, the "Works with" band |
+| `pill` | `--pill` | #23201C | #3A3530 | the preview bar (the rest timer's pill) |
+| `onPill` | `--on-pill` | #F2EDE6 | #F2EDE6 | text on it |
+| `ring` | `--ring` | #F29B88 | #F29B88 | the red pen on the dark band (the rest timer's ring) |
+
+| App | Site | Value |
+|---|---|---|
+| `elevation.ts` `card` | `--shadow-card` | light: 0 1px 2px / 0 8px 22px rgba(35,32,28,.06/.08); dark: a 1px top highlight |
+| `elevation.ts` `button` | `--shadow-button` | light: the red glow 0 6px 14px rgba(168,70,58,.28); dark: a top highlight |
+| `elevation.ts` `float` | `--shadow-float` | the mobile menu (a floating sheet) |
+| `rounded-card` 22 | `--r-card` | cards |
+| `rounded-sheet` 28 | `--r-sheet` | the words pages' sheet |
+| `rounded` 12 | `--r-well` | the story's notes |
+| buttons and chips `rounded-full` | `border-radius:999px` | every button and chip |
+| `typography.ts`, `tailwind.config.js` | `--display`, `--mono`, `--hand`, `--sans` | League Gothic, IBM Plex Mono 400/500, Caveat 700 (next/font); body in the phone's own face |
+
+Site-only tokens, derived from the app's: `--band` (the dark band: the rest pill's ink in light, deeper than the page
+in dark), `--band-card` (its cards: the app's dark surface), `--footer` (the app's dark canvas), `--bezel` (the phone
+frame). The icon field's colours are the same tokens as RGB in `components/glyph-field.tsx`: navy, success and accent,
+light and dark.
+
+## The kit: app component → site
+
+| App (`src/components/ui`) | Site | Notes |
+|---|---|---|
+| `Card` | `.card` | white (dark: lighter surface), radius 22, the card shadow, **no border** |
+| `PressableCard` `selected` | `.plan.feature`, `.post-card:hover` | the 2px red outline a chosen card gets |
+| `Button` primary / secondary / neutral | `.btn`, `.btn-soft`, `.btn-neutral` | pills, 56 tall (48 for `.btn-sm`), semibold 17, shrink to .97 when pressed; primary has the red glow (in dark mode: salmon with dark text) |
+| `Chip` | `.chip` | a sunken pill, ink text; a chosen one fills red with a pen check |
+| `Badge` | `.badge`, `.badge-success`, `.badge-accent`, `.badge-info` | a soft pill, Plex Mono capitals |
+| `SectionHeader` + `PencilUnderline` | `PenTitle` (`components/pen-title.tsx`) | League Gothic capitals; the red pencil line as long as the title's widest line, min 48 px (`underlineWidth`) |
+| labels ("THIS WEEK", "2 OF 4 DONE") | `.eyebrow` | Plex Mono 500 capitals, muted |
+| `SetTick` (`PencilRing` + `PenTick`) | `SetTick`, `TickList` | each beat's "03 / 07" and the story's lists: the pencil ring, ticked in red pen |
+| `PenCheck` | `PenCheck`, `CheckList` | what's included in a plan |
+| `TallyMarks` | `TallyMarks` | counting the three steps on the dark band |
+| `Stamp` | `Stamp` | "Best value" on the annual plan: double border, -3°, League Gothic |
+| `Highlighter`, `PenCircle`, `PencilDot`, `DayMarks`, `RecoveryRing` | not on the page | the loop and the dot are in the icon field; the rest belong to screens the screenshots show |
+| `Caveat` (the streak caption) | `.hand` | "3 days free": one or two words at display size, never body text |
+
+The marks' paths are the app's own, copied verbatim into `components/marks.tsx`, coloured by the tokens (`.pen-stroke`
+is the red pen, `.pencil-stroke` the pencil).
+
+## How it moves
+
+- **The pen draws in**, as the app draws a set's tick when it's logged: a mark below the screen when the page loads
+  (a section's underline, a list's ticks, the tally, the stamp) draws itself in as it scrolls into view
+  (`components/pen-ink.tsx`); one already on screen is simply there. Without JavaScript every mark is drawn.
+- **The story ticks its beats**: the tick by "03 / 07" draws when the story reaches that beat, and the phone
+  cross-fades (0.55 s) to its screen.
+- **The stamp lands** with a little bounce, as the PR stamp does.
+- **The icon field** parts, grows and warms within 190 px of the cursor; on touch screens it draws once and stops.
+- `prefers-reduced-motion`: nothing draws in or lands, the field doesn't bob, the phones only fade.
 
 ## The icon field (`components/glyph-field.tsx`, `components/glyphs.ts`)
 
-A canvas fixed behind the page (and a second one in chalk on the dark band and the footer). 47 line icons: 46 of
-Lucide's (ISC; Feather's successor, and the app draws Feather's icons) on Kiron's subjects (the kit, the plan, time,
-ticks and records, rest), plus Bearing's runner (Tabler's `run`, MIT), which suits Kiron's runner mark.
-`scripts/build-glyphs.mjs` writes `glyphs.ts` from a Lucide package; edit its list to change the set.
+A canvas fixed behind the page, and one in chalk on the dark band and the footer. 54 marks: 46 Lucide icons (ISC;
+Feather's successor, the icons the app draws) on Kiron's subjects, Bearing's runner (Tabler's `run`, MIT), and **7 of
+the app's own pen and pencil marks** (a set's tick in its ring, the tick, the ring, the check, the loop round today, a
+tally of five, the underline), drawn a little bolder, so the field is partly in the app's hand.
+`scripts/build-glyphs.mjs` writes `glyphs.ts`.
 
-- At rest they're barely there: ink at 8.5% opacity.
-- Within 190 px of the cursor they move away (up to 54 px), grow by up to 20%, tilt a little and warm into their
-  colour family: navy for the kit and the plan, green for done and rest, the red pen for records and the runner
-  (kept to about one in six).
-- On touch screens (no hover) it draws once and stops, to save battery. It fades out under the nav, so the nav needs
-  no backdrop blur (which flickered on Bearing's site over a canvas that repaints every frame).
-- Light sections are translucent so it shows through; cards stay opaque so words never sit on it.
+- At rest: ink (chalk in dark mode) at about 9% opacity.
+- Near the cursor they move away (up to 54 px), grow up to 20% and warm into their family: navy for the kit and the
+  plan, green for done and rest, the red pen for records, the runner and the pen marks (about one in five).
+- The page's own field follows the visitor's light or dark setting (`theme="auto"`).
 
-## The scroll story (`components/scroll-story.tsx`, `components/pick-beat.ts`)
+## The page, section by section
 
-Seven beats, one screen each (`content/site.ts`): any plan, Today and the week, the workout screen, swap or adjust,
-progress and records, muscle recovery, History with the share card and Strava.
+- **Nav**: the app's launch runner (its dark-mode copy in dark mode) and the wordmark; links get the soft red pill on
+  hover, as the tab bar marks its tab; the burger is the app's round sunken icon button; the menu a floating sheet.
+- **Hero**: a mono label, the League Gothic headline with "Kiron" in the red pen and the pencil line under it, the
+  primary and soft buttons, three phones (Bearing's tilt and fade).
+- **Dark band**: the rest timer's ink (light) with the app's dark-mode cards; the pen turns coral (the ring) on it.
+- **Story**: seven beats, each with its set tick and "0N / 07 · TOPIC" label; lists ticked like sets; notes on a
+  card behind the log's red margin line.
+- **Works with**: a successSoft wash, cards with success badges.
+- **Pricing**: the paywall's two packages as cards; the annual one chosen (red outline) and stamped.
+- **Get Kiron**: an accentSoft wash, both stores.
+- **FAQ**: one card of the app's sheet rows.
+- **Words pages** (privacy, terms, delete-data, the blog, support): a raised sheet with the red margin line.
+- **Share page**: the shared workout's rows on a card, like the app's plan page; Open in Kiron in an accentSoft box.
 
-- On a computer the phone sticks in its own column and cross-fades to whichever beat owns the middle of the screen
-  (`pickBeat`, tested in `test/pick-beat.test.mjs`).
-- At 900 px and narrower the phone pins to the bottom of the screen, at 44% of its height on a phone (38% on a small
-  tablet), only while the story is behind it, with a paper scrim so the words fade before they reach it (Bearing
-  commit 775a414).
-- The current screen and the pinned state are React state (Jist's lesson: classes set by hand were reset on
-  re-render).
+## Not yet
 
-## Motion
-
-The icon field, the phone's cross-fade (0.55 s) and the pinned phone's fade (0.35 s). Nothing loops or autoplays.
-`prefers-reduced-motion` stops the field's bobbing and the phones' slide; the cross-fade stays as a short fade.
-
-## Pages
-
-Every page shares the nav, the field and the footer. Words pages (privacy, terms, delete-data, support, the blog)
-sit on a white sheet with the log's red margin line. The share page (`/w/<id>`, `/g/<id>`) lists what was shared like
-the app's preview, with Open in Kiron and both stores in a soft red box. The 404 is the hero's type, centred.
+- **Dark screenshots.** The screenshots are the light app in both modes. The app has a dark mode, so the real
+  screenshot pass could shoot both and swap them with `<picture media="(prefers-color-scheme: dark)">`.
+- **A manual light/dark switch.** The app has one in Settings; the site follows the system only.
+- The link-preview card (`app/opengraph-image.tsx`) is light only, as it should be.

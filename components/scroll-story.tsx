@@ -15,6 +15,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { pickBeat, type Span } from "./pick-beat";
+import { SetTick, TickList } from "./marks";
+import PenTitle from "./pen-title";
 import { BEATS, STORY } from "@/content/site";
 
 export default function ScrollStory() {
@@ -81,9 +83,9 @@ export default function ScrollStory() {
     <section id={STORY.id} ref={section} aria-labelledby="story-title">
       <div className="wrap story-head">
         <p className="eyebrow">{STORY.eyebrow}</p>
-        <h2 id="story-title" style={{ maxWidth: "14ch" }}>
+        <PenTitle id="story-title" style={{ maxWidth: "14ch" }}>
           {STORY.heading}
-        </h2>
+        </PenTitle>
         <p className="lede" style={{ marginTop: 18 }}>
           {STORY.lede}
         </p>
@@ -92,7 +94,8 @@ export default function ScrollStory() {
         <div className="story-copy">
           {BEATS.map((b, i) => (
             <div
-              className="beat"
+              // a beat is ticked, like a logged set, once the story has reached it
+              className={`beat${i <= current ? " done" : ""}`}
               key={b.shot.file + i}
               id={b.id}
               data-placeholder={b.placeholder ? "copy" : undefined}
@@ -100,19 +103,17 @@ export default function ScrollStory() {
                 beatEls.current[i] = el;
               }}
             >
-              <p className="step">{`${String(i + 1).padStart(2, "0")} / ${String(BEATS.length).padStart(2, "0")}`}</p>
-              <p className="eyebrow">{b.eyebrow}</p>
+              <div className="step">
+                <SetTick size={30} />
+                <p className="eyebrow">
+                  {`${String(i + 1).padStart(2, "0")} / ${String(BEATS.length).padStart(2, "0")}`} · {b.eyebrow}
+                </p>
+              </div>
               <h2>{b.heading}</h2>
               {b.body.map((p) => (
                 <p key={p}>{p}</p>
               ))}
-              {b.ticks && (
-                <ul>
-                  {b.ticks.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-              )}
+              {b.ticks && <TickList items={b.ticks} />}
               {b.note && (
                 <div className="quote">
                   <p>{b.note[0]}</p>

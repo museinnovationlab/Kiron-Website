@@ -10,10 +10,10 @@
    Canvas 2D + Path2D rather than DOM nodes: a few hundred stroked paths a frame is cheap, where the same number of
    elements each taking a transform every frame is not.
 
-   Two themes, because the page has a dark band and a dark footer: `light` strokes ink on paper, `dark` strokes chalk
-   on ink. */
+   Themes: `light` strokes ink on paper, `dark` strokes chalk on ink (the dark band and the footer), and `auto`, the
+   page's own field, follows the visitor's light or dark setting as the app follows the phone's. */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GLYPHS } from "./glyphs";
 
 // navy, green, the red pen (the app's navy #33495A, success #466A52, accent #A8463A): the colour a glyph warms toward
@@ -34,6 +34,7 @@ const FAMILY: Record<"light" | "dark", readonly RGB[]> = {
 
 type Inst = {
   i: number;
+  w: number;
   fam: number;
   x: number;
   y: number;
@@ -51,10 +52,21 @@ export default function GlyphField({
   cell = 96,
 }: {
   className?: string;
-  theme?: "light" | "dark";
+  theme?: "light" | "dark" | "auto";
   cell?: number;
 }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  // `auto`: the visitor's setting, read after mount (the server can't know it) and followed if it changes
+  const [systemDark, setSystemDark] = useState(false);
+  useEffect(() => {
+    if (theme !== "auto") return;
+    const q = matchMedia("(prefers-color-scheme: dark)");
+    const update = () => setSystemDark(q.matches);
+    update();
+    q.addEventListener("change", update);
+    return () => q.removeEventListener("change", update);
+  }, [theme]);
+  const dark = theme === "dark" || (theme === "auto" && systemDark);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -62,7 +74,6 @@ export default function GlyphField({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const dark = theme === "dark";
     // Rest state: barely there. The field is ground, not content. Ink is the app's #23201C; chalk is its #F2EDE6.
     const restRGB: RGB = dark ? [242, 237, 230] : [35, 32, 28];
     const restA = dark ? 0.09 : 0.085;
@@ -71,6 +82,8 @@ export default function GlyphField({
 
     const paths = GLYPHS.map((g) => new Path2D(g[2]));
     const fams = GLYPHS.map((g) => g[1]);
+    // the app's pen marks are a little bolder than the icons, as a pen is than a fine line
+    const weights = GLYPHS.map((g) => 1.5 * (g[3] ?? 1));
     const N = paths.length;
 
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -103,6 +116,7 @@ export default function GlyphField({
           above[c] = pick;
           inst.push({
             i: pick,
+            w: weights[pick] ?? 1.5,
             fam: fams[pick] ?? 0,
             x: c * cell + (Math.random() - 0.5) * cell * 0.55,
             y: r * cell + (Math.random() - 0.5) * cell * 0.55,
@@ -228,7 +242,7 @@ export default function GlyphField({
         ctx.scale(k, k);
         ctx.translate(-12, -12);
         ctx.strokeStyle = `rgba(${cr},${cg},${cb},${a})`;
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = s.w;
         ctx.stroke(paths[s.i]!);
         ctx.restore();
       }
@@ -244,7 +258,7 @@ export default function GlyphField({
       removeEventListener("pointermove", move);
       document.documentElement.removeEventListener("pointerleave", leave);
     };
-  }, [theme, cell]);
+  }, [dark, cell]);
 
   return <canvas ref={ref} className={className} aria-hidden="true" />;
 }
