@@ -127,3 +127,32 @@ Then the app links themselves:
   Netlify still has the old site's last deploy (builds are only stopped). With a short TTL it's back in minutes.
 - After a couple of quiet weeks: in Netlify, remove trykiron.com from the site's domains, then delete the site.
   Raise the TTLs back to Automatic.
+
+## 7. After the switch: the blog
+
+The old posts' words are now edited in their JSON here (`content/legacy/blog/<slug>.json`, the `body` is the page's
+HTML), since `main` no longer holds the old site. Their addresses don't change.
+
+1. **Publish the comparison posts one at a time**, only once Kiron 1.2 is live in both stores, and each only after
+   Taylor's final read of it on a preview. Publishing a post is setting its `"draft"` to `false` and its dates
+   (`date`, `jsonLd.datePublished`, `jsonLd.dateModified`, and the card's `meta` in `content/blog/index.json`) to the
+   day it goes live; then deploy. The eight drafts (from `blog/kiron-vs`, `dd40da3`; their sources and the facts they
+   rest on are in `docs/COMPARISONS.md`): `fitbod-alternative`, `stronglifts-alternative`, `runna-strength-training`,
+   `ladder-app-alternative`, `hevy-vs-kiron`, `strong-app-alternative`, `workout-app-for-following-a-program` (the
+   hub), `export-workout-history` (a guide).
+2. **Link the old posts to the new ones**, each link only once its new post is published (a link to a draft leads to
+   a page search engines are told to skip):
+
+   | Old post | Link to |
+   |---|---|
+   | `chatgpt-workout-plan-into-app` | `fitbod-alternative`, `hevy-vs-kiron` |
+   | `running-and-lifting-same-week` | `runna-strength-training` |
+   | `muscle-recovery-time-between-workouts` | `fitbod-alternative`, `runna-strength-training` |
+   | `multi-phase-training-plan-without-coach` | `runna-strength-training`, `stronglifts-alternative` |
+   | `workout-spreadsheet-vs-app` | `stronglifts-alternative`, `strong-app-alternative` |
+
+3. **Correct `chatgpt-workout-plan-into-app`.** Its option 3 describes HevyGPT, which Hevy has replaced with a ChatGPT
+   app (you type @hevy in ChatGPT; https://www.hevyapp.com/features/hevy-chatgpt/). Rewrite that paragraph, and
+   bump the post's `jsonLd.dateModified`.
+4. After each change, `npm test` and `node scripts/check-site.mjs https://trykiron.com`: a published post must show
+   on the blog's list and in the sitemap; a draft must not.
