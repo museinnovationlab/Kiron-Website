@@ -381,6 +381,29 @@ footer a:hover{color:var(--band-ink)}
 .prose a:hover{text-decoration-color:currentColor}
 .prose strong{font-weight:650}
 .prose code{font-family:var(--mono);font-size:.9em;background:var(--sunken);padding:1px 6px;border-radius:5px}
+/* A table in a post (the comparison posts). lib/blog.ts puts each in a box that scrolls sideways by itself, so on a
+   phone the table scrolls and the page doesn't; the first column stays put while the others pass under it. A table
+   of three or more columns keeps a minimum width, so its cells stay readable instead of squeezing to a word a line;
+   up to five columns still fit the article's column on a computer (666 px), so only a phone or a narrow window
+   scrolls. The header row is the app's mono label on a sunken band, as the app heads a set's columns (SET · LB · REPS).
+   A caption shows as a label above the box (it would scroll away inside it); the table keeps its own for screen
+   readers, hidden from view. */
+.prose .table-caption{margin:22px 0 8px;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.prose .table-scroll{margin:22px 0 0;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--line);border-radius:var(--r-well)}
+.prose .table-caption + .table-scroll{margin-top:0}
+.prose .table-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.prose table{width:100%;border-collapse:separate;border-spacing:0;font-size:15px;line-height:1.45}
+.prose table:has(tr > :nth-child(3)){min-width:28rem}
+.prose table:has(tr > :nth-child(4)){min-width:34rem}
+.prose table:has(tr > :nth-child(5)){min-width:40rem}
+.prose table:has(tr > :nth-child(6)){min-width:46rem}
+.prose caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.prose th,.prose td{padding:11px 16px;text-align:left;vertical-align:top;border-top:1px solid var(--line)}
+.prose tr:first-child > *{border-top:0}
+.prose thead th{background:var(--sunken);font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.prose tbody th{font-weight:650}
+.prose tr > :first-child{position:sticky;left:0;z-index:1;background:var(--surface);box-shadow:inset -1px 0 0 var(--line)}
+.prose thead tr > :first-child{background:var(--sunken)}
 .dateline{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:14px}
 
 .posts{display:grid;gap:16px;margin-top:34px}

@@ -18,6 +18,7 @@
    packages, so it runs anywhere. Exits 1 if anything fails. Nothing in it changes anything: it only reads. */
 
 import { createHash, randomBytes } from "node:crypto";
+import { readFileSync } from "node:fs";
 
 const args = process.argv.slice(2);
 const base = args.find((a) => /^https?:\/\//.test(a))?.replace(/\/+$/, "");
@@ -46,10 +47,14 @@ const POSTS = {
   "multi-phase-training-plan-without-coach": "How to Follow a Multi-Phase Training Plan (Base, Build, Peak) Without a Coach",
   "workout-spreadsheet-vs-app": "Workout Spreadsheet vs. App: An Honest Comparison From People Who Sell the App",
 };
+// Posts written for this site (content/blog, docs/POSTS.md), read from this checkout: the site it builds must serve
+// them as it serves the old ones. None yet is fine. (Against the old site, these are the ones it doesn't have.)
+const NEW_POSTS = newPostsInCheckout();
+const ALL_POSTS = { ...NEW_POSTS, ...POSTS };
 const SITEMAP = [
   `${ORIGIN}/`,
   `${ORIGIN}/blog/`,
-  ...Object.keys(POSTS).map((s) => `${ORIGIN}/blog/${s}.html`),
+  ...Object.keys(ALL_POSTS).map((s) => `${ORIGIN}/blog/${s}.html`),
   `${ORIGIN}/support.html`,
   `${ORIGIN}/privacy.html`,
   `${ORIGIN}/terms.html`,
@@ -166,6 +171,19 @@ const notNoindex = () => (r) =>
     ? "marked noindex (search engines would drop it)"
     : null;
 
+/** content/blog's posts, { slug: h1 }, from this checkout (an index of cards, or { posts: [...] }). */
+function newPostsInCheckout() {
+  const dir = new URL("../content/blog/", import.meta.url);
+  let index;
+  try {
+    index = JSON.parse(readFileSync(new URL("index.json", dir), "utf8"));
+  } catch {
+    return {};
+  }
+  const cards = Array.isArray(index) ? index : (index.posts ?? []);
+  return Object.fromEntries(cards.map(({ slug }) => [slug, JSON.parse(readFileSync(new URL(`${slug}.json`, dir), "utf8")).h1]));
+}
+
 /* ---------------------------------------------------------------- the checks --------------------------------- */
 
 const startedAt = new Date();
@@ -183,16 +201,17 @@ const home = await check("home", "/", { status: 200, type: html, body: homeCheck
 await check("home (old file name)", "/index.html", { status: 200, type: html, body: [title(/Kiron/), canonical(`${ORIGIN}/`)] });
 
 // The blog: /blog/ keeps its slash, /blog goes there, every post at /blog/<slug>.html (and without .html)
+const postCount = Object.keys(ALL_POSTS).length;
 await check("blog", "/blog/", {
   status: 200,
   type: html,
-  body: [canonical(`${ORIGIN}/blog/`), has(...Object.keys(POSTS).map((s) => `/blog/${s}.html`))],
-  ok: "canonical /blog/, links all 5 posts",
+  body: [canonical(`${ORIGIN}/blog/`), has(...Object.keys(ALL_POSTS).map((s) => `/blog/${s}.html`))],
+  ok: `canonical /blog/, links all ${postCount} posts`,
 });
 await check("blog without its slash", "/blog", { redirect: "/blog/" });
 await check("blog (old file name)", "/blog/index.html", { status: 200, type: html, body: [canonical(`${ORIGIN}/blog/`)] });
-for (const [slug, h1] of Object.entries(POSTS)) {
-  await check(`post ${slug}`, `/blog/${slug}.html`, {
+for (const [slug, h1] of Object.entries(ALL_POSTS)) {
+  await check(`${slug in NEW_POSTS ? "new post" : "post"} ${slug}`, `/blog/${slug}.html`, {
     status: 200,
     type: html,
     body: [h1Is(h1), canonical(`${ORIGIN}/blog/${slug}.html`), ld("Article"), ogImage()],

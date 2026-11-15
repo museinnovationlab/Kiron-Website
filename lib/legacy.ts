@@ -1,6 +1,6 @@
 /* The old site's words (content/legacy/*.json, made by scripts/import-legacy.mjs from the old HTML files), for the
-   pages that keep the old site's text: privacy, terms, delete-data and the blog. Read at build time: every page that
-   uses them is static. */
+   pages that keep the old site's text: privacy, terms, delete-data and the blog's title and introduction. Read at
+   build time: every page that uses them is static. The posts themselves, old and new, are read by lib/blog.ts. */
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -16,6 +16,7 @@ export type LegalPage = {
   body: string;
 };
 
+/** A post's card on the blog's list. `meta` is "July 17, 2026 · AI Training": the date, then the topic. */
 export type PostCard = { href: string; slug: string; meta: string; title: string; excerpt: string };
 export type BlogIndex = {
   title: string;
@@ -26,6 +27,7 @@ export type BlogIndex = {
   posts: PostCard[];
 };
 
+/** A post, old or new (content/legacy/blog/<slug>.json, content/blog/<slug>.json). `body` is its HTML, without an h1. */
 export type Post = {
   title: string;
   description: string;
@@ -41,5 +43,3 @@ export type Post = {
 
 export const legalPage = (name: "privacy" | "terms" | "delete-data") => load<LegalPage>(name);
 export const blogIndex = () => load<BlogIndex>("blog-index");
-export const post = (slug: string) => load<Post>(`blog/${slug}`);
-export const postSlugs = () => blogIndex().posts.map((p) => p.slug);

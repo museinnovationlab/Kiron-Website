@@ -6,7 +6,7 @@ faces and words, as Jist's site was. It replaces the plain-HTML site that `main`
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm test         # node --test: the story's beat picker, share reading, the fixed files, glyphs, screenshots
+npm test         # node --test: the story's beat picker, share reading, the fixed files, glyphs, screenshots, new posts
 npm run build    # runs the tests, then builds
 ```
 
@@ -37,6 +37,10 @@ Every address the old site answered still answers (`docs/SITEMAP.md`, checked by
 Privacy, terms, delete-data and the blog are the old site's words, imported from git by
 `npm run import:legacy` into `content/legacy/*.json` (never hand-edit those). Until the switch, edit the old site's
 HTML on `main`'s side and import again. After the switch, edit the JSON's `body` (it's the page's HTML).
+
+**New posts** need no code: `content/blog/<slug>.json` (the old posts' shape) plus a card in `content/blog/index.json`,
+newest first (`docs/POSTS.md`, read by `lib/blog.ts`, checked by `npm test`). They describe Kiron 1.2, so they go live
+with the switch, which waits for 1.2 in both stores.
 
 ## The look is the app's
 

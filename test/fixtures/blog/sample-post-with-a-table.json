@@ -1,0 +1,33 @@
+{
+  "title": "A Sample Post With a Five-Column Table — Kiron",
+  "description": "Not a real post: the test suite's sample, in the shape a new post takes, with a table wide enough to scroll on a phone.",
+  "canonical": "https://trykiron.com/blog/sample-post-with-a-table.html",
+  "slug": "sample-post-with-a-table",
+  "h1": "A Sample Post With a Five-Column Table",
+  "date": "November 15, 2026",
+  "og": {
+    "title": "A Sample Post With a Five-Column Table",
+    "description": "The test suite's sample post, with a table."
+  },
+  "twitter": {
+    "title": "A Sample Post With a Five-Column Table",
+    "description": "The test suite's sample post, with a table."
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "A Sample Post With a Five-Column Table",
+    "description": "Not a real post: the test suite's sample, in the shape a new post takes, with a table wide enough to scroll on a phone.",
+    "datePublished": "2026-11-15",
+    "dateModified": "2026-11-15",
+    "author": { "@type": "Organization", "name": "Kiron" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kiron",
+      "url": "https://trykiron.com",
+      "logo": { "@type": "ImageObject", "url": "https://trykiron.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://trykiron.com/blog/sample-post-with-a-table.html"
+  },
+  "body": "<p>This post isn't real. It's the sample the tests read (test/blog.test.mjs), and a copy dropped into content/blog shows how a post with a wide table looks on a phone.</p>\n\n<h2>A table with a header row</h2>\n<p>Five columns, the most a comparison post uses. On a phone the table scrolls sideways inside its box, and the first column stays put.</p>\n<table>\n  <caption>Sample comparison, \"made up\" numbers</caption>\n  <thead>\n    <tr><th>Feature</th><th>App one</th><th>App two</th><th>App three</th><th>App four</th></tr>\n  </thead>\n  <tbody>\n    <tr><th>Ready-made programs</th><td>36, from a first 5K to a marathon</td><td>None</td><td>A few templates</td><td>Some, on the paid plan</td></tr>\n    <tr><th>Change today's workout</th><td>Shorter or longer, another gym, add a finisher, with Undo</td><td>Shorter or longer</td><td>No</td><td>No</td></tr>\n    <tr><th>Price</th><td>$4.99 a week or $49.99 a year</td><td>$9.99 a month</td><td>Free, with a paid plan</td><td>$5 a month</td></tr>\n  </tbody>\n</table>\n\n<h2>And a short one</h2>\n<table>\n  <thead><tr><th>Plan</th><th>Price</th></tr></thead>\n  <tbody><tr><td>Weekly</td><td>$4.99</td></tr><tr><td>Annual</td><td>$49.99</td></tr></tbody>\n</table>\n<p>A two-column table fits a phone as it is, so it doesn't scroll.</p>"
+}

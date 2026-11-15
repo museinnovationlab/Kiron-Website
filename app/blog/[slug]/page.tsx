@@ -3,12 +3,13 @@ import { notFound } from "next/navigation";
 import Article from "@/components/article";
 import JsonLd from "@/components/json-ld";
 import GetKiron from "@/components/get-kiron";
-import { blogIndex, post, postSlugs } from "@/lib/legacy";
+import { findPost, postCards, postSlugs, wrapTables } from "@/lib/blog";
 import { OG_IMAGES } from "@/lib/og";
 
 /* A post. Its address is /blog/<slug>.html, as Google indexed it and the sitemap lists it: next.config.mjs rewrites
    that to this route, and /blog/<slug> serves it too (Netlify did both). The canonical link names the .html address.
-   The words, dates and Article data are the old site's (content/legacy/blog). */
+   The words, dates and Article data are the post's own: the old site's (content/legacy/blog) or a new post's
+   (content/blog, docs/POSTS.md). Any table in it scrolls sideways inside its own box (lib/blog.ts, wrapTables). */
 
 export const dynamicParams = false;
 export const generateStaticParams = () => postSlugs().map((slug) => ({ slug }));
@@ -17,8 +18,8 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  if (!postSlugs().includes(slug)) return {};
-  const p = post(slug);
+  const p = findPost(slug);
+  if (!p) return {};
   return {
     title: p.title,
     description: p.description,
@@ -37,9 +38,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPost({ params }: Props) {
   const { slug } = await params;
-  if (!postSlugs().includes(slug)) notFound();
-  const p = post(slug);
-  const card = blogIndex().posts.find((c) => c.slug === slug);
+  const p = findPost(slug);
+  if (!p) notFound();
+  const card = postCards().find((c) => c.slug === slug);
   // "July 17, 2026 · AI Training": the date, and the post's topic from the blog's list
   const topic = card?.meta.split("·")[1]?.trim();
   return (
@@ -54,7 +55,7 @@ export default async function BlogPost({ params }: Props) {
         }
         title={p.h1}
         dateline={p.date}
-        html={p.body}
+        html={wrapTables(p.body)}
         after={
           <div className="post-end">
             <GetKiron>Try Kiron free</GetKiron>

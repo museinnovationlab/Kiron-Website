@@ -8,16 +8,19 @@ Netlify's addresses to Vercel's, without touching the records that run email and
 
 ## 0. Before the day
 
-1. **Placeholders.** Real screenshots and Taylor's words are in, or Taylor has decided to switch with placeholders
+1. **Kiron 1.2 is live in both stores.** The home page and the comparison posts (`docs/POSTS.md`) describe 1.2: its 36 programs, photo import, adjusting a day, recovery from other apps'
+   workouts, history from Fitbod, Strong or Hevy. Before 1.2 is in the App Store and on Google Play, they'd promise
+   what people can't download yet. Check both store pages show version 1.2.
+2. **Placeholders.** Real screenshots are in, or Taylor has decided to switch with placeholders
    (`docs/PLACEHOLDERS.md`). Production never shows the preview bar either way.
-2. **Pick up any edits made to the old site since 2026-11-14** (the privacy policy changes with features):
+3. **Pick up any edits made to the old site since 2026-11-14** (the privacy policy changes with features):
    ```bash
    git fetch origin && npm run import:legacy
    ```
    then `git diff content/legacy`. Commit what changed.
-3. **Vercel plan:** the berkeley-labs team ("Tay's projects") is on **Pro** (read 2026-11-14). Vercel's free Hobby
+4. **Vercel plan:** the berkeley-labs team ("Tay's projects") is on **Pro** (read 2026-11-14). Vercel's free Hobby
    plan is for non-commercial sites only, so this matters for an app that sells subscriptions; no change needed.
-4. **Lower the TTL** (how long the internet caches an answer) on the two records that will change, a day ahead:
+5. **Lower the TTL** (how long the internet caches an answer) on the two records that will change, a day ahead:
    Namecheap → Domain List → trykiron.com → Manage → Advanced DNS → the `@` A records and the `www` CNAME → TTL
    **1 min** (or 5 min). Then a mistake undoes itself in minutes, not hours.
 

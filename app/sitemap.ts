@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { postSlugs } from "@/lib/legacy";
+import { postSlugs } from "@/lib/blog";
 
 /* The old sitemap.xml's addresses, unchanged: /blog/ with its slash, each post and the legal pages at .html. Those are
    the addresses Google has and each page's canonical link names, so the switch changes nothing it has to relearn.
-   Generated, so a new post lands here by being imported. */
+   Generated, so every post is here, old or new (content/blog, docs/POSTS.md), newest first. */
 const BASE = "https://trykiron.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
