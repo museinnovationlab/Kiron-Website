@@ -5,7 +5,7 @@
       "slug": "fitbod-alternative",
       "meta": "November 15, 2026 · Comparisons",
       "title": "Looking for a Fitbod Alternative? Fitbod vs Kiron, Honestly Compared",
-      "excerpt": "Fitbod is $95.99 a year. Kiron is {{kiron:price-annual}} and runs one of 36 ready-made programs, or your own plan, instead of making up each workout."
+      "excerpt": "Fitbod is $95.99 a year. Kiron is {{kiron:price-annual}} and runs one of {{kiron:program-count}} ready-made programs, or your own plan, instead of making up each workout."
     },
     {
       "href": "/blog/stronglifts-alternative.html",
