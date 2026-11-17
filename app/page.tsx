@@ -9,7 +9,7 @@ import SiteFooter from "@/components/site-footer";
 import JsonLd from "@/components/json-ld";
 import PenTitle from "@/components/pen-title";
 import { TallyMarks } from "@/components/marks";
-import { CONNECTIONS, FAQ, FAQ_PLACEHOLDER, GET, HERO, PRICING, SITE, WHY } from "@/content/site";
+import { CONNECTIONS, FAQ, FAQ_PLACEHOLDER, GET, HERO, PRICING, PROGRAM_COUNT, SITE, WHY } from "@/content/site";
 
 /* The home page, in Bearing's order: the glyph field, the sticky nav, the hero with three phones, the dark "why"
    band, the scroll story, the "works with" band (switching apps, Health, sharing), pricing, the download section, the
@@ -39,7 +39,7 @@ const STRUCTURED = {
         description: `Full app access, ${p.note}`,
       })),
       featureList: [
-        "36 ready-made workout programs, strength to marathon",
+        `${PROGRAM_COUNT} ready-made workout programs, strength to marathon`,
         "Program builder from a few answers",
         "Plan import from pasted text or up to four photos",
         "Change any day's workout for time, another gym's equipment or sore muscles, with Undo",

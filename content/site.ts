@@ -3,7 +3,7 @@
    WORDS (2026-11-15): written for Kiron 1.2, after Taylor saw the first preview: "the app does way more than just
    allowing you to copy and paste a workout in. so need to rephrase all of that and really show how flexible it is."
    The source is 1.2's own store text (Kiron's STORE_SUBMISSION_1.2.0.md: What's New and the listing) and the store
-   screenshots' captions, whose lines some headings reuse ("36 programs, or bring your own", "See your training add
+   screenshots' captions, whose lines some headings reuse ("… programs, or bring your own", "See your training add
    up"). Every claim was checked against the app's code on release/1.2.0; docs/PLACEHOLDERS.md says where each comes
    from. Taylor's rule: no superlatives, only specific claims someone could check in the app. Strava isn't mentioned:
    it's in 1.2, but switched off until Strava approves the app.
@@ -33,6 +33,11 @@ export type Beat = {
   placeholder?: boolean;
 };
 
+/** How many ready-made programs the app has (src/data/presets on release/1.2.0): 36 at the copy pass, 37 since the
+    7-Day Longevity Protocol went out over the air on 2026-11-16. Every count on the home page is this number, and
+    test/site.test.mjs checks llms.txt and the posts' content/blog/kiron.json ("program-count") say the same. */
+export const PROGRAM_COUNT = 37;
+
 /** What the preview bar says is still a placeholder. */
 export const PLACEHOLDER_NOTE = {
   screens: "Screens are the 1.2.0 App Store set (Nov 11, before the Today redesign)",
@@ -46,7 +51,7 @@ export const HERO = {
   // the <em> word is drawn in the red pen
   heading: ["Train with a real program.", "Bend", "any day."] as const,
   lede:
-    "Pick one of 36 programs, let Kiron build one from a few answers, or bring your own from ChatGPT, Claude or a " +
+    `Pick one of ${PROGRAM_COUNT} programs, let Kiron build one from a few answers, or bring your own from ChatGPT, Claude or a ` +
     "coach. Then shorten today, train at another gym or swap a lift, and the rest of the plan carries on.",
   secondary: { href: "#how", label: "See how it works" },
   shots: [
@@ -69,7 +74,7 @@ export const WHY = {
     {
       title: "Start any way",
       body:
-        "Pick one of 36 programs, answer a few questions and Kiron builds one, or write your own. Or paste a plan " +
+        `Pick one of ${PROGRAM_COUNT} programs, answer a few questions and Kiron builds one, or write your own. Or paste a plan ` +
         "from ChatGPT, Claude or a coach, or take up to four photos of it.",
     },
     {
@@ -101,7 +106,7 @@ export const BEATS: Beat[] = [
   {
     id: "start",
     eyebrow: "Start any way",
-    heading: "36 programs, or bring your own.",
+    heading: `${PROGRAM_COUNT} programs, or bring your own.`,
     body: [
       "Strength with training maxes, muscle-building splits, beginner barbell, bodyweight, dumbbell, kettlebell and " +
         "band plans, and running from a first 5K to a marathon. Filter them by goal, days a week, equipment and level.",
@@ -109,7 +114,7 @@ export const BEATS: Beat[] = [
         "ChatGPT, Claude or a coach? Paste it, or take up to four photos of it. Kiron reads the sets, reps, rest and " +
         "phases, and you check what it found before you start.",
     ],
-    ticks: ["36 ready-made programs", "Built from your answers", "Built by hand", "Pasted or photographed"],
+    ticks: [`${PROGRAM_COUNT} ready-made programs`, "Built from your answers", "Built by hand", "Pasted or photographed"],
     shot: {
       file: "03-programs",
       alt: "Kiron's preset programs, with filters for goal, days, equipment and level: First Month in the Gym, 30-Minute Dumbbell, Beginner 5K",
@@ -273,7 +278,7 @@ export const PRICING = {
   heading: "Two plans, the same app.",
   lede: "Try the weekly plan free for 3 days. Cancel anytime in your App Store or Google Play account.",
   features: [
-    "All 36 programs",
+    `All ${PROGRAM_COUNT} programs`,
     "The program builder and plan import",
     "Changes to any day, with Undo",
     "Set-by-set logging",
@@ -303,7 +308,7 @@ export const GET = {
 export const FAQ: [question: string, answer: string][] = [
   [
     "What programs does Kiron have?",
-    "36 ready-made programs, from 2 to 6 days a week: strength (including wave loading with training maxes and two " +
+    `${PROGRAM_COUNT} ready-made programs, from 2 to 6 days a week: strength (including wave loading with training maxes and two ` +
       "beginner barbell plans), muscle-building splits, bodyweight, dumbbell, kettlebell and band plans, and " +
       "endurance plans from a first 5K to a marathon, plus cycling, rucking and a sprint triathlon. Kiron can also " +
       "build a program from a few answers, or you can build your own.",
@@ -353,10 +358,10 @@ export const SITE = {
   name: "Kiron",
   title: "Kiron: Workout Programs, Gym Log and Recovery",
   description:
-    "Follow one of 36 workout programs, have Kiron build one, or bring a plan from ChatGPT, Claude or a coach. " +
+    `Follow one of ${PROGRAM_COUNT} workout programs, have Kiron build one, or bring a plan from ChatGPT, Claude or a coach. ` +
     "Change any day, log every set, and track recovery.",
   ogDescription:
-    "36 ready-made programs, or bring your own. Change any day, log every set, and see recovery and progress. On " +
+    `${PROGRAM_COUNT} ready-made programs, or bring your own. Change any day, log every set, and see recovery and progress. On ` +
     "iPhone and Android.",
   keywords:
     "workout programs, workout tracker, gym log, strength training app, running training plan, hybrid training, " +

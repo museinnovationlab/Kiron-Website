@@ -1,10 +1,10 @@
 # Kiron
 
-> Kiron is a workout app for iPhone, iPad and Android that runs real training programs and lets any day of them change. Start from one of 36 ready-made programs, have Kiron build one from a few answers, build your own, or bring a plan from ChatGPT, Claude or a coach as text or photos. Then shorten or lengthen a day, train with another gym's equipment, add core or a finisher, or swap a lift, while the rest of the program carries on. Lifting, runs, rides, swims and rows share one plan, one log and one muscle recovery picture.
+> Kiron is a workout app for iPhone, iPad and Android that runs real training programs and lets any day of them change. Start from one of 37 ready-made programs, have Kiron build one from a few answers, build your own, or bring a plan from ChatGPT, Claude or a coach as text or photos. Then shorten or lengthen a day, train with another gym's equipment, add core or a finisher, or swap a lift, while the rest of the program carries on. Lifting, runs, rides, swims and rows share one plan, one log and one muscle recovery picture.
 
 ## Ways to start a program
 
-- **36 ready-made programs**, 2 to 6 days a week: strength (wave loading with training maxes, two beginner barbell plans, upper/lower, bodyweight, kettlebell, a first pull-up), muscle-building splits (push/pull/legs, upper/lower, a five-day split, full body, glutes), dumbbell, band and joint-friendly plans, and endurance plans (a first 5K, 10K, half marathon, marathon, cycling, sprint triathlon, rucking, walking, a fitness race). Filter by goal, days a week, equipment and level.
+- **37 ready-made programs**, 2 to 6 days a week: strength (wave loading with training maxes, two beginner barbell plans, upper/lower, bodyweight, kettlebell, a first pull-up), muscle-building splits (push/pull/legs, upper/lower, a five-day split, full body, glutes), dumbbell, band and joint-friendly plans, endurance plans (a first 5K, 10K, half marathon, marathon, cycling, sprint triathlon, rucking, walking, a fitness race), and plans that mix lifting and running (Run + Lift, and the 16-week 7-Day Longevity Protocol). Filter by goal, days a week, equipment and level.
 - **Built for you**: answer a few questions and Kiron writes a program.
 - **Built by hand**: write your own from scratch.
 - **Brought in**: paste a plan from ChatGPT, Claude, a coach or anywhere, or choose up to four photos or screenshots of it. Kiron reads exercises, sets, reps, rest and phases, matches each exercise to its library, and shows the program to check and edit before it starts.

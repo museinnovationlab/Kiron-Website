@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
 import { GLYPHS } from "../components/glyphs.ts";
-import { BEATS, CONNECTIONS, FAQ, GET, HERO, PLACEHOLDERS, PRICING, SITE, STORY, WHY } from "../content/site.ts";
+import { BEATS, CONNECTIONS, FAQ, GET, HERO, PLACEHOLDERS, PRICING, PROGRAM_COUNT, SITE, STORY, WHY } from "../content/site.ts";
 
 const sha = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
 
@@ -73,4 +73,23 @@ test("the preview bar counts what's left: every placeholder screenshot, no place
   const shots = [...HERO.shots, ...BEATS.map((b) => b.shot), CONNECTIONS.shot];
   assert.equal(PLACEHOLDERS.screens, shots.filter((s) => s.placeholder).length);
   assert.equal(PLACEHOLDERS.words, 0);
+});
+
+/* How many ready-made programs Kiron has is said on the home page, in llms.txt and in the posts (content/blog/kiron.json,
+   "program-count"). The home page's count is one number, PROGRAM_COUNT in content/site.ts; this keeps the three in step,
+   so a new program in the app changes them together. */
+test("the home page, llms.txt and the posts agree on how many programs Kiron has", () => {
+  const n = String(PROGRAM_COUNT);
+  const words = JSON.stringify({ HERO, WHY, STORY, BEATS, CONNECTIONS, PRICING, GET, FAQ, SITE });
+  const said = [...words.matchAll(/(\d+) (?:ready-made |workout )?programs/g)].map(([, count]) => count);
+  assert.ok(said.length >= 5, "the home page names its program count");
+  for (const count of said) assert.equal(count, n, `the home page says ${count} programs`);
+  const llms = readFileSync("public/llms.txt", "utf8");
+  const inLlms = [...llms.matchAll(/(\d+) ready-made programs/g)].map(([, count]) => count);
+  assert.ok(inLlms.length >= 1, "llms.txt names the program count");
+  for (const count of inLlms) assert.equal(count, n, `llms.txt says ${count} programs`);
+  if (existsSync("content/blog/kiron.json")) {
+    const facts = JSON.parse(readFileSync("content/blog/kiron.json", "utf8"));
+    if ("program-count" in facts) assert.equal(facts["program-count"], n, "content/blog/kiron.json's program-count");
+  }
 });

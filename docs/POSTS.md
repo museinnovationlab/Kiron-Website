@@ -100,7 +100,8 @@ plans change, that one file changes and every post follows:
 }
 ```
 
-- A flat object of text: each value in quotes, even a number (`"36"`).
+- A flat object of text: each value in quotes, even a number (`"program-count": "37"`). The home page's own count
+  (`PROGRAM_COUNT` in `content/site.ts`) must match `program-count`; `npm test` checks they do.
 - A post writes `{{kiron:price-annual}}` wherever the fact goes: in any of its text (title, description, `h1`, `og`,
   `twitter`, the Article data, the body) and in its card. The value goes in as written, so keep it plain text.
 - A key `kiron.json` doesn't have, or braces left over (`{{kiron:price-annual}`, a missing brace), stop the build with

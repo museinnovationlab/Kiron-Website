@@ -50,14 +50,14 @@ rephrase all of that and really show how flexible it is." The home page now lead
 bend any day, lift and run in one plan, logging, progress, switching apps.
 
 **Sources.** 1.2's own store text (Kiron `STORE_SUBMISSION_1.2.0.md`, section 1 What's New and section 7 the listing),
-the store screenshots' captions (some headings reuse them: "36 programs, or bring your own", "Log every set in
+the store screenshots' captions (some headings reuse them: "37 programs, or bring your own" (the caption says 36), "Log every set in
 seconds", "Watch your lifts climb", "See your training add up", "Your plan, one day at a time"), and
 `KIRON_ROADMAP.md` Part 1 for the detail. Every claim was then checked in the app's code on `release/1.2.0`
 (`09e5e3b`):
 
 | Claim on the page | Where it is in the app |
 |---|---|
-| 36 programs, 2 to 6 days a week; strength, muscle, endurance and general goals; filters by goal, days, equipment, level | `src/data/presets` (36 files), `days_per_week` 2 (Two Days a Week) to 6 (Push / Pull / Legs) |
+| 37 programs, 2 to 6 days a week; strength, muscle, endurance and general goals; filters by goal, days, equipment, level | `src/data/presets` (37 files since the 7-Day Longevity Protocol went out over the air on 2026-11-16; one number, `PROGRAM_COUNT` in `content/site.ts`), `days_per_week` 2 (Two Days a Week) to 6 (Push / Pull / Legs, the Longevity Protocol) |
 | Training maxes; two beginner barbell plans; Run + Lift; 5K, 10K, half, marathon, cycling, sprint triathlon, rucking | Wave Loading Strength, Beginner 5×5, Novice Linear Progression, `run-and-lift.ts` and the endurance presets |
 | Built from a few answers; built by hand; pasted or up to four photos; checked before it starts | the AI builder, Start from scratch, `MAX_PLAN_PHOTOS = 4`, `app/plans/review.tsx` |
 | Missed: Start now, Pick a day, Skip; several: push the plan back | `MissedCard`, `MissedBanner` ("Push plan back") |
