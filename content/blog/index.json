@@ -1,53 +1,60 @@
 {
   "posts": [
     {
+      "href": "/blog/huberman-workout-routine.html",
+      "slug": "huberman-workout-routine",
+      "meta": "November 16, 2026 · Guides",
+      "title": "Andrew Huberman's Workout Routine, Day by Day (and How to Follow It)",
+      "excerpt": "The week of training Andrew Huberman has described on his podcast and in his newsletter, day by day: three lifting days, Zone 2, intervals and recovery, what changed since 2022, and three ways to follow it."
+    },
+    {
       "href": "/blog/fitbod-alternative.html",
       "slug": "fitbod-alternative",
       "meta": "November 15, 2026 · Comparisons",
       "title": "Looking for a Fitbod Alternative? Fitbod vs Kiron, Honestly Compared",
-      "excerpt": "Fitbod is $95.99 a year. Kiron is {{kiron:price-annual}} and runs one of 36 ready-made programs, or your own plan, instead of making up each workout."
+      "excerpt": "Fitbod is $95.99 a year. Kiron is {{kiron:price-annual}} and runs one of {{kiron:program-count}} ready-made programs, or your own plan, instead of making up each workout."
     },
     {
       "href": "/blog/stronglifts-alternative.html",
       "slug": "stronglifts-alternative",
       "meta": "November 15, 2026 · Comparisons",
       "title": "StrongLifts Went Subscription-Only. Here's Where to Run Your 5x5 Now",
-      "excerpt": "What happened to StrongLifts, year by year, from its own support pages. Then your options: stay and pay, run a 5×5 free, or move to Kiron, plus what to run when 5×5 stalls."
+      "excerpt": "StrongLifts is $59.99 a year now, with no free tier. Kiron's Beginner 5×5 still works out every weight for {{kiron:price-annual}}, starting you light, with {{kiron:program-count}} programs for when it stalls."
     },
     {
       "href": "/blog/runna-strength-training.html",
       "slug": "runna-strength-training",
       "meta": "November 15, 2026 · Comparisons",
       "title": "Is Runna's Strength Training Enough If You Actually Lift?",
-      "excerpt": "Runna's strength sessions are built to make you a sturdier runner. Five signs you've outgrown them, and three ways to set up a week of runs and real lifting, with a sample week each."
+      "excerpt": "Runna's strength sessions are built to make you a sturdier runner. Kiron runs a full lifting program with your runs on the same calendar, for {{kiron:price-annual}} against Runna's $119.99."
     },
     {
       "href": "/blog/ladder-app-alternative.html",
       "slug": "ladder-app-alternative",
       "meta": "November 15, 2026 · Comparisons",
       "title": "Ladder App Alternative: Ladder vs Kiron on Price, Android and Flexibility",
-      "excerpt": "Ladder's coach-led plans are worth the money if you'll use the coaching. What each tier costs, what to use on Android, and when a plan you choose fits better."
+      "excerpt": "Ladder sells a coach for $179.99 a year, on iPhone only. Kiron is {{kiron:price-annual}} on {{kiron:cell-platforms}}, and plans your training from one of {{kiron:program-count}} ready-made programs or your own."
     },
     {
       "href": "/blog/hevy-vs-kiron.html",
       "slug": "hevy-vs-kiron",
       "meta": "November 15, 2026 · Comparisons",
       "title": "Hevy vs Kiron: A Free Workout Log, or an App That Runs Your Plan?",
-      "excerpt": "If you write your own routines, Hevy's free plan is hard to beat. Where it stops: plans from ChatGPT or a coach, runs, and weeks that don't go to plan."
+      "excerpt": "Hevy is a very good log, free or $23.99 a year. Kiron is {{kiron:price-annual}} and plans for you: a proven program or your own, weights explained, and runs on the same calendar."
     },
     {
       "href": "/blog/strong-app-alternative.html",
       "slug": "strong-app-alternative",
       "meta": "November 15, 2026 · Comparisons",
       "title": "Strong App Alternatives in 2026, and When to Stay With Strong",
-      "excerpt": "Most people leave Strong over the Apple Watch sync or the 3-routine free cap. Who should stay, when Hevy's free plan is the better move, and when an app that runs your plan fits."
+      "excerpt": "Strong is a fast log for routines you write. Kiron keeps the same do-the-next-workout habit but writes the plan and works out every weight, from one of {{kiron:program-count}} ready-made programs or yours."
     },
     {
       "href": "/blog/workout-app-for-following-a-program.html",
       "slug": "workout-app-for-following-a-program",
       "meta": "November 15, 2026 · Comparisons",
       "title": "Workout Apps for Following a Program (Yours, a Coach's, or ChatGPT's)",
-      "excerpt": "The question that sorts workout apps is who writes the plan. Eight apps grouped by the job they do, from free logs to coach-led teams to running the plan you already have, with prices checked November 2026."
+      "excerpt": "The question that sorts workout apps is who writes the plan. Eight apps grouped by that job, from simple logs to coach-led teams, and Kiron, which runs one of {{kiron:program-count}} ready-made programs or the plan you already have."
     },
     {
       "href": "/blog/export-workout-history.html",
