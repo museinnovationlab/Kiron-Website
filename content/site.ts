@@ -1,12 +1,18 @@
 /* Every word and screenshot on the home page, in one place, so a copy pass or a screenshot pass edits one file.
 
-   WORDS (2026-11-15): written for Kiron 1.2, after Taylor saw the first preview: "the app does way more than just
-   allowing you to copy and paste a workout in. so need to rephrase all of that and really show how flexible it is."
-   The source is 1.2's own store text (Kiron's STORE_SUBMISSION_1.2.0.md: What's New and the listing) and the store
-   screenshots' captions, whose lines some headings reuse ("… programs, or bring your own", "See your training add
-   up"). Every claim was checked against the app's code on release/1.2.0; docs/PLACEHOLDERS.md says where each comes
-   from. Taylor's rule: no superlatives, only specific claims someone could check in the app. Strava isn't mentioned:
-   it's in 1.2, but switched off until Strava approves the app.
+   WORDS (2026-11-17): Kiron's brand direction, which Taylor liked ("i really like your new branding"). The main line
+   is built on Kiron's name (Chiron, the centaur who trained Achilles), and five value props are what the app, the
+   store and this site all say about Kiron, in this order:
+     1. Know exactly what to do today   2. A plan that moves with your week   3. Strength and cardio, one plan
+     4. The right plan, in minutes       5. See it working
+   How a plan gets started is sold as a convenience, not a mechanism: "design one around your goals", "bring the plan
+   you already follow"; pasting, photos and AI stay out of the headings. "Strength and cardio", not "lifting and
+   running". The program count and weights that go up are supporting detail, never the lead. test/site.test.mjs holds
+   the page to these words.
+
+   Every claim is something Kiron 1.2 does, checked in the app's code on release/1.2.0; docs/PLACEHOLDERS.md says where
+   each is true. Taylor's rule still holds: no superlatives, only specific claims someone could check in the app.
+   Strava isn't mentioned: it's in 1.2, but switched off until Strava approves the app.
 
    SCREENSHOTS are still placeholders: the 1.2.0 App Store set (Kiron/store-screenshots/1.2.0/ios-6.9, shot Nov 11,
    before the Today redesign), downscaled to 640x1391 into public/shots/. Each is marked `placeholder: true`, which the
@@ -44,15 +50,41 @@ export const PLACEHOLDER_NOTE = {
   words: "some words are drafts",
 };
 
+/* ---------- the main line ---------- */
+
+/** The hero's line: a headline, then a second line in the red pen's handwriting. A is the one Taylor liked; B says
+    the same thing plainly. Taylor hasn't formally picked, so MAIN_LINE switches between them: the hero, the link
+    preview and the closing band all follow it. */
+export const MAIN_LINES = {
+  A: {
+    heading: "Every hero had a trainer.",
+    hand: "Meet yours.",
+    // nothing public said where the name comes from before, so this story always comes with this line
+    story: "Named for Chiron, who trained Achilles." as string | null,
+    closing: "Train like a hero.",
+  },
+  B: {
+    heading: "A plan that keeps up with you.",
+    hand: "Even on busy weeks.",
+    story: null as string | null,
+    closing: "Your next workout is ready.",
+  },
+};
+export const MAIN_LINE: keyof typeof MAIN_LINES = "A";
+const LINE = MAIN_LINES[MAIN_LINE];
+
 /* ---------- hero ---------- */
 
 export const HERO = {
-  eyebrow: "Lift · Run · Recover",
-  // the <em> word is drawn in the red pen
-  heading: ["Train with a real program.", "Bend", "any day."] as const,
+  eyebrow: "Strength · Cardio · Recovery",
+  heading: LINE.heading,
+  // written under the headline in Caveat, the app's handwriting, in the red pen
+  hand: LINE.hand,
+  // a small line under the buttons, so the name's story is never left unexplained
+  story: LINE.story,
   lede:
-    `Pick one of ${PROGRAM_COUNT} programs, let Kiron build one from a few answers, or bring your own from ChatGPT, Claude or a ` +
-    "coach. Then shorten today, train at another gym or swap a lift, and the rest of the plan carries on.",
+    "Kiron has today's workout ready, weights included, and moves your plan when your week changes. Strength and " +
+    "cardio in one plan: pick a program, design one around your goals, or bring the plan you already follow.",
   secondary: { href: "#how", label: "See how it works" },
   shots: [
     { file: "02-logger", alt: "Kiron's workout screen: sets of a squat ticked off, with the rest timer running", placeholder: true },
@@ -62,32 +94,38 @@ export const HERO = {
   placeholder: false,
 };
 
-/* ---------- why (dark band) ---------- */
+/* ---------- why (dark band): the five value props ---------- */
 
 export const WHY = {
   eyebrow: "Why Kiron",
   heading: "Built for weeks that don't go to plan.",
   lede:
-    "A program works over months, but a week rarely goes as written: a late meeting, a hotel gym, legs still tired " +
-    "from Saturday. Kiron keeps the program and lets each day change around it.",
+    "A program works over months, but a week rarely goes as written: a late meeting, a missed Monday, legs still " +
+    "tired from Saturday's run. Kiron keeps the plan and moves each day around your week.",
   cards: [
     {
-      title: "Start any way",
+      title: "Know exactly what to do today",
       body:
-        `Pick one of ${PROGRAM_COUNT} programs, answer a few questions and Kiron builds one, or write your own. Or paste a plan ` +
-        "from ChatGPT, Claude or a coach, or take up to four photos of it.",
+        "Your workout is ready, with weights picked for you and a note on why. New to a lift? Say how the first set " +
+        "felt and Kiron adjusts the rest.",
     },
     {
-      title: "Bend the day",
+      title: "A plan that moves with your week",
       body:
-        "Make today shorter or longer, swap in another gym's equipment, or add core, arms or a finisher, all with " +
-        "Undo. The rest of the plan stays as written.",
+        "Train on set days or whenever you can. Miss one and it moves; short on time, make today shorter and keep " +
+        "your main lifts.",
     },
     {
-      title: "See it add up",
-      body:
-        "Lifts, runs, rides, swims and rows land in one log, with recovery for each muscle, a chart for every lift " +
-        "and reports for each week, month and year.",
+      title: "Strength and cardio, one plan",
+      body: "Lifting, runs, rides and swims together, with recovery that counts them all, even other apps' workouts.",
+    },
+    {
+      title: "The right plan, in minutes",
+      body: `Pick one of ${PROGRAM_COUNT} programs, design one around your goals, or bring the plan you already follow.`,
+    },
+    {
+      title: "See it working",
+      body: "Records marked as you set them, a chart for every lift, and a report for every week, month and year.",
     },
   ],
   placeholder: false,
@@ -98,23 +136,22 @@ export const WHY = {
 export const STORY = {
   id: "how",
   eyebrow: "How it works",
-  heading: "Lifting, running and recovery in one app.",
-  lede: "Where your program comes from, how a day can change, and what Kiron keeps track of for you.",
+  heading: "Strength, cardio and recovery in one app.",
+  lede: "Where your plan comes from, how it fits your week, and what Kiron keeps track of for you.",
 };
 
 export const BEATS: Beat[] = [
   {
     id: "start",
-    eyebrow: "Start any way",
-    heading: `${PROGRAM_COUNT} programs, or bring your own.`,
+    eyebrow: "Your plan",
+    heading: "Pick one, design one, or bring your own.",
     body: [
       "Strength with training maxes, muscle-building splits, beginner barbell, bodyweight, dumbbell, kettlebell and " +
         "band plans, and running from a first 5K to a marathon. Filter them by goal, days a week, equipment and level.",
-      "Or answer a few questions and Kiron builds a program for you, or build one by hand. Already have a plan from " +
-        "ChatGPT, Claude or a coach? Paste it, or take up to four photos of it. Kiron reads the sets, reps, rest and " +
-        "phases, and you check what it found before you start.",
+      "Or design a program around your goals, or build one by hand. Already follow a plan from a coach, another app " +
+        "or ChatGPT? Bring it, and Kiron runs it, one workout at a time.",
     ],
-    ticks: [`${PROGRAM_COUNT} ready-made programs`, "Built from your answers", "Built by hand", "Pasted or photographed"],
+    ticks: [`${PROGRAM_COUNT} ready-made programs`, "Designed around your goals", "Built by hand", "The plan you already follow"],
     shot: {
       file: "03-programs",
       alt: "Kiron's preset programs, with filters for goal, days, equipment and level: First Month in the Gym, 30-Minute Dumbbell, Beginner 5K",
@@ -124,14 +161,14 @@ export const BEATS: Beat[] = [
   },
   {
     id: "week",
-    eyebrow: "Today and your week",
-    heading: "Your plan, one day at a time.",
+    eyebrow: "Your week",
+    heading: "Set days, or whenever you can.",
     body: [
-      "Today shows the workout that's due, and the week strip marks each day you trained, workouts from other apps " +
-        "included. Full schedule opens the month.",
-      "Missed one? Start it now, pick another day, or skip it. Want something else today? Start any workout from " +
-        "your programs, a saved one, or an empty one you fill as you go. You can even run two programs at once, like " +
-        "a strength plan and a 10K.",
+      "Give a program set days, or choose Whenever I train: it keeps its order, and the next workout waits for " +
+        "whichever day you show up. The week strip marks each day you trained, workouts from other apps included.",
+      "Missed one on a set day? Start it now, pick another day or skip it, or let Kiron move missed workouts for " +
+        "you. Want something else today? Start any workout from your programs, a saved one, or an empty one. You can " +
+        "even run two programs at once, like a strength plan and a 10K.",
     ],
     note: ["Nothing planned today. Recovery is part of the plan.", "Kiron, on a rest day"],
     shot: {
@@ -143,16 +180,16 @@ export const BEATS: Beat[] = [
   },
   {
     id: "adjust",
-    eyebrow: "Bend the day",
+    eyebrow: "Adjust today",
     heading: "Change today without breaking the plan.",
     body: [
       "Short on time? Make today shorter and Kiron cuts extras and accessory sets first, keeping your main lifts. " +
         "More time? It adds sets for the muscles your week is behind on.",
-      "At a hotel or a friend's garage? Pick that gym and the exercises swap for what's there. Add core, arms or a " +
-        "cardio finisher. Swap a lift just for today, for a while, or from now on. Each change says what it did, " +
-        "with Undo.",
+      "Add core, arms or a cardio finisher, or swap a lift just for today, for a while, or from now on. Training " +
+        "somewhere else? Pick that gym and the exercises swap for what's there. Each change says what it did, with " +
+        "Undo.",
     ],
-    ticks: ["Shorter or longer", "Another gym's equipment", "Core, arms or a finisher", "Swap a lift for today or for good"],
+    ticks: ["Shorter or longer", "Core, arms or a finisher", "Swap a lift for today or for good", "Another gym's equipment"],
     note: ["I'm sore, adjust today's workout", "A button in the app, after a run or ski day"],
     shot: {
       file: "05b-sore-day-note",
@@ -163,15 +200,17 @@ export const BEATS: Beat[] = [
   },
   {
     id: "workout",
-    eyebrow: "The workout screen",
-    heading: "Log every set in seconds.",
+    eyebrow: "Today's workout",
+    heading: "Your weights, picked and explained.",
     body: [
-      "Each lift starts from last time's weight and reps. Warm-up sets climb to your working weight, a line under " +
-        "the next set says which plates go on each side, and the rest timer starts when you tick a set.",
-      "Pair exercises into supersets, keep a note on any exercise, and after the last set say how many more reps " +
-        "you had in you. With three or more to spare, the next weight goes up faster.",
+      "Each lift comes with its weight filled in: last time's, a step up when you hit every set, or, for a lift you " +
+        "haven't done lately, a starting weight with a note from Kiron on how it got there. Say how the first set " +
+        "felt and Kiron adjusts the sets still to do.",
+      "Warm-up sets climb to your working weight, a line under the next set says which plates go on each side, and " +
+        "the rest timer starts when you tick a set. Pair exercises into supersets, keep a note on any exercise, and " +
+        "after the last set say how many more reps you had in you.",
     ],
-    ticks: ["Last time's numbers", "Warm-up sets", "Plates for each side", "A rest timer that starts itself"],
+    ticks: ["Weights filled in", "A note on why", "Plates for each side", "A rest timer that starts itself"],
     shot: {
       file: "02-logger",
       alt: "Kiron's workout screen: warm-up and working sets ticked, plates for each side, and the rest timer",
@@ -181,12 +220,12 @@ export const BEATS: Beat[] = [
   },
   {
     id: "cardio",
-    eyebrow: "Lifting and cardio",
-    heading: "Lift and run in one plan.",
+    eyebrow: "Strength and cardio",
+    heading: "One plan, one recovery picture.",
     body: [
-      "Runs, rides, swims and rows sit in the same plan as your lifting, logged by time and distance. Run + Lift " +
-        "mixes the two, and the 5K, 10K, half marathon, marathon, cycling and sprint triathlon plans build week by " +
-        "week. A run or ride can be made shorter or longer for the day too.",
+      "Runs, rides, swims and rows sit in the same plan as your strength work, logged by time and distance. Run + " +
+        "Lift mixes the two, and the 5K, 10K, half marathon, marathon, cycling and sprint triathlon plans build week " +
+        "by week. A run or ride can be made shorter or longer for the day too.",
       "Recovery counts all of it. Turn it on, and it also counts the runs, rides and ski days other apps save to " +
         "Apple Health or Health Connect, read on your phone and never stored.",
     ],
@@ -277,12 +316,13 @@ export const PRICING = {
   eyebrow: "Pricing",
   heading: "Two plans, the same app.",
   lede: "Try the weekly plan free for 3 days. Cancel anytime in your App Store or Google Play account.",
+  // what a subscription gets you: the five value props, short
   features: [
-    `All ${PROGRAM_COUNT} programs`,
-    "The program builder and plan import",
-    "Changes to any day, with Undo",
-    "Set-by-set logging",
-    "Recovery, progress and reports",
+    "Today's workout, with weights picked for you",
+    "A plan that moves with your week",
+    "Strength and cardio in one plan",
+    "The right plan, ready in minutes",
+    "Records, charts and reports",
   ],
   plans: [
     { name: "Weekly", price: "$4.99", per: "per week", note: "3-day free trial", hand: "3 days free", cta: "Start free trial", feature: false },
@@ -298,7 +338,7 @@ export const PRICING = {
 
 export const GET = {
   eyebrow: "Get Kiron",
-  heading: "Pick a program. Start today.",
+  heading: LINE.closing,
   lede: "Kiron is on iPhone, iPad and Android. Try it free for 3 days on the weekly plan.",
   placeholder: false,
 };
@@ -310,14 +350,27 @@ export const FAQ: [question: string, answer: string][] = [
     "What programs does Kiron have?",
     `${PROGRAM_COUNT} ready-made programs, from 2 to 6 days a week: strength (including wave loading with training maxes and two ` +
       "beginner barbell plans), muscle-building splits, bodyweight, dumbbell, kettlebell and band plans, and " +
-      "endurance plans from a first 5K to a marathon, plus cycling, rucking and a sprint triathlon. Kiron can also " +
-      "build a program from a few answers, or you can build your own.",
+      "endurance plans from a first 5K to a marathon, plus cycling, rucking and a sprint triathlon. You can also " +
+      "design one around your goals, build your own, or bring the plan you already follow.",
   ],
   [
-    "Can I bring a plan from ChatGPT, Claude or a coach?",
-    "Yes. Paste the text, or choose up to four photos or screenshots of it. Kiron reads the exercises, sets, reps, " +
-      "rest and phases, matches each exercise to its library, and shows you the program to check and edit before " +
-      "you start.",
+    "Can I bring the plan I already follow?",
+    "Yes, from a coach, another app, ChatGPT or Claude. Paste the text, or choose up to four photos or screenshots of " +
+      "it. Kiron matches each exercise to its library and sets out the sets, reps, rest and phases as a program you " +
+      "can check and edit before you start.",
+  ],
+  [
+    "Do I have to train on set days?",
+    "No. Each program runs on set days or Whenever I train. With set days, Kiron can move a missed workout to the next " +
+      "free day that week for you. With Whenever I train, the program keeps its order and the next workout waits for " +
+      "whichever day you show up, so nothing is ever missed.",
+  ],
+  [
+    "How does Kiron pick my weights?",
+    "From what you've lifted. A lift you did in the last four weeks starts from last time, with a step up when you " +
+      "hit every set. One you haven't done for a while starts a little lighter. For one you've never done, Kiron works " +
+      "from a related lift you have done, or from typical starting numbers for your sex, body weight and age, and " +
+      "leaves a note saying how it got there. After the first set, tell it how the weight felt and it adjusts the rest.",
   ],
   [
     "Can I change a workout without wrecking my program?",
@@ -327,9 +380,9 @@ export const FAQ: [question: string, answer: string][] = [
   ],
   [
     "Does Kiron do running and other cardio?",
-    "Yes. Runs, rides, swims and rows sit in the same plan as your lifting, logged by time and distance in miles or " +
-      "kilometers. Recovery counts them, and if you turn it on, it also counts workouts other apps save to Apple " +
-      "Health or Health Connect.",
+    "Yes. Runs, rides, swims and rows sit in the same plan as your strength work, logged by time and distance in " +
+      "miles or kilometers. Recovery counts them, and if you turn it on, it also counts workouts other apps save to " +
+      "Apple Health or Health Connect.",
   ],
   [
     "I use Fitbod, Strong or Hevy. Can I bring my history?",
@@ -339,15 +392,16 @@ export const FAQ: [question: string, answer: string][] = [
   ],
   [
     "Does Kiron use AI?",
-    "Only when you ask it to read a plan or build one. Then the text or photos go to Anthropic's Claude, once you've " +
-      "agreed, and you can withdraw that in Settings. The ready-made programs, logging, recovery and everything else " +
-      "work without AI.",
+    "Only when you ask it to design a program or read a plan you bring. Then your answers, the text or the photos go " +
+      "to Anthropic's Claude, once you've agreed, and you can withdraw that in Settings. The ready-made programs, " +
+      "your weights, logging, recovery and everything else work without AI.",
   ],
   [
     "How much does it cost?",
     "Kiron is free to download. A subscription unlocks programs and logging: $4.99 a week with a 3-day free trial, " +
       "or $49.99 a year. Cancel anytime in your App Store or Google Play account.",
   ],
+  ["Why is it called Kiron?", "It's named for Chiron, the centaur of Greek myth who trained Achilles, Jason and Heracles."],
 ];
 export const FAQ_PLACEHOLDER = false;
 
@@ -356,17 +410,17 @@ export const FAQ_PLACEHOLDER = false;
 export const SITE = {
   url: "https://trykiron.com",
   name: "Kiron",
-  title: "Kiron: Workout Programs, Gym Log and Recovery",
+  title: "Kiron: Workout Plans for Strength and Cardio",
   description:
-    `Follow one of ${PROGRAM_COUNT} workout programs, have Kiron build one, or bring a plan from ChatGPT, Claude or a coach. ` +
-    "Change any day, log every set, and track recovery.",
+    "Kiron has today's workout ready, weights included, and moves your plan when your week changes. Strength and " +
+    "cardio in one plan, on iPhone, iPad and Android.",
   ogDescription:
-    `${PROGRAM_COUNT} ready-made programs, or bring your own. Change any day, log every set, and see recovery and progress. On ` +
-    "iPhone and Android.",
+    "Know exactly what to do today, with a plan that moves with your week. Pick a program, design one around your " +
+    "goals, or bring the plan you already follow.",
   keywords:
-    "workout programs, workout tracker, gym log, strength training app, running training plan, hybrid training, " +
-    "workout planner, muscle recovery",
-  footerLine: "Lift. Run. Recover.",
+    "workout plan app, workout planner, strength and cardio, strength training app, running training plan, " +
+    "hybrid training, gym log, muscle recovery",
+  footerLine: "Strength and cardio, one plan.",
   email: "help@trykiron.com",
 };
 

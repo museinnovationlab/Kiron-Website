@@ -5,7 +5,10 @@
 
    As in the app, the line is as long as the title's widest line, measured once it's laid out (and again when it wraps
    differently, or when League Gothic arrives and the words change width), never shorter than 48 px. Until then it
-   draws nothing but keeps its height, so nothing below it moves. */
+   draws nothing but keeps its height, so nothing below it moves.
+
+   `hand` is a second line written under the pen line in the app's handwriting ("Meet yours."), as the app's notes
+   are. It's part of the heading for screen readers and search, and drawn below the line for everyone else. */
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { UNDERLINE } from "./marks";
@@ -16,12 +19,14 @@ const MIN_WIDTH = 48;
 export default function PenTitle({
   as: Tag = "h2",
   children,
+  hand,
   id,
   style,
   align = "start",
 }: {
   as?: "h1" | "h2";
   children: ReactNode;
+  hand?: string;
   id?: string;
   style?: CSSProperties;
   align?: "start" | "center";
@@ -48,6 +53,7 @@ export default function PenTitle({
     <div className={`pen-title${align === "center" ? " pen-center" : ""}`}>
       <Tag id={id} style={style}>
         <span ref={words}>{children}</span>
+        {hand && <span className="sr-only"> {hand}</span>}
       </Tag>
       <svg
         className="pen-underline"
@@ -59,6 +65,11 @@ export default function PenTitle({
       >
         {width ? <path className="pen-stroke" pathLength={100} d={UNDERLINE} strokeWidth={3} /> : null}
       </svg>
+      {hand && (
+        <p className="pen-hand" aria-hidden="true">
+          {hand}
+        </p>
+      )}
     </div>
   );
 }

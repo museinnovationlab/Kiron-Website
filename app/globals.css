@@ -80,6 +80,9 @@ a{color:inherit}
 .pen-title.pen-center{align-items:center}
 .pen-underline{display:block;height:12px;max-width:100%;margin-top:4px;overflow:visible}
 .pen-underline path{fill:none;stroke-linecap:round;--delay:120ms}
+/* the title's handwritten second line ("Meet yours."): Caveat in the red pen, tilted as a note in the margin is */
+.pen-hand{font-family:var(--hand);font-weight:700;font-size:clamp(42px,5.6vw,68px);line-height:1;color:var(--accent);
+          margin:12px 0 0;transform:rotate(-2deg)}
 /* the PR stamp ("STRONGEST SET YET"): a double border in red pen, pressed in at -3°; it lands with a little bounce */
 .stamp{display:inline-block;border:1px solid var(--accent);border-radius:11px;padding:2px;background:var(--surface);
        transform:rotate(-3deg);transition:opacity .34s ease, transform .34s cubic-bezier(.3,1.5,.6,1)}
@@ -202,6 +205,8 @@ section{padding:clamp(78px,10vw,132px) 0;position:relative;z-index:1}
 .hero h1{max-width:14.5ch}
 .hero .lede{margin:22px auto 0;text-align:center}
 .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+/* where the name comes from ("Named for Chiron, who trained Achilles."): small, under the buttons */
+.hero-story{margin:20px auto 0;font-size:14.5px;color:var(--muted)}
 /* The trio is deliberately cropped: you see the top of each screen and it fades out, so the crop reads as intended
    (Bearing: sliced flat by the next section's edge, it read as a mistake). Height follows width, capped. */
 .trio{display:flex;justify-content:center;align-items:flex-start;gap:min(3vw,34px);
@@ -227,8 +232,19 @@ section{padding:clamp(78px,10vw,132px) 0;position:relative;z-index:1}
   .phone{box-shadow:0 0 0 1px rgba(255,255,255,.1), 0 30px 66px rgba(0,0,0,.5)}
 }
 
-/* ---------- why (dark band): three steps on the app's dark-mode cards, counted in tally marks ---------- */
-.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:48px}
+/* ---------- why (dark band): the five value props on the app's dark-mode cards, counted in tally marks ---------- */
+/* Five cards: one column on a phone; two on a tablet, the fifth across both; on a computer three, then two wider ones,
+   so no card sits alone on a row. */
+.problem-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:48px}
+@media(min-width:600px){
+  .problem-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .problem-grid .pcard:last-child{grid-column:1 / -1}
+}
+@media(min-width:1000px){
+  .problem-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .problem-grid .pcard{grid-column:span 2}
+  .problem-grid .pcard:nth-child(n+4),.problem-grid .pcard:last-child{grid-column:span 3}
+}
 .pcard{background:var(--band-card);border-radius:var(--r-card);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);padding:26px;
        display:flex;flex-direction:column;gap:10px}
 .pcard .count{display:flex;align-items:center;gap:12px;min-height:30px}

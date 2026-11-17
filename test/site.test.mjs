@@ -69,6 +69,33 @@ test("the site doesn't promise Strava before it's switched on", () => {
   assert.doesNotMatch(readFileSync("public/llms.txt", "utf8"), /strava/i);
 });
 
+/* Kiron's words since 2026-11-17 (content/site.ts, docs/PLACEHOLDERS.md): "strength and cardio", not "lifting and
+   running"; a plan is designed around your goals or brought in, never "built from your answers"; "bend any day" is
+   gone; pasting, photos, AI and the program count stay out of the headings; and the hero's story of the name always
+   comes with the line saying where the name is from, since nothing else public says so. */
+test("the home page keeps to Kiron's words", () => {
+  const words = JSON.stringify({ HERO, WHY, STORY, BEATS, CONNECTIONS, PRICING, GET, FAQ, SITE });
+  for (const avoid of [/\bbend\b/i, /from (?:your|a few) answers/i, /lifting and running|lift · run/i]) {
+    assert.doesNotMatch(words, avoid);
+  }
+  const headings = [
+    HERO.eyebrow,
+    HERO.heading,
+    HERO.hand,
+    WHY.heading,
+    ...WHY.cards.map((c) => c.title),
+    STORY.heading,
+    ...BEATS.flatMap((b) => [b.eyebrow, b.heading]),
+    CONNECTIONS.heading,
+    PRICING.heading,
+    GET.heading,
+    SITE.title,
+  ];
+  for (const h of headings) assert.doesNotMatch(h, /\bAI\b|photo|paste|\d+ (?:ready-made )?programs/i, h);
+  if (/hero|trainer/i.test(HERO.heading)) assert.match(HERO.story ?? "", /Chiron/, "the hero says where the name is from");
+  assert.equal(WHY.cards.length, 5, "the five value props");
+});
+
 test("the preview bar counts what's left: every placeholder screenshot, no placeholder words", () => {
   const shots = [...HERO.shots, ...BEATS.map((b) => b.shot), CONNECTIONS.shot];
   assert.equal(PLACEHOLDERS.screens, shots.filter((s) => s.placeholder).length);
@@ -82,7 +109,8 @@ test("the home page, llms.txt and the posts agree on how many programs Kiron has
   const n = String(PROGRAM_COUNT);
   const words = JSON.stringify({ HERO, WHY, STORY, BEATS, CONNECTIONS, PRICING, GET, FAQ, SITE });
   const said = [...words.matchAll(/(\d+) (?:ready-made |workout )?programs/g)].map(([, count]) => count);
-  assert.ok(said.length >= 5, "the home page names its program count");
+  // supporting detail since the 2026-11-17 words, so only a few places say it
+  assert.ok(said.length >= 1, "the home page names its program count");
   for (const count of said) assert.equal(count, n, `the home page says ${count} programs`);
   const llms = readFileSync("public/llms.txt", "utf8");
   const inLlms = [...llms.matchAll(/(\d+) ready-made programs/g)].map(([, count]) => count);

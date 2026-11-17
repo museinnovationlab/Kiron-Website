@@ -1,27 +1,35 @@
 # Kiron
 
-> Kiron is a workout app for iPhone, iPad and Android that runs real training programs and lets any day of them change. Start from one of 37 ready-made programs, have Kiron build one from a few answers, build your own, or bring a plan from ChatGPT, Claude or a coach as text or photos. Then shorten or lengthen a day, train with another gym's equipment, add core or a finisher, or swap a lift, while the rest of the program carries on. Lifting, runs, rides, swims and rows share one plan, one log and one muscle recovery picture.
+> Kiron is a workout app for iPhone, iPad and Android that plans strength and cardio together. Today's workout is ready when you are, with each lift's weight filled in and a note on why, and the plan moves with your week: train on set days or whenever you can, miss a workout and it moves, or make today shorter. Start from one of 37 ready-made programs, design one around your goals, or bring the plan you already follow. Kiron is named for Chiron, the centaur of Greek myth who trained Achilles.
+
+## What Kiron does
+
+- **Know exactly what to do today.** The day's workout is ready, each lift with its weight filled in: last time's, a step up after hitting every set, or, for a lift not done lately, a starting weight with a note from Kiron on how it got there. After the first set, "How did it feel?" (Too easy, Just right, Too hard) adjusts the sets still to do.
+- **A plan that moves with your week.** Each program runs on set days or on "Whenever I train", where it keeps its order and the next workout waits for whichever day you show up. On set days, missed workouts can move themselves to the next free day that week. Short on time, make today shorter.
+- **Strength and cardio, one plan.** Lifting, runs, rides, swims and rows in one plan, with a muscle recovery map that counts them all, and other apps' workouts too, with permission.
+- **The right plan, in minutes.** 37 ready-made programs, a program designed around your goals, one built by hand, or the plan you already follow, from a coach, another app or ChatGPT.
+- **See it working.** Records marked as they happen, a chart for every lift, and reports for every week, month and year.
 
 ## Ways to start a program
 
-- **37 ready-made programs**, 2 to 6 days a week: strength (wave loading with training maxes, two beginner barbell plans, upper/lower, bodyweight, kettlebell, a first pull-up), muscle-building splits (push/pull/legs, upper/lower, a five-day split, full body, glutes), dumbbell, band and joint-friendly plans, endurance plans (a first 5K, 10K, half marathon, marathon, cycling, sprint triathlon, rucking, walking, a fitness race), and plans that mix lifting and running (Run + Lift, and the 16-week 7-Day Longevity Protocol). Filter by goal, days a week, equipment and level.
-- **Built for you**: answer a few questions and Kiron writes a program.
+- **37 ready-made programs**, 2 to 6 days a week: strength (wave loading with training maxes, two beginner barbell plans, upper/lower, bodyweight, kettlebell, a first pull-up), muscle-building splits (push/pull/legs, upper/lower, a five-day split, full body, glutes), dumbbell, band and joint-friendly plans, endurance plans (a first 5K, 10K, half marathon, marathon, cycling, sprint triathlon, rucking, walking, a fitness race), and plans that mix strength and cardio (Run + Lift, and the 16-week 7-Day Longevity Protocol). Filter by goal, days a week, equipment and level.
+- **Designed around your goals**: the program builder asks your goal, experience, days a week, session length and equipment, and designs a program.
 - **Built by hand**: write your own from scratch.
-- **Brought in**: paste a plan from ChatGPT, Claude, a coach or anywhere, or choose up to four photos or screenshots of it. Kiron reads exercises, sets, reps, rest and phases, matches each exercise to its library, and shows the program to check and edit before it starts.
+- **The plan you already follow**: paste it from ChatGPT, Claude, a coach or anywhere, or choose up to four photos or screenshots of it. Kiron reads exercises, sets, reps, rest and phases, matches each exercise to its library, and shows the program to check and edit before it starts.
 - Two programs can run at once, for example a strength program and a 10K plan.
 
-## Changing a day without changing the plan
+## Your week, and changing a day
 
+- Set days or Whenever I train, chosen for each program and changeable later. On set days, a missed workout can be started now, moved to another day or skipped, or moved automatically to the next free day that week; several missed ones can push the plan back. With Whenever I train, nothing is ever missed.
 - Make today's workout shorter or longer: shorter cuts extras and accessory sets first and keeps the main lifts; longer adds sets for the muscles the week is behind on. Runs and rides can be shortened or lengthened too.
-- Train at another gym (saved gyms such as a hotel or a friend's garage): exercises swap for the equipment there.
 - Add core, arms, shoulders, glutes, calves, a cardio finisher or stretching to today.
 - Swap an exercise just for today, for a while, or from now on.
-- Every change says what it did and can be undone. A missed workout can be started now, moved to another day or skipped; several missed ones can push the plan back.
-- Start any workout from any program, a saved workout, or an empty one built as you go.
+- Train at another gym (saved gyms such as a hotel or a friend's garage): exercises swap for the equipment there.
+- Every change says what it did and can be undone. Start any workout from any program, a saved workout, or an empty one built as you go.
 
 ## Logging
 
-Set-by-set logging with last time's weight and reps, warm-up sets, supersets, notes on each exercise, reps in reserve after the last set (more to spare moves the next weight up faster), a plate calculator showing the plates for each side of the bar, and a rest timer that starts when a set is ticked. Pounds or kilograms, miles or kilometers. Light and dark mode.
+Set-by-set logging with each lift's weight filled in, warm-up sets, supersets, notes on each exercise, reps in reserve after the last set (more to spare moves the next weight up faster), a plate calculator showing the plates for each side of the bar, and a rest timer that starts when a set is ticked. Pounds or kilograms, miles or kilometers. Light and dark mode.
 
 ## Recovery and progress
 
@@ -37,7 +45,7 @@ Set-by-set logging with last time's weight and reps, warm-up sets, supersets, no
 
 ## AI and privacy
 
-Kiron uses AI only when someone asks it to read a plan or build one: that text or those photos go to Anthropic's Claude, after the person agrees, and the consent can be withdrawn in Settings. Ready-made programs, logging, recovery and everything else work without AI. Health data is read on the device and isn't stored or sent.
+Kiron uses AI only when someone asks it to design a program or read a plan they bring: their answers, that text or those photos go to Anthropic's Claude, after the person agrees, and the consent can be withdrawn in Settings. Ready-made programs, the weights Kiron picks, logging, recovery and everything else work without AI. Health data is read on the device and isn't stored or sent.
 
 ## Pricing
 

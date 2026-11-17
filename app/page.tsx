@@ -39,13 +39,15 @@ const STRUCTURED = {
         description: `Full app access, ${p.note}`,
       })),
       featureList: [
-        `${PROGRAM_COUNT} ready-made workout programs, strength to marathon`,
-        "Program builder from a few answers",
-        "Plan import from pasted text or up to four photos",
+        "Today's workout ready, each lift's weight filled in, with a note on how Kiron chose it",
+        "Programs on set days or whenever you train, with missed workouts that can move themselves",
         "Change any day's workout for time, another gym's equipment or sore muscles, with Undo",
-        "Set-by-set logging with last time's numbers, warm-up sets, supersets, reps in reserve and a plate calculator",
-        "Runs, rides, swims and rows in the same plan as lifting",
+        "Runs, rides, swims and rows in the same plan as strength work",
         "Muscle recovery that counts lifting, cardio and other apps' workouts",
+        `${PROGRAM_COUNT} ready-made workout programs, strength to marathon`,
+        "A program builder that designs a plan around your goals",
+        "Bring the plan you already follow, as text or photos",
+        "Set-by-set logging with last time's numbers, warm-up sets, supersets, reps in reserve and a plate calculator",
         "Progress charts, weekly, monthly and yearly reports, badges and streaks",
         "Workout history import from Fitbod, Strong and Hevy",
         "Apple Health and Health Connect sync",
@@ -77,8 +79,8 @@ export default function Home() {
       <header className="hero" id="top" data-placeholder={HERO.placeholder ? "copy" : undefined}>
         <div className="wrap">
           <p className="eyebrow">{HERO.eyebrow}</p>
-          <PenTitle as="h1" align="center">
-            {HERO.heading[0]} <em>{HERO.heading[1]}</em> {HERO.heading[2]}
+          <PenTitle as="h1" align="center" hand={HERO.hand}>
+            {HERO.heading}
           </PenTitle>
           <p className="lede">{HERO.lede}</p>
           <div className="hero-cta">
@@ -87,6 +89,7 @@ export default function Home() {
               {HERO.secondary.label}
             </a>
           </div>
+          {HERO.story && <p className="hero-story">{HERO.story}</p>}
         </div>
         <div className="trio">
           {HERO.shots.map((shot, i) => (
@@ -109,10 +112,9 @@ export default function Home() {
           <div className="problem-grid">
             {WHY.cards.map((c, i) => (
               <div className="pcard" key={c.title}>
-                {/* counted the way the app counts a streak: tally marks */}
+                {/* counted the way the app counts a streak: tally marks, the fifth striking through the four */}
                 <div className="count" data-pen="">
                   <TallyMarks count={i + 1} />
-                  <span className="sr-only">Step {i + 1}</span>
                 </div>
                 <h3>{c.title}</h3>
                 <p>{c.body}</p>

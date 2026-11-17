@@ -52,9 +52,10 @@ is a copy of the app's `palette.js` and `npm test` fails if `app/globals.css` dr
 
 ## Placeholders
 
-Screenshots (1.2.0 store set) and home-page words (today's site) are placeholders until the app's screens are final:
-`docs/PLACEHOLDERS.md`. Everything on the home page comes from `content/site.ts`; delete a block's `placeholder: true`
-when it's replaced.
+Screenshots (1.2.0 store set) are placeholders until the app's screens are final: `docs/PLACEHOLDERS.md`. Everything on
+the home page comes from `content/site.ts`; delete a block's `placeholder: true` when it's replaced. The words follow
+Kiron's brand direction of 2026-11-17 (the main line, five value props, words to use and avoid): `docs/PLACEHOLDERS.md`,
+held by `npm test`.
 
 ## Checking a deployment
 

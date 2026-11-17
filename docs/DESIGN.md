@@ -77,10 +77,10 @@ light and dark.
 | labels ("THIS WEEK", "2 OF 4 DONE") | `.eyebrow` | Plex Mono 500 capitals, muted |
 | `SetTick` (`PencilRing` + `PenTick`) | `SetTick`, `TickList` | each beat's "03 / 07" and the story's lists: the pencil ring, ticked in red pen |
 | `PenCheck` | `PenCheck`, `CheckList` | what's included in a plan |
-| `TallyMarks` | `TallyMarks` | counting the three steps on the dark band |
+| `TallyMarks` | `TallyMarks` | counting the five value props on the dark band (the fifth strikes through the four) |
 | `Stamp` | `Stamp` | "Save 80%" on the annual plan: double border, -3°, League Gothic |
 | `Highlighter`, `PenCircle`, `PencilDot`, `DayMarks`, `RecoveryRing` | not on the page | the loop and the dot are in the icon field; the rest belong to screens the screenshots show |
-| `Caveat` (the streak caption) | `.hand` | "3 days free": one or two words at display size, never body text |
+| `Caveat` (the streak caption, Kiron's notes) | `.hand`, `.pen-hand` | a few words at display size, never body text: "3 days free", and the hero's second line ("Meet yours.", `PenTitle`'s `hand`), which the link preview draws too (`assets/fonts/Caveat_700Bold.ttf`) |
 
 The marks' paths are the app's own, copied verbatim into `components/marks.tsx`, coloured by the tokens (`.pen-stroke`
 is the red pen, `.pencil-stroke` the pencil).
@@ -113,9 +113,12 @@ tally of five, the underline), drawn a little bolder, so the field is partly in 
 
 - **Nav**: the app's launch runner (its dark-mode copy in dark mode) and the wordmark; links get the soft red pill on
   hover, as the tab bar marks its tab; the burger is the app's round sunken icon button; the menu a floating sheet.
-- **Hero**: a mono label, the League Gothic headline with "Kiron" in the red pen and the pencil line under it, the
-  primary and soft buttons, three phones (Bearing's tilt and fade).
-- **Dark band**: the rest timer's ink (light) with the app's dark-mode cards; the pen turns coral (the ring) on it.
+- **Hero**: a mono label, the League Gothic headline with the pencil line under it and its second line handwritten
+  in the red pen (Caveat, tilted -2°, as the app writes a note), the primary and soft buttons, a small muted line
+  saying where the name comes from, three phones (Bearing's tilt and fade). Screen readers and search read the
+  headline and its handwritten line as one heading.
+- **Dark band**: the rest timer's ink (light) with the app's dark-mode cards, one per value prop: three across and
+  two wider below on a computer, two across on a tablet, one on a phone; the pen turns coral (the ring) on it.
 - **Story**: seven beats, each with its set tick and "0N / 07 · TOPIC" label; lists ticked like sets; notes on a
   card behind the log's red margin line.
 - **Works with**: a successSoft wash, cards with success badges.
