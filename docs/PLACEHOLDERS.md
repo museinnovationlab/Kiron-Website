@@ -52,10 +52,10 @@ and paste a workout in") and adds a main line and five value props. The rules, w
 
 - **The main line** is built on Kiron's name: Kiron is named for Chiron, the centaur who trained Achilles, Jason and
   Heracles. "Every hero had a trainer." with "Meet yours." handwritten under it, and a small line saying where the name
-  comes from ("Named for Chiron, who trained Achilles."), since nothing public said so before. Taylor hasn't formally
-  picked between it (A) and "A plan that keeps up with you." / "Even on busy weeks." (B): `MAIN_LINE` in
-  `content/site.ts` switches the hero, the link preview and the closing band. Keep the Chiron story away from the back,
-  knee and joint-friendly plans: Chiron also taught medicine, and there it could read as a medical claim.
+  comes from ("Named for Chiron, who trained Achilles."), since nothing public said so before; the closing band says
+  "Train like a hero." Taylor chose this line on 2026-11-17 ("i like your hero trainer line"). Keep the Chiron story
+  away from the back, knee and joint-friendly plans: Chiron also taught medicine, and there it could read as a medical
+  claim.
 - **Five value props**, in this order, wherever Kiron describes itself: Know exactly what to do today · A plan that
   moves with your week · Strength and cardio, one plan · The right plan, in minutes · See it working. They're the dark
   band's five cards and the pricing cards' list, and the story's seven beats show them screen by screen.

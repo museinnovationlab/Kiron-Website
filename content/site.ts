@@ -1,8 +1,8 @@
 /* Every word and screenshot on the home page, in one place, so a copy pass or a screenshot pass edits one file.
 
-   WORDS (2026-11-17): Kiron's brand direction, which Taylor liked ("i really like your new branding"). The main line
-   is built on Kiron's name (Chiron, the centaur who trained Achilles), and five value props are what the app, the
-   store and this site all say about Kiron, in this order:
+   WORDS (2026-11-17): Kiron's brand direction, which Taylor liked ("i really like your new branding"). The main line,
+   which Taylor chose the same day ("i like your hero trainer line"), is built on Kiron's name: Chiron, the centaur who
+   trained Achilles. Five value props are what the app, the store and this site all say about Kiron, in this order:
      1. Know exactly what to do today   2. A plan that moves with your week   3. Strength and cardio, one plan
      4. The right plan, in minutes       5. See it working
    How a plan gets started is sold as a convenience, not a mechanism: "design one around your goals", "bring the plan
@@ -50,38 +50,16 @@ export const PLACEHOLDER_NOTE = {
   words: "some words are drafts",
 };
 
-/* ---------- the main line ---------- */
-
-/** The hero's line: a headline, then a second line in the red pen's handwriting. A is the one Taylor liked; B says
-    the same thing plainly. Taylor hasn't formally picked, so MAIN_LINE switches between them: the hero, the link
-    preview and the closing band all follow it. */
-export const MAIN_LINES = {
-  A: {
-    heading: "Every hero had a trainer.",
-    hand: "Meet yours.",
-    // nothing public said where the name comes from before, so this story always comes with this line
-    story: "Named for Chiron, who trained Achilles." as string | null,
-    closing: "Train like a hero.",
-  },
-  B: {
-    heading: "A plan that keeps up with you.",
-    hand: "Even on busy weeks.",
-    story: null as string | null,
-    closing: "Your next workout is ready.",
-  },
-};
-export const MAIN_LINE: keyof typeof MAIN_LINES = "A";
-const LINE = MAIN_LINES[MAIN_LINE];
-
-/* ---------- hero ---------- */
+/* ---------- hero: the main line ---------- */
 
 export const HERO = {
   eyebrow: "Strength · Cardio · Recovery",
-  heading: LINE.heading,
-  // written under the headline in Caveat, the app's handwriting, in the red pen
-  hand: LINE.hand,
-  // a small line under the buttons, so the name's story is never left unexplained
-  story: LINE.story,
+  heading: "Every hero had a trainer.",
+  // written under the headline in Caveat, the app's handwriting, in the red pen; the link preview draws it too
+  hand: "Meet yours.",
+  // a small line under the buttons: nothing public said where the name comes from before, so the story always
+  // comes with this line
+  story: "Named for Chiron, who trained Achilles.",
   lede:
     "Kiron has today's workout ready, weights included, and moves your plan when your week changes. Strength and " +
     "cardio in one plan: pick a program, design one around your goals, or bring the plan you already follow.",
@@ -338,7 +316,8 @@ export const PRICING = {
 
 export const GET = {
   eyebrow: "Get Kiron",
-  heading: LINE.closing,
+  // the main line's own close
+  heading: "Train like a hero.",
   lede: "Kiron is on iPhone, iPad and Android. Try it free for 3 days on the weekly plan.",
   placeholder: false,
 };

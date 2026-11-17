@@ -89,7 +89,7 @@ export default function Home() {
               {HERO.secondary.label}
             </a>
           </div>
-          {HERO.story && <p className="hero-story">{HERO.story}</p>}
+          <p className="hero-story">{HERO.story}</p>
         </div>
         <div className="trio">
           {HERO.shots.map((shot, i) => (

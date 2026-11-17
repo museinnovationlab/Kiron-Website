@@ -92,7 +92,7 @@ test("the home page keeps to Kiron's words", () => {
     SITE.title,
   ];
   for (const h of headings) assert.doesNotMatch(h, /\bAI\b|photo|paste|\d+ (?:ready-made )?programs/i, h);
-  if (/hero|trainer/i.test(HERO.heading)) assert.match(HERO.story ?? "", /Chiron/, "the hero says where the name is from");
+  assert.match(HERO.story, /Chiron/, "the hero says where the name is from");
   assert.equal(WHY.cards.length, 5, "the five value props");
 });
 
