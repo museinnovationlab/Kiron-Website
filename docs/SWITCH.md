@@ -48,8 +48,8 @@ Until then, trykiron.com is the old site on Netlify, built from `main` of musein
 3. **Prices.** The site shows only what both stores sell that day. When Kiron's pricing or plans change, change four
    places together: `PRICING` and the FAQ's cost answer in `content/site.ts`, the Pricing section of `public/llms.txt`,
    and the price keys in `content/blog/kiron.json`. `npm test` checks the program count, not prices, so read them.
-4. **Pick up any edits made to the old site since 2026-11-14** (the privacy policy changes with features; `main` was
-   still `2059dd7` on 2026-11-18):
+4. **Pick up any edits made to the old site since 2026-11-14** (the privacy policy changes with features; last
+   imported from `eb74577` on 2026-11-18):
    ```bash
    git fetch origin && npm run import:legacy
    ```
