@@ -1,88 +1,103 @@
 # The switch: trykiron.com from Netlify to Vercel
 
-Nothing here has been done. Until these steps, trykiron.com is the old site on Netlify (built from `main` of
-museinnovationlab/Kiron-Website), and this site lives only on Vercel preview links behind Vercel's login.
+**When: the day Kiron 1.2.0 is released in both stores** (Taylor, 2026-11-18). The site describes 1.2: its 44
+programs, bringing your own plan, Whenever I train, adjusting a day, recovery from other apps' workouts, history from
+Fitbod, Strong or Hevy. Until 1.2.0 is released, the stores hand out 1.0.2, so the site would promise what people can't
+download yet. 1.2.0 is therefore submitted with its release held back (§1), and the site switches in the same sitting
+as the release.
 
-**The idea in one line:** get the new site live on Vercel at trykiron.com, then move two DNS records at Namecheap from
-Netlify's addresses to Vercel's, without touching the records that run email and verification.
+**The idea in one line:** the new site already waits on Vercel's production; on release day, the `@` and `www`
+records at Namecheap move from Netlify's addresses to Vercel's, without touching the records that run email and
+verification.
 
-## 0. Before the day
+Until then, trykiron.com is the old site on Netlify, built from `main` of museinnovationlab/Kiron-Website.
 
-1. **Kiron 1.2 is live in both stores.** The home page (rewritten for 1.2 on 2026-11-15) and the comparison posts
-   (`docs/POSTS.md`) describe 1.2: its 44 programs, photo import, adjusting a day, recovery from other apps' workouts,
-   history from Fitbod, Strong or Hevy. Before 1.2 is in the App Store and on Google Play, they'd promise what people
-   can't download yet. Check both store pages show version 1.2.
-2. **Placeholders.** Real screenshots are in, or Taylor has decided to switch with placeholders
+## Done ahead (2026-11-18)
+
+- **Domains, in Vercel** (project kiron-website, team berkeley-labs; added with `vercel api`, readable in Vercel →
+  kiron-website → Settings → Domains):
+  - `trykiron.com`: the main address, on Production. Verified, so no TXT record was needed.
+  - `www.trykiron.com`: redirects to `trykiron.com` (308). The bare domain is the main one, **the opposite of Bearing
+    and Jist**: iPhones and Android phones read the app-link files at `https://trykiron.com/.well-known/` and refuse a
+    redirect there, so with the bare domain redirecting, shared links would stop opening Kiron. (Vercel's "Add domain"
+    box suggests the other way round. Don't take it.)
+  - `kiron-website.vercel.app`, Vercel's own address for the project: redirects to `trykiron.com` (308). Vercel's login
+    guards preview and deployment addresses, but its "Standard Protection" leaves production addresses open, and this
+    one had been showing the site's first build since 2026-11-14. The redirect keeps the new site off the internet
+    until the switch, and afterwards keeps everything on one address.
+- **A production deployment** of `dfd2215`, the site as of 2026-11-18, already attached to trykiron.com in Vercel. Nobody
+  can reach it: DNS still points at Netlify, and its own address needs Vercel's login. Release day deploys again, with
+  the final screenshots and prices.
+- **The DNS values Vercel asked for** (`vercel api /v6/domains/trykiron.com/config`, 2026-11-18):
+
+  | Type | Host | Value |
+  |---|---|---|
+  | A | `@` | `216.150.1.1` |
+  | A | `@` | `216.150.16.1` |
+  | CNAME | `www` | `a2e54de5df5cf4b2.vercel-dns-016.com.` |
+
+  Read them again on the day (Settings → Domains shows them beside each domain). If they differ, use what Vercel shows.
+
+## 1. Before the day
+
+1. **The stores hold the release.** Before 1.2.0 goes to review: in App Store Connect, the version's *App Store Version
+   Release* is **Manually release this version**; in Play Console, **Managed publishing** is on. Approval then
+   publishes nothing; a click on release day does.
+2. **Placeholders.** Real screenshots are in, or Taylor has decided to switch with the ones there
    (`docs/PLACEHOLDERS.md`). Production never shows the preview bar either way.
-3. **Pick up any edits made to the old site since 2026-11-14** (the privacy policy changes with features):
+3. **Prices.** The site shows only what both stores sell that day. When Kiron's pricing or plans change, change four
+   places together: `PRICING` and the FAQ's cost answer in `content/site.ts`, the Pricing section of `public/llms.txt`,
+   and the price keys in `content/blog/kiron.json`. `npm test` checks the program count, not prices, so read them.
+4. **Pick up any edits made to the old site since 2026-11-14** (the privacy policy changes with features; `main` was
+   still `2059dd7` on 2026-11-18):
    ```bash
    git fetch origin && npm run import:legacy
    ```
    then `git diff content/legacy`. Commit what changed.
-4. **Vercel plan:** the berkeley-labs team ("Tay's projects") is on **Pro** (read 2026-11-14). Vercel's free Hobby
-   plan is for non-commercial sites only, so this matters for an app that sells subscriptions; no change needed.
-5. **Lower the TTL** (how long the internet caches an answer) on the two records that will change, a day ahead:
-   Namecheap → Domain List → trykiron.com → Manage → Advanced DNS → the `@` A records and the `www` CNAME → TTL
-   **1 min** (or 5 min). Then a mistake undoes itself in minutes, not hours.
+5. **Lower the TTL** (how long the internet caches an answer) a day ahead, so a mistake undoes itself in minutes:
+   Namecheap → Domain List → trykiron.com → Manage → Advanced DNS → the `www` CNAME → TTL **5 min**. The `@` A records
+   were already at 5 minutes on 2026-11-18; `www` was at 30.
+6. **Vercel plan:** the berkeley-labs team is on **Pro** (read 2026-11-14). Vercel's free Hobby plan is for
+   non-commercial sites only, which matters for an app that sells subscriptions; no change needed.
 
-## 1. Stop Netlify from building `main`
+## 2. On the day, in this order
 
-Merging this branch puts a Next.js app on `main`. Netlify would try to build it, using one of the month's limited
-deploys, and could replace the old site while DNS still points there.
+1. **Release 1.2.0 in both stores:** App Store Connect → the approved version → *Release This Version*; Play Console →
+   Publishing overview → *Publish changes*.
+2. **Deploy the final site** from this checkout. Check a preview of it first: Vercel's addresses are behind its login,
+   and the short-lived token `vercel env run` hands the script opens preview deployments only.
+   ```bash
+   vercel deploy
+   ```
+   ```bash
+   vercel env run -- node scripts/check-site.mjs <the preview URL it printed> --share w/<a real shared workout id>
+   ```
+   Then the same code to production (`trykiron.com` follows it on Vercel's side at once):
+   ```bash
+   vercel deploy --prod
+   ```
+   The token lasts 12 hours. If the check gets 302s, `vercel env pull .env.local --yes`, then
+   `git checkout -- .gitignore` (the CLI adds a line to it).
+3. **Change the DNS at Namecheap** (§3).
+4. **Wait for the certificate, then check everything** (§4).
+5. **Put the new site on GitHub** (§5). Only now: the repository is public, and the site's words and the draft posts
+   describe 1.2.
 
-Netlify → the trykiron.com site → **Site configuration → Build & deploy → Continuous deployment → Build settings →
-Stop builds**. The site keeps serving its last deploy, which is the fallback if anything goes wrong. Don't delete the
-site yet.
-
-## 2. Put the new site on `main`, and on Vercel's production
-
-```bash
-git switch main && git merge --no-ff claude/next-site-58a4b3 && git push origin main
-```
-
-Then in Vercel → **kiron-website** → Settings → **Git** → Connect Git Repository → `museinnovationlab/Kiron-Website`,
-production branch `main`. From then on, a push to `main` deploys, like Bearing's site. (Or, without connecting Git:
-`vercel deploy --prod` from the repo.) The project's Framework must stay **Next.js**; there must be no `vercel.json`
-setting `framework: null` (that broke Bearing once).
-
-Check the same code before any DNS changes. Vercel's own addresses are behind its login, and the short-lived token
-`vercel env run` hands the script opens preview deployments only, so check a preview of the merged commit:
-
-```bash
-vercel deploy
-```
-```bash
-vercel env run -- node scripts/check-site.mjs <the preview URL it printed>
-```
-
-## 3. Add the domains in Vercel: the bare domain is the main one
-
-Vercel → kiron-website → Settings → **Domains**:
-
-1. Add **`trykiron.com`**, connected to Production.
-2. Add **`www.trykiron.com`** and set it to **Redirect to `trykiron.com`** (308).
-
-**This is the opposite of Bearing and Jist**, and Vercel's "Add domain" box suggests their way round (redirect the bare
-domain to www). Don't take it: iPhones and Android phones read the app-link files at `https://trykiron.com/.well-known/`
-and refuse a redirect there. With the bare domain redirecting, shared links would stop opening Kiron.
-
-Vercel then shows the records it wants. For Bearing and Jist that was an **A record `216.198.79.1`** for the bare domain
-and a **CNAME to a project-specific `….vercel-dns-017.com`** for www. Use exactly what Vercel shows for Kiron.
-
-## 4. Namecheap: change two records, keep the rest
+## 3. Namecheap: change three values, keep the rest
 
 Namecheap → Domain List → trykiron.com → **Manage → Advanced DNS**. The nameservers stay Namecheap's.
 
-**Change** (these point at Netlify today, read 2026-11-14):
+**Change** (these pointed at Netlify on 2026-11-18):
 
-| Type | Host | Today (Netlify) | New (Vercel) |
+| Type | Host | Today (Netlify) | New (Vercel, §Done ahead) |
 |---|---|---|---|
-| A | `@` | `75.2.60.5` and `99.83.231.61` (two records) | Vercel's A record (one record; delete the second Netlify one) |
-| CNAME | `www` | `apex-loadbalancer.netlify.com` | Vercel's CNAME for www |
+| A | `@` | `75.2.60.5` | `216.150.1.1` |
+| A | `@` | `99.83.231.61` | `216.150.16.1` |
+| CNAME | `www` | `apex-loadbalancer.netlify.com` | `a2e54de5df5cf4b2.vercel-dns-016.com.` |
 
 **Delete, if it's there: a "URL Redirect Record"** for `@` or `www` (Namecheap's parking redirect). Jist's switch got
 stuck on one: while it was there, the domain still answered with Namecheap's redirect and Vercel couldn't issue its
-certificate. trykiron.com's `@` answered only Netlify's two addresses on 2026-11-14, so there's probably none, but look.
+certificate. trykiron.com's `@` answered only Netlify's two addresses on 2026-11-18, so there's probably none, but look.
 
 **Keep, untouched** (each one runs something):
 
@@ -97,7 +112,7 @@ certificate. trykiron.com's `@` answered only Netlify's two addresses on 2026-11
 | CNAME | `brevo1._domainkey`, `brevo2._domainkey` | `b1/b2.trykiron-com.dkim.brevo.com` | Brevo's email signatures |
 | TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com` | the email policy Brevo reports on |
 
-## 5. Wait for the certificate, then check everything
+## 4. Wait for the certificate, then check everything
 
 Vercel's Domains page turns both domains green within minutes of DNS updating (it issues the HTTPS certificate
 itself). Then:
@@ -119,6 +134,24 @@ Then the app links themselves:
 - **The app's own links:** Settings → Privacy and Terms, and the paywall's links, open the new pages.
 - **Email:** send a test to help@trykiron.com; it still arrives (the MX records were kept).
 
+## 5. Put the new site on GitHub
+
+1. **Stop Netlify from building `main`:** Netlify → the trykiron.com site → **Site configuration → Build & deploy →
+   Continuous deployment → Build settings → Stop builds**. Otherwise the merge below makes Netlify build a Next.js app,
+   using one of the month's limited deploys. The site keeps its last deploy, which is the fallback if anything goes
+   wrong. Don't delete it yet.
+2. **Before the branch's first push:** the secret scan in the Berkeley Labs boilerplate's `CREDENTIALS.md`, and a read
+   of what becomes public. The repository is public: the draft posts become readable there, though not on the site.
+3. **Merge and push**, in the checkout that has `main` (`origin/main` is an ancestor of this branch, so it merges
+   cleanly):
+   ```bash
+   git switch main && git merge --no-ff claude/next-site-58a4b3 && git push origin main
+   ```
+4. **Connect Vercel to the repository:** Vercel → **kiron-website** → Settings → **Git** → Connect Git Repository →
+   `museinnovationlab/Kiron-Website`, production branch `main`. From then on, a push to `main` deploys, like Bearing's
+   site. (Or keep deploying with `vercel deploy --prod`.) The project's Framework must stay **Next.js**; there must be
+   no `vercel.json` setting `framework: null` (that broke Bearing once).
+
 ## 6. Afterwards
 
 - Google Search Console (already verified by the TXT record) → Sitemaps → resubmit `https://trykiron.com/sitemap.xml`;
@@ -136,10 +169,11 @@ HTML), since `main` no longer holds the old site. Their addresses don't change.
 1. **Publish the comparison posts one at a time**, only once Kiron 1.2 is live in both stores, and each only after
    Taylor's final read of it on a preview. Publishing a post is setting its `"draft"` to `false` and its dates
    (`date`, `jsonLd.datePublished`, `jsonLd.dateModified`, and the card's `meta` in `content/blog/index.json`) to the
-   day it goes live; then deploy. The eight drafts (from `blog/kiron-vs`, `dd40da3`; their sources and the facts they
-   rest on are in `docs/COMPARISONS.md`): `fitbod-alternative`, `stronglifts-alternative`, `runna-strength-training`,
+   day it goes live; then deploy. The nine drafts (from `blog/kiron-vs`; their sources and the facts they rest on are
+   in `docs/COMPARISONS.md`): `fitbod-alternative`, `stronglifts-alternative`, `runna-strength-training`,
    `ladder-app-alternative`, `hevy-vs-kiron`, `strong-app-alternative`, `workout-app-for-following-a-program` (the
-   hub), `export-workout-history` (a guide).
+   hub), `export-workout-history` (a guide), and `huberman-workout-routine` (a guide to Huberman's routine). Their
+   prices come from `content/blog/kiron.json`, so check it says what both stores sell before publishing any.
 2. **Link the old posts to the new ones**, each link only once its new post is published (a link to a draft leads to
    a page search engines are told to skip):
 

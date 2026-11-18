@@ -13,12 +13,17 @@ npm run build    # runs the tests, then builds
 ## Where it lives: two sites until the switch
 
 - **trykiron.com is still the OLD site on Netlify**, deployed from `main` of museinnovationlab/Kiron-Website. Netlify
-  limits deploys per month. **Don't push `main`** (nor merge into it) until the switch in `docs/SWITCH.md`.
+  limits deploys per month. **Don't push `main`** (nor merge into it) until the switch in `docs/SWITCH.md`, which
+  happens on the day Kiron 1.2.0 is released in both stores.
 - **This site is on Vercel**, project `kiron-website` in the berkeley-labs team ("Tay's projects", Pro). Not connected
   to Git yet: previews deploy from a checkout with `vercel deploy` (the CLI is signed in). Preview links sit behind
   Vercel's login. Framework must be Next.js; no `vercel.json` (one with `framework: null` broke Bearing's once).
+- Since 2026-11-18, trykiron.com and www are attached to the Vercel project and a production deployment waits there,
+  unreachable until DNS moves. `kiron-website.vercel.app` redirects to trykiron.com because Vercel's login doesn't
+  cover production addresses: so `vercel deploy --prod` publishes nothing before the switch, but check deployments
+  through a preview (`docs/SWITCH.md`).
 - The branch is local only: GitHub shows no Netlify statuses for any branch, so whether Netlify builds pushed
-  branches couldn't be confirmed. Push only once that's known.
+  branches couldn't be confirmed. It's pushed on release day, after Netlify's builds are stopped (SWITCH.md §5).
 
 ## The addresses that cannot move
 
