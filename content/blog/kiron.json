@@ -17,6 +17,6 @@
   "cell-two-years": "$99.98",
   "cell-platforms": "iPhone and Android",
   "cell-watch": "No (reads heart rate from Health afterwards)",
-  "cell-offline": "No: needs a connection to open a workout",
+  "cell-offline": "Yes",
   "program-count": "44"
 }
