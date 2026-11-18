@@ -62,8 +62,10 @@ Until then, trykiron.com is the old site on Netlify, built from `main` of musein
 
 ## 2. On the day, in this order
 
-1. **Release 1.2.0 in both stores:** App Store Connect → the approved version → *Release This Version*; Play Console →
-   Publishing overview → *Publish changes*.
+1. **Release 1.2.0 in both stores:** App Store Connect → the version marked *Pending Developer Release* → *Release
+   This Version* (top right) → *Confirm*; Play Console → Publishing overview → *Changes ready to publish* → *Publish
+   changes*. Apple says a release can take up to 24 hours to appear on the App Store (usually far less), so change
+   DNS (step 3) once both store pages show 1.2.0.
 2. **Deploy the final site** from this checkout. Check a preview of it first: Vercel's addresses are behind its login,
    and the short-lived token `vercel env run` hands the script opens preview deployments only.
    ```bash
