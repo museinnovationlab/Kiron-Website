@@ -14,7 +14,7 @@ npm run build    # runs the tests, then builds
 
 - **trykiron.com is still the OLD site on Netlify**, deployed from `main` of museinnovationlab/Kiron-Website. Netlify
   limits deploys per month. **Don't push `main`** (nor merge into it) until the switch in `docs/SWITCH.md`, which
-  happens on the day Kiron 1.2.0 is released in both stores.
+  happens once Kiron 1.2.0 is out in both stores (they release it on approval; no hold).
 - **This site is on Vercel**, project `kiron-website` in the berkeley-labs team ("Tay's projects", Pro). Not connected
   to Git yet: previews deploy from a checkout with `vercel deploy` (the CLI is signed in). Preview links sit behind
   Vercel's login. Framework must be Next.js; no `vercel.json` (one with `framework: null` broke Bearing's once).

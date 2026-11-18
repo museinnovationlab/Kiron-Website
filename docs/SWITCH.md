@@ -1,10 +1,10 @@
 # The switch: trykiron.com from Netlify to Vercel
 
-**When: the day Kiron 1.2.0 is released in both stores** (Taylor, 2026-11-18). The site describes 1.2: its 44
-programs, bringing your own plan, Whenever I train, adjusting a day, recovery from other apps' workouts, history from
-Fitbod, Strong or Hevy. Until 1.2.0 is released, the stores hand out 1.0.2, so the site would promise what people can't
-download yet. 1.2.0 is therefore submitted with its release held back (§1), and the site switches in the same sitting
-as the release.
+**When: once Kiron 1.2.0 is out in both stores** (Taylor, 2026-11-18). The site describes 1.2: its 44 programs,
+bringing your own plan, Whenever I train, adjusting a day, recovery from other apps' workouts, history from Fitbod,
+Strong or Hevy. Until 1.2.0 is out, the stores hand out 1.0.2, so the site would promise what people can't download
+yet. There's no hold on the release: each store publishes 1.2.0 as soon as it approves it (Taylor would rather the app
+go out a little before the website than add a release step), and the site switches once both store pages show 1.2.0.
 
 **The idea in one line:** the new site already waits on Vercel's production; on release day, the `@` and `www`
 records at Namecheap move from Netlify's addresses to Vercel's, without touching the records that run email and
@@ -40,9 +40,9 @@ Until then, trykiron.com is the old site on Netlify, built from `main` of musein
 
 ## 1. Before the day
 
-1. **The stores hold the release.** Before 1.2.0 goes to review: in App Store Connect, the version's *App Store Version
-   Release* is **Manually release this version**; in Play Console, **Managed publishing** is on. Approval then
-   publishes nothing; a click on release day does.
+1. **The stores release on approval.** In App Store Connect, the 1.2.0 version's *App Store Version Release* stays
+   **Automatically release this version** (the default); in Play Console, **Managed publishing** is off. Nobody has to
+   click anything when they approve.
 2. **Placeholders.** Real screenshots are in, or Taylor has decided to switch with the ones there
    (`docs/PLACEHOLDERS.md`). Production never shows the preview bar either way.
 3. **Prices.** The site shows only what both stores sell that day. When Kiron's pricing or plans change, change four
@@ -54,18 +54,23 @@ Until then, trykiron.com is the old site on Netlify, built from `main` of musein
    git fetch origin && npm run import:legacy
    ```
    then `git diff content/legacy`. Commit what changed.
-5. **Lower the TTL** (how long the internet caches an answer) a day ahead, so a mistake undoes itself in minutes:
-   Namecheap → Domain List → trykiron.com → Manage → Advanced DNS → the `www` CNAME → TTL **5 min**. The `@` A records
-   were already at 5 minutes on 2026-11-18; `www` was at 30.
+5. **Optional: lower the `www` TTL** (how long the internet caches an answer): Namecheap → Domain List → trykiron.com
+   → Manage → Advanced DNS → the `www` CNAME → TTL **5 min**. The `@` A records, the ones that matter, were already at
+   5 minutes on 2026-11-18; `www` was at 30, so without this `www` takes up to half an hour to follow (it only
+   redirects to the bare domain).
 6. **Vercel plan:** the berkeley-labs team is on **Pro** (read 2026-11-14). Vercel's free Hobby plan is for
    non-commercial sites only, which matters for an app that sells subscriptions; no change needed.
 
 ## 2. On the day, in this order
 
-1. **Release 1.2.0 in both stores:** App Store Connect → the version marked *Pending Developer Release* → *Release
-   This Version* (top right) → *Confirm*; Play Console → Publishing overview → *Changes ready to publish* → *Publish
-   changes*. Apple says a release can take up to 24 hours to appear on the App Store (usually far less), so change
-   DNS (step 3) once both store pages show 1.2.0.
+1. **Both store pages show 1.2.0.** Each store publishes it on approval, possibly days apart, and Apple says a release
+   can take up to 24 hours to show on the App Store. Check both (each printed 1.0.2 on 2026-11-18):
+   ```bash
+   curl -s 'https://itunes.apple.com/lookup?id=6761926770' | jq -r '.results[0].version'
+   ```
+   ```bash
+   curl -s -A 'Mozilla/5.0' 'https://play.google.com/store/apps/details?id=com.kiron&hl=en_US&gl=US' | grep -oE '\[\[\["1\.[0-9]+\.[0-9]+"\]\]'
+   ```
 2. **Deploy the final site** from this checkout. Check a preview of it first: Vercel's addresses are behind its login,
    and the short-lived token `vercel env run` hands the script opens preview deployments only.
    ```bash
@@ -140,8 +145,8 @@ Then the app links themselves:
 
 1. **Stop Netlify from building `main`:** Netlify → the trykiron.com site → **Site configuration → Build & deploy →
    Continuous deployment → Build settings → Stop builds**. Otherwise the merge below makes Netlify build a Next.js app,
-   using one of the month's limited deploys. The site keeps its last deploy, which is the fallback if anything goes
-   wrong. Don't delete it yet.
+   using one of the month's limited deploys, and replaces the old site that is the fallback if anything goes wrong.
+   This can be done any day before the merge: the site keeps serving its last deploy either way. Don't delete it yet.
 2. **Before the branch's first push:** the secret scan in the Berkeley Labs boilerplate's `CREDENTIALS.md`, and a read
    of what becomes public. The repository is public: the draft posts become readable there, though not on the site.
 3. **Merge and push**, in the checkout that has `main` (`origin/main` is an ancestor of this branch, so it merges
