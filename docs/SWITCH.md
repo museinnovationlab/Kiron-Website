@@ -43,8 +43,8 @@ Until then, trykiron.com is the old site on Netlify, built from `main` of musein
 1. **The stores release on approval.** In App Store Connect, the 1.2.0 version's *App Store Version Release* stays
    **Automatically release this version** (the default); in Play Console, **Managed publishing** is off. Nobody has to
    click anything when they approve.
-2. **Placeholders.** Real screenshots are in, or Taylor has decided to switch with the ones there
-   (`docs/PLACEHOLDERS.md`). Production never shows the preview bar either way.
+2. **Screenshots: done 2026-11-18.** Real ones from Release builds of 1.2.0, none left as a placeholder
+   (`docs/PLACEHOLDERS.md`); the check script reports "Placeholders still on the home page: 0".
 3. **Prices.** The site shows only what both stores sell that day. Since 2026-11-18 it's set for Monthly $9.99 and
    Yearly $49.99, each with a 7-day free trial for new subscribers (`PRICING`, the closing band and the FAQ's cost
    answer in `content/site.ts`, and the Pricing section of `public/llms.txt`). Google Play sells both; the App Store's

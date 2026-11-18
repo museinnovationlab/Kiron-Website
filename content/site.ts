@@ -14,10 +14,10 @@
    each is true. Taylor's rule still holds: no superlatives, only specific claims someone could check in the app.
    Strava isn't mentioned: it's in 1.2, but switched off until Strava approves the app.
 
-   SCREENSHOTS are still placeholders: the 1.2.0 App Store set (Kiron/store-screenshots/1.2.0/ios-6.9, shot Nov 11,
-   before the Today redesign), downscaled to 640x1391 into public/shots/. Each is marked `placeholder: true`, which the
-   preview bar shows (preview builds only) and the check script counts; a block of words can be marked the same way.
-   Replace it, then delete the flag. docs/PLACEHOLDERS.md lists them all. */
+   SCREENSHOTS are real (2026-11-18): Release builds of 1.2.0 on an iPhone 6.9" simulator, eight shot for the site and
+   three kept from the Nov 11 App Store set, full size in assets/screenshots-full/ and 640x1391 in public/shots/.
+   A screenshot or block of words can still be marked `placeholder: true`: the preview bar shows it (preview builds
+   only) and the check script counts it. docs/PLACEHOLDERS.md says what each shows. */
 
 export type Shot = {
   /** file in public/shots, without .png */
@@ -47,7 +47,7 @@ export const PROGRAM_COUNT = 44;
 
 /** What the preview bar says is still a placeholder. */
 export const PLACEHOLDER_NOTE = {
-  screens: "Screens are the 1.2.0 App Store set (Nov 11, before the Today redesign)",
+  screens: "Some screens are stand-ins",
   words: "some words are drafts",
 };
 
@@ -66,9 +66,17 @@ export const HERO = {
     "cardio in one plan: pick a program, design one around your goals, or bring the plan you already follow.",
   secondary: { href: "#how", label: "See how it works" },
   shots: [
-    { file: "02-logger", alt: "Kiron's workout screen: sets of a squat ticked off, with the rest timer running", placeholder: true },
-    { file: "01-home", alt: "Kiron's home screen: today's workout, Week 1: Squat + Bench, with a Start Workout button", placeholder: true },
-    { file: "05-recovery", alt: "Kiron's muscle recovery map: front and back of a body, the worked muscles in red", placeholder: true },
+    { file: "02-logger", alt: "Kiron's workout screen: sets of a squat ticked off, with the rest timer running", placeholder: false },
+    {
+      file: "today-up-next",
+      alt: "Kiron's Today screen: this week's strip, up next Lower A: Quads with its exercises, a note that the quads are still recovering from a ski day, and Start workout",
+      placeholder: false,
+    },
+    {
+      file: "history-recovery",
+      alt: "Kiron's History screen: 10 weeks in a row, and the muscle recovery map, front and back, with the legs still recovering after a ski day",
+      placeholder: false,
+    },
   ] satisfies Shot[],
   placeholder: false,
 };
@@ -133,9 +141,9 @@ export const BEATS: Beat[] = [
     ],
     ticks: [`${PROGRAM_COUNT} ready-made programs`, "Designed around your goals", "Built by hand", "The plan you already follow"],
     shot: {
-      file: "03-programs",
-      alt: "Kiron's preset programs, with filters for goal, days, equipment and level: First Month in the Gym, 30-Minute Dumbbell, Beginner 5K",
-      placeholder: true,
+      file: "programs-that-fit",
+      alt: "Kiron's programs that fit, for building muscle four days a week with a full gym: Upper / Lower Muscle marked best fit, PHUL, a five-day split, and Design one around your goals",
+      placeholder: false,
     },
     placeholder: false,
   },
@@ -152,9 +160,9 @@ export const BEATS: Beat[] = [
     ],
     note: ["Nothing planned today. Recovery is part of the plan.", "Kiron, on a rest day"],
     shot: {
-      file: "01-home",
-      alt: "Kiron's Today screen: this week's Squat + Bench workout, 10 weeks in a row, and Start another workout",
-      placeholder: true,
+      file: "schedule-sheet",
+      alt: "Kiron's Schedule sheet: Whenever I train or Fixed days, training days Monday, Wednesday and Friday, and Move missed workouts for me switched on",
+      placeholder: false,
     },
     placeholder: false,
   },
@@ -172,9 +180,9 @@ export const BEATS: Beat[] = [
     ticks: ["Shorter or longer", "Core, arms or a finisher", "Swap a lift for today or for good", "Another gym's equipment"],
     note: ["I'm sore, adjust today's workout", "A button in the app, after a run or ski day"],
     shot: {
-      file: "05b-sore-day-note",
-      alt: "Kiron noticing that a ski day tired the legs, offering to adjust today's workout, with Adjust today's workout below",
-      placeholder: true,
+      file: "adjust-today",
+      alt: "Kiron's Adjust today's workout sheet: change the duration, add to today, train at a hotel gym today, or use different equipment",
+      placeholder: false,
     },
     placeholder: false,
   },
@@ -192,9 +200,9 @@ export const BEATS: Beat[] = [
     ],
     ticks: ["Weights filled in", "A note on why", "Plates for each side", "A rest timer that starts itself"],
     shot: {
-      file: "02-logger",
-      alt: "Kiron's workout screen: warm-up and working sets ticked, plates for each side, and the rest timer",
-      placeholder: true,
+      file: "first-set-check",
+      alt: "Kiron's workout screen: Hack Squat with Kiron's note on how it picked 150 lb, the warm-ups and first set ticked, and How did 150 lb feel? Too easy, Just right or Too hard",
+      placeholder: false,
     },
     placeholder: false,
   },
@@ -210,9 +218,9 @@ export const BEATS: Beat[] = [
         "Apple Health or Health Connect, read on your phone and never stored.",
     ],
     shot: {
-      file: "05-recovery",
-      alt: "Kiron's muscle recovery map, front and back, with cardio and readiness rings",
-      placeholder: true,
+      file: "recovery-other-apps",
+      alt: "Kiron's recovery screen: training load week by week, then workouts from other apps, a ski day and a run from an Apple Watch, read from Apple Health",
+      placeholder: false,
     },
     placeholder: false,
   },
@@ -229,7 +237,7 @@ export const BEATS: Beat[] = [
     shot: {
       file: "04-progress",
       alt: "Kiron's progress for the squat: estimated one-rep max over three months, best ever and heaviest set",
-      placeholder: true,
+      placeholder: false,
     },
     placeholder: false,
   },
@@ -246,7 +254,7 @@ export const BEATS: Beat[] = [
     shot: {
       file: "07-reports",
       alt: "Kiron's weekly report: 2 workouts, 2 of 3 planned done, time, sets, volume and new bests",
-      placeholder: true,
+      placeholder: false,
     },
     placeholder: false,
   },
@@ -283,9 +291,9 @@ export const CONNECTIONS = {
     },
   ],
   shot: {
-    file: "06b-workout-card",
-    alt: "Kiron's share card for a finished workout: the muscles worked, minutes, sets and pounds moved",
-    placeholder: true,
+    file: "import-summary",
+    alt: "Kiron ready to import from Strong: 48 workouts from Aug 24 to Nov 13, 2026, all 19 exercises matched to Kiron's library, and Import 48 workouts",
+    placeholder: false,
   } satisfies Shot,
   placeholder: false,
 };

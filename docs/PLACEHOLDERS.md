@@ -1,35 +1,43 @@
 # Placeholders: what's still to replace
 
-Taylor decided (2026-11-14) on **real screenshots** once the app's screens are final. Until then the screenshots are
-placeholders, and each is marked three ways:
+**Nothing, since 2026-11-18.** Taylor decided (2026-11-14) on real screenshots once the app's screens were final, and
+they are in. The mechanism stays for anything that needs a stand-in later. A placeholder is marked three ways:
 
-- in `content/site.ts`, `placeholder: true` on the screenshot (the only file to edit);
+- in `content/site.ts`, `placeholder: true` on the screenshot or block of words (the only file to edit);
 - on preview builds, a bar above the nav says so (never on production; `components/preview-bar.tsx`);
 - on the page, a `data-placeholder` attribute on each, which `scripts/check-site.mjs` counts ("Placeholders still on
-  the home page: 11").
+  the home page: 0").
 
-When one is replaced, delete its flag. When none are left, the bar disappears on its own. A block of words can be
-flagged the same way (`placeholder: true` on the block); none is now.
+When one is replaced, delete its flag. When none are left, the bar disappears on its own.
 
-## Screenshots (the 1.2.0 App Store set, shot Nov 11, before the Today redesign)
+## Screenshots (real, 2026-11-18)
 
-Source: `Kiron/store-screenshots/1.2.0/ios-6.9` (1320×2868), downscaled to 640×1391 into `public/shots/`.
+Release builds of Kiron 1.2.0 (`release/1.2.0` at `cf2abc1`, the code that went to review) on an iPhone 6.9" simulator,
+1320×2868, status bar at 9:41, every screen reached by tapping in the app. Two demo accounts on a local Firebase
+emulator: no real person, no production data, Strava hidden. Eight were shot for the site on 2026-11-18. Three are
+kept from the Nov 11 App Store set because those screens haven't changed (a code check on 2026-11-18 compared each
+screen at the Nov 11 build with `release/1.2.0`). Full size in `assets/screenshots-full/` (its `NOTES.md` says how each
+was reached), 640×1391 Lanczos copies in `public/shots/`.
 
-| Where | Placeholder | The real one should show |
+| Where | File | What it shows |
 |---|---|---|
-| Hero, left | `02-logger` | the workout screen mid-session: sets ticked, plates line, rest timer |
-| Hero, centre (the main one) | `01-home` | Today after the redesign: today's workout and the week strip |
-| Hero, right | `05-recovery` | the muscle recovery map |
-| Story 1, your plan | `03-programs` | the preset list with its filters, or a program ready to start (sell the choice, not how a plan gets in) |
-| Story 2, your week | `01-home` | Today with "Up next" (Whenever I train) or the week strip, or the Schedule sheet (set days or Whenever I train, Move missed workouts for me) |
-| Story 3, adjust today | `05b-sore-day-note` | the "Adjust today's workout" sheet (Change the duration, Different equipment, At ⟨gym⟩ today, Add to today), or a change's note with Undo |
-| Story 4, today's workout | `02-logger` | a lift with its weight filled in and Kiron's note on why, or "How did 35 lb feel?"; the plates line and the rest timer |
-| Story 5, strength and cardio | `05-recovery` | a run in the workout screen, or a week mixing runs and lifts (Run + Lift), or recovery with another app's run |
-| Story 6, progress | `04-progress` | a lift's chart with a record |
-| Story 7, reports, badges and streaks | `07-reports` | a week's report with set targets, or the Badges screen |
-| "Works with" band | `06b-workout-card` | the "Import from another app" summary (how exercises matched), or a shared workout's link page |
+| Hero, left | `02-logger` (Nov 11) | the workout screen mid-session: sets ticked, a record stamp, the plates line, the rest timer |
+| Hero, centre (the main one) | `today-up-next` | Today in Whenever I train: this week's strip, up next Lower A: Quads, the recovery line, Start workout |
+| Hero, right | `history-recovery` | History: 10 weeks in a row, and the muscle recovery map after a ski day |
+| Story 1, your plan | `programs-that-fit` | programs that fit a new user's answers, best fit first, then Design one around your goals |
+| Story 2, your week | `schedule-sheet` | the Schedule sheet: Whenever I train or Fixed days, training days, Move missed workouts for me |
+| Story 3, adjust today | `adjust-today` | the "Adjust today's workout" sheet: duration, Add to today, another gym, different equipment |
+| Story 4, today's workout | `first-set-check` | Hack Squat with Kiron's note on its weight, and "How did 150 lb feel?" after the first set |
+| Story 5, strength and cardio | `recovery-other-apps` | training load, and workouts from other apps: a ski day and an Apple Watch run |
+| Story 6, progress | `04-progress` (Nov 11) | the squat's chart, best ever and heaviest set |
+| Story 7, reports, badges and streaks | `07-reports` (Nov 11) | a week's report: workouts against planned, time, sets, new bests |
+| "Works with" band | `import-summary` | ready to import 48 workouts from Strong, all 19 exercises matched |
 
-**How to shoot them** (what Bearing learned, `Bearing-Website/assets/screenshots-full/NOTES.md`):
+Shot the same day but not used (in `Kiron/store-screenshots/1.2.0/website/`): a program's page with Kiron's note and
+the body-map week, the same program once started, a lift's starting weight before the first set, Your first week, and
+the import's exercise matches.
+
+**How to reshoot one** (what Bearing learned, `Bearing-Website/assets/screenshots-full/NOTES.md`):
 
 1. A **Release** build on the iOS simulator (a development build shows the dev-client's floating gear), iPhone at
    6.9" (1320×2868) to match the store set, the status bar at 9:41 with full bars and battery (`xcrun simctl
