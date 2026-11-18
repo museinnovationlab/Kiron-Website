@@ -15,7 +15,7 @@
     "glyphs": "node scripts/build-glyphs.mjs"
   },
   "dependencies": {
-    "next": "16.4.3",
+    "next": "16.4.6",
     "react": "19.2.9",
     "react-dom": "19.2.9"
   },
