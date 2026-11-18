@@ -39,10 +39,11 @@ export type Beat = {
   placeholder?: boolean;
 };
 
-/** How many ready-made programs the app has (src/data/presets on release/1.2.0): 36 at the copy pass, 37 since the
-    7-Day Longevity Protocol went out over the air on 2026-11-16. Every count on the home page is this number, and
-    test/site.test.mjs checks llms.txt and the posts' content/blog/kiron.json ("program-count") say the same. */
-export const PROGRAM_COUNT = 37;
+/** How many ready-made programs the app has (src/data/presets on release/1.2.0): 36 at the copy pass, 37 once the
+    7-Day Longevity Protocol went out over the air on 2026-11-16, 44 since seven more did on 2026-11-17 (21:36 PT).
+    Every count on the home page is this number, and test/site.test.mjs checks llms.txt and the posts'
+    content/blog/kiron.json ("program-count") say the same. */
+export const PROGRAM_COUNT = 44;
 
 /** What the preview bar says is still a placeholder. */
 export const PLACEHOLDER_NOTE = {
@@ -124,8 +125,9 @@ export const BEATS: Beat[] = [
     eyebrow: "Your plan",
     heading: "Pick one, design one, or bring your own.",
     body: [
-      "Strength with training maxes, muscle-building splits, beginner barbell, bodyweight, dumbbell, kettlebell and " +
-        "band plans, and running from a first 5K to a marathon. Filter them by goal, days a week, equipment and level.",
+      "Strength with training maxes, muscle-building splits, powerbuilding, and beginner plans for 3 to 6 days a week. " +
+        "Bodyweight, dumbbell, kettlebell and band plans, a four-week comeback after time away, and running from a " +
+        "first 5K to a marathon. Filter them by goal, days a week, equipment and level.",
       "Or design a program around your goals, or build one by hand. Already follow a plan from a coach, another app " +
         "or ChatGPT? Bring it, and Kiron runs it, one workout at a time.",
     ],
@@ -327,10 +329,12 @@ export const GET = {
 export const FAQ: [question: string, answer: string][] = [
   [
     "What programs does Kiron have?",
-    `${PROGRAM_COUNT} ready-made programs, from 2 to 6 days a week: strength (including wave loading with training maxes and two ` +
-      "beginner barbell plans), muscle-building splits, bodyweight, dumbbell, kettlebell and band plans, and " +
-      "endurance plans from a first 5K to a marathon, plus cycling, rucking and a sprint triathlon. You can also " +
-      "design one around your goals, build your own, or bring the plan you already follow.",
+    `${PROGRAM_COUNT} ready-made programs, from 2 to 6 days a week: strength (including wave loading with training maxes, two ` +
+      "beginner barbell plans and powerbuilding), muscle-building splits, beginner plans for up to six days a week, " +
+      "bodyweight, dumbbell, kettlebell and band plans, 20-minute dumbbell days, a four-week comeback for lifters " +
+      "returning after time away, plans that mix strength and cardio, and endurance plans from a first 5K to a " +
+      "marathon, plus cycling, rucking and a sprint triathlon. You can also design one around your goals, build your " +
+      "own, or bring the plan you already follow.",
   ],
   [
     "Can I bring the plan I already follow?",
@@ -346,8 +350,9 @@ export const FAQ: [question: string, answer: string][] = [
   ],
   [
     "How does Kiron pick my weights?",
-    "From what you've lifted. A lift you did in the last four weeks starts from last time, with a step up when you " +
-      "hit every set. One you haven't done for a while starts a little lighter. For one you've never done, Kiron works " +
+    "From what you've lifted. A lift you did lately starts from last time's weight, or a step up when you hit every " +
+      "set. One you haven't done for a month or more starts lighter, more so the longer it's been. For one you've " +
+      "never done, Kiron works " +
       "from a related lift you have done, or from typical starting numbers for your sex, body weight and age, and " +
       "leaves a note saying how it got there. After the first set, tell it how the weight felt and it adjusts the rest.",
   ],

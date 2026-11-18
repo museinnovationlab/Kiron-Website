@@ -9,7 +9,7 @@ Netlify's addresses to Vercel's, without touching the records that run email and
 ## 0. Before the day
 
 1. **Kiron 1.2 is live in both stores.** The home page (rewritten for 1.2 on 2026-11-15) and the comparison posts
-   (`docs/POSTS.md`) describe 1.2: its 37 programs, photo import, adjusting a day, recovery from other apps' workouts,
+   (`docs/POSTS.md`) describe 1.2: its 44 programs, photo import, adjusting a day, recovery from other apps' workouts,
    history from Fitbod, Strong or Hevy. Before 1.2 is in the App Store and on Google Play, they'd promise what people
    can't download yet. Check both store pages show version 1.2.
 2. **Placeholders.** Real screenshots are in, or Taylor has decided to switch with placeholders
