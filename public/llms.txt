@@ -50,8 +50,9 @@ Kiron uses AI only when someone asks it to design a program or read a plan they 
 ## Pricing
 
 Free to download. A subscription unlocks programs and logging:
-- **Weekly**: $4.99 a week, with a 3-day free trial.
-- **Annual**: $49.99 a year (about $0.96 a week).
+- **Monthly**: $9.99 a month.
+- **Yearly**: $49.99 a year (about $4.17 a month).
+New subscribers get a 7-day free trial on either plan.
 Prices are in US dollars; the App Store or Google Play shows local prices.
 
 ## Availability

@@ -45,9 +45,13 @@ Until then, trykiron.com is the old site on Netlify, built from `main` of musein
    click anything when they approve.
 2. **Placeholders.** Real screenshots are in, or Taylor has decided to switch with the ones there
    (`docs/PLACEHOLDERS.md`). Production never shows the preview bar either way.
-3. **Prices.** The site shows only what both stores sell that day. When Kiron's pricing or plans change, change four
-   places together: `PRICING` and the FAQ's cost answer in `content/site.ts`, the Pricing section of `public/llms.txt`,
-   and the price keys in `content/blog/kiron.json`. `npm test` checks the program count, not prices, so read them.
+3. **Prices.** The site shows only what both stores sell that day. Since 2026-11-18 it's set for Monthly $9.99 and
+   Yearly $49.99, each with a 7-day free trial for new subscribers (`PRICING`, the closing band and the FAQ's cost
+   answer in `content/site.ts`, and the Pricing section of `public/llms.txt`). Google Play sells both; the App Store's
+   Monthly goes on sale once Apple approves it with 1.2.0. **On the day, before deploying,** check that it did
+   (App Store Connect → Kiron → Subscriptions → Kiron Monthly is Approved, or ask the pricing session); if not, take
+   the Monthly card out. The posts' prices come from `content/blog/kiron.json`, which still had the weekly plan on
+   2026-11-18: change it before publishing any post. `npm test` checks the program count, not prices, so read them.
 4. **Pick up any edits made to the old site since 2026-11-14** (the privacy policy changes with features; last
    imported from `eb74577` on 2026-11-18):
    ```bash

@@ -295,7 +295,7 @@ export const CONNECTIONS = {
 export const PRICING = {
   eyebrow: "Pricing",
   heading: "Two plans, the same app.",
-  lede: "Try the weekly plan free for 3 days. Cancel anytime in your App Store or Google Play account.",
+  lede: "Both plans start with 7 days free. Cancel anytime in your App Store or Google Play account.",
   // what a subscription gets you: the five value props, short
   features: [
     "Today's workout, with weights picked for you",
@@ -305,12 +305,15 @@ export const PRICING = {
     "Records, charts and reports",
   ],
   plans: [
-    { name: "Weekly", price: "$4.99", per: "per week", note: "3-day free trial", hand: "3 days free", cta: "Start free trial", feature: false },
-    // the app's paywall badge rounds down the same way: 1 − 49.99 / (4.99 × 52) = 80.7%
-    { name: "Annual", price: "$49.99", per: "per year", note: "$0.96 a week", stamp: "Save 80%", hand: null, cta: "Get annual", feature: true },
+    // the app's paywall names them Monthly and Yearly, both with a 7-day free trial for new subscribers
+    { name: "Monthly", price: "$9.99", per: "per month", note: "7-day free trial", hand: "7 days free", cta: "Start free trial", feature: false },
+    // the app's paywall badge rounds down the same way: 1 − 49.99 / (9.99 × 12) = 58.3%
+    { name: "Yearly", price: "$49.99", per: "per year", note: "about $4.17 a month", stamp: "Save 58%", hand: null, cta: "Start free trial", feature: true },
   ],
   // the store sets the real price, trial and currency; this line stops the page promising otherwise
-  finePrint: "Prices in US dollars. Your App Store or Google Play account shows the price and trial where you live.",
+  finePrint:
+    "Prices in US dollars. The free trial is for new subscribers. Your App Store or Google Play account shows the " +
+    "price and trial where you live.",
   placeholder: false,
 };
 
@@ -320,7 +323,7 @@ export const GET = {
   eyebrow: "Get Kiron",
   // the main line's own close
   heading: "Train like a hero.",
-  lede: "Kiron is on iPhone, iPad and Android. Try it free for 3 days on the weekly plan.",
+  lede: "Kiron is on iPhone, iPad and Android. Start with 7 days free.",
   placeholder: false,
 };
 
@@ -382,8 +385,8 @@ export const FAQ: [question: string, answer: string][] = [
   ],
   [
     "How much does it cost?",
-    "Kiron is free to download. A subscription unlocks programs and logging: $4.99 a week with a 3-day free trial, " +
-      "or $49.99 a year. Cancel anytime in your App Store or Google Play account.",
+    "Kiron is free to download. A subscription unlocks programs and logging: $9.99 a month or $49.99 a year, and new " +
+      "subscribers get 7 days free on either plan. Cancel anytime in your App Store or Google Play account.",
   ],
   ["Why is it called Kiron?", "It's named for Chiron, the centaur of Greek myth who trained Achilles, Jason and Heracles."],
 ];

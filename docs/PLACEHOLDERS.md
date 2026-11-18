@@ -111,9 +111,11 @@ add up") and `KIRON_ROADMAP.md` Part 1. Every claim was checked in the app's cod
 - **Anything that isn't live.** The repository is public, so nothing about features or prices still on their way goes
   here, in the words or around them.
 
-**Prices** are the App Store's (Kiron Weekly $4.99, Kiron Annual $49.99, read 2026-11-15). The 3-day trial is on the
-weekly plan: `RELEASES.md` records Google Play's as 3 days (read live 2026-11-06), and the app's paywall shows
-whatever trial the store reports. In 1.2 a subscription unlocks programs and logging. **Before the switch**, check them
+**Prices** are set for the switch (2026-11-18): Monthly $9.99 and Yearly $49.99, each with a 7-day free trial for new
+subscribers, as the app's 1.2 paywall names them. Google Play has sold both with their trials since 2026-11-18; the App
+Store's Yearly trial started 2026-11-17, and its Monthly plan goes on sale once Apple approves it with 1.2.0. The weekly
+plan isn't offered to new subscribers in either store. In 1.2 a subscription unlocks programs and logging. The old
+site on `main` shows only the yearly plan until then (`eb74577`). **Before the switch**, check them
 against what's live in both stores that day (the app's `RELEASES.md` records every change): the pricing section, the
 closing band's line, the FAQ's answer, `llms.txt` and the posts' `content/blog/kiron.json`. A price or trial goes on
 the site only once it's live in both stores.
