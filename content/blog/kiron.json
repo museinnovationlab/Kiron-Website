@@ -18,5 +18,7 @@
   "cell-platforms": "iPhone and Android",
   "cell-watch": "No (reads heart rate from Health afterwards)",
   "cell-offline": "Yes",
+  "offline-lead": "A whole workout works with no signal:",
+  "offline-detail": "it opens, logs and finishes on your phone, then syncs once you're back online.",
   "program-count": "44"
 }
