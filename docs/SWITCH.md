@@ -25,9 +25,11 @@ Until then, trykiron.com is the old site on Netlify, built from `main` of musein
     guards preview and deployment addresses, but its "Standard Protection" leaves production addresses open, and this
     one had been showing the site's first build since 2026-11-14. The redirect keeps the new site off the internet
     until the switch, and afterwards keeps everything on one address.
-- **A production deployment** of `dfd2215`, the site as of 2026-11-18, already attached to trykiron.com in Vercel. Nobody
-  can reach it: DNS still points at Netlify, and its own address needs Vercel's login. Release day deploys again, with
-  the final screenshots and prices.
+- **A production deployment**, kept current with this branch (`e88474c` on 2026-11-18), already attached to
+  trykiron.com in Vercel. Nobody can reach it: DNS still points at Netlify, and its addresses need Vercel's login.
+  **To look at the newest site, open https://kiron-website-berkeley-labs.vercel.app** (signed in to Vercel): it always
+  shows the latest production deployment, while every `vercel deploy` preview gets a new address. Release day
+  deploys again, after the price check.
 - **The DNS values Vercel asked for** (`vercel api /v6/domains/trykiron.com/config`, 2026-11-18):
 
   | Type | Host | Value |

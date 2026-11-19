@@ -21,7 +21,8 @@ npm run build    # runs the tests, then builds
 - Since 2026-11-18, trykiron.com and www are attached to the Vercel project and a production deployment waits there,
   unreachable until DNS moves. `kiron-website.vercel.app` redirects to trykiron.com because Vercel's login doesn't
   cover production addresses: so `vercel deploy --prod` publishes nothing before the switch, but check deployments
-  through a preview (`docs/SWITCH.md`).
+  through a preview (`docs/SWITCH.md`). For Taylor, the newest site is always at
+  https://kiron-website-berkeley-labs.vercel.app (behind Vercel's login): redeploy production after changes.
 - The branch is local only: GitHub shows no Netlify statuses for any branch, so whether Netlify builds pushed
   branches couldn't be confirmed. It's pushed on release day, after Netlify's builds are stopped (SWITCH.md §5).
 
