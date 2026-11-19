@@ -20,5 +20,8 @@
   "cell-offline": "Yes",
   "offline-lead": "A whole workout works with no signal:",
   "offline-detail": "it opens, logs and finishes on your phone, then syncs once you're back online.",
+  "progress-lead": "Progress shows whether you're getting stronger:",
+  "progress-detail": "the average change in estimated one-rep max across your lifts, for each muscle group, and lift by lift.",
+  "progress-import": "History you import from Fitbod, Strong or Hevy counts, so your trends show from day one.",
   "program-count": "44"
 }
