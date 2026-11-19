@@ -29,7 +29,7 @@
 
 ## Logging
 
-Set-by-set logging with each lift's weight filled in, warm-up sets, supersets, notes on each exercise, reps in reserve after the last set (more to spare moves the next weight up faster), a plate calculator showing the plates for each side of the bar, and a rest timer that starts when a set is ticked. Pounds or kilograms, miles or kilometers. Light and dark mode.
+Set-by-set logging with each lift's weight filled in, warm-up sets, supersets, notes on each exercise, reps in reserve after the last set (more to spare moves the next weight up faster), a plate calculator showing the plates for each side of the bar, and a rest timer that starts when a set is ticked. Pounds or kilograms, miles or kilometers. Light and dark mode. Workouts open, log and finish with no signal and sync once back online; designing or reading a plan, importing history and sharing need a connection.
 
 ## Recovery and progress
 

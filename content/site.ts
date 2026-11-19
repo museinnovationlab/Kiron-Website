@@ -380,6 +380,13 @@ export const FAQ: [question: string, answer: string][] = [
       "Apple Health or Health Connect.",
   ],
   [
+    "Does Kiron work without signal?",
+    "Yes, for your training. Workouts open, log and finish with no signal, and Today, History and your plans show " +
+      "what's saved on your phone. Everything syncs once you're back online. A few things need a connection: " +
+      "designing a program or reading a plan you bring, importing history, sharing a link, and changing your plan's " +
+      "settings.",
+  ],
+  [
     "I use Fitbod, Strong or Hevy. Can I bring my history?",
     "Yes. Export your workouts from the other app, then choose the file in Kiron under Settings, Import from another " +
       "app. Kiron shows how each exercise matched before it saves anything. It brings your workouts, not a program: " +
