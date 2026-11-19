@@ -31,6 +31,9 @@ const checkWww = args.includes("--www");
 const asJson = args.includes("--json");
 const host = new URL(base).host;
 const isLive = host === "trykiron.com";
+// A preview build (a *.vercel.app address) lists drafts on /blog/, each with a Draft badge, so they can be read there
+// before they're published; the live site and any other build lists none. No sitemap ever has them.
+const draftsListed = host.endsWith(".vercel.app");
 
 const headers = { "user-agent": "kiron-site-check/1 (+https://trykiron.com)" };
 if (process.env.VERCEL_OIDC_TOKEN) headers["x-vercel-trusted-oidc-idp-token"] = process.env.VERCEL_OIDC_TOKEN;
@@ -49,7 +52,8 @@ const POSTS = {
 };
 // Posts written for this site (content/blog, docs/POSTS.md), read from this checkout: the site it builds must serve
 // them as it serves the old ones. None yet is fine. (Against the old site, these are the ones it doesn't have.) A
-// draft is checked the other way round: its page answers, marked noindex, and neither the blog nor the sitemap has it.
+// draft is checked the other way round: its page answers, marked noindex, the sitemap doesn't have it, and the blog
+// lists it only on a preview (draftsListed, above).
 const { listed: NEW_POSTS, drafts: DRAFTS } = newPostsInCheckout();
 const ALL_POSTS = { ...NEW_POSTS, ...POSTS };
 const SITEMAP = [
@@ -166,6 +170,11 @@ const h1Is = (text) => (r) => {
 };
 /** an element whose class list includes this class */
 const hasClass = (cls) => (r) => (new RegExp(`class="[^"]*\\b${cls}\\b`).test(r.text) ? null : `no element with class ${cls}`);
+/** exactly this many Draft badges on the blog's list */
+const draftBadges = (n) => (r) => {
+  const found = (r.text.match(/class="badge badge-accent">Draft</g) || []).length;
+  return found === n ? null : `${found} Draft badges on the list, expected ${n}`;
+};
 const ogImage = () => (r) => (metaContent(r.text, "property", "og:image") ? null : "no og:image");
 const isNoindex = () => (r) =>
   /<meta name="robots" content="[^"]*noindex/.test(head(r.text)) ? null : "not marked noindex (a draft would reach search engines)";
@@ -222,9 +231,17 @@ await check("blog", "/blog/", {
   body: [
     canonical(`${ORIGIN}/blog/`),
     has(...Object.keys(ALL_POSTS).map((s) => `/blog/${s}.html`)),
-    hasNot(...Object.keys(DRAFTS).map((s) => `/blog/${s}.html`)),
+    ...(draftsListed
+      ? [has(...Object.keys(DRAFTS).map((s) => `/blog/${s}.html`)), draftBadges(Object.keys(DRAFTS).length)]
+      : [hasNot(...Object.keys(DRAFTS).map((s) => `/blog/${s}.html`)), draftBadges(0)]),
   ],
-  ok: `canonical /blog/, links all ${postCount} posts${Object.keys(DRAFTS).length ? `, none of the ${Object.keys(DRAFTS).length} drafts` : ""}`,
+  ok: `canonical /blog/, links all ${postCount} posts${
+    Object.keys(DRAFTS).length
+      ? draftsListed
+        ? ` and the ${Object.keys(DRAFTS).length} drafts, each marked Draft (a preview)`
+        : `, none of the ${Object.keys(DRAFTS).length} drafts`
+      : ""
+  }`,
 });
 await check("blog without its slash", "/blog", { redirect: "/blog/" });
 await check("blog (old file name)", "/blog/index.html", { status: 200, type: html, body: [canonical(`${ORIGIN}/blog/`)] });

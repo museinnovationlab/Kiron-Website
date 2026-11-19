@@ -6,8 +6,10 @@
      content/blog/kiron.json    Kiron's own facts (prices, plans), which a new post writes as {{kiron:<key>}}
 
    docs/POSTS.md has the details. Every post, old or new, answers at /blog/<slug>.html (its canonical address) and at
-   /blog/<slug>. A published one is listed newest first on /blog/ and is in the sitemap; a draft ("draft": true) is
-   built at its address for review, marked noindex, and listed nowhere. Read at build time: every blog page is static.
+   /blog/<slug>. A published one is listed newest first on /blog/ and is in the sitemap. A draft ("draft": true) is
+   built at its address for review and marked noindex; it's listed on /blog/ only on a preview build (VERCEL_ENV
+   "preview"), with a Draft badge, so it can be read in place before it's published, and never in the sitemap or on
+   the live site. Read at build time: every blog page is static.
 
    Only types come from other project files, so `node --test` can load this file as it is (test/blog.test.mjs). */
 import { existsSync, readFileSync } from "node:fs";
@@ -111,15 +113,29 @@ function everyPost(sources: Source[]) {
   return sources.flatMap((source) => source.cards.map((card) => ({ card, load: () => source.post(card.slug) })));
 }
 
-/** The published posts' cards for the blog's list and the sitemap, newest first. Posts from the same day keep their
-    index's order. Drafts aren't here. */
-export function postCards(sources = SOURCES()): PostCard[] {
+/** The posts `keep` lets through, newest first. Posts from the same day keep their index's order. */
+function inOrder(sources: Source[], keep: (post: Post) => boolean) {
   return everyPost(sources)
     .map((entry, i) => ({ card: entry.card, i, post: entry.load() }))
-    .filter((entry) => !entry.post.draft)
+    .filter((entry) => keep(entry.post))
     .map((entry) => ({ ...entry, at: published(entry.post) }))
-    .sort((a, b) => b.at - a.at || a.i - b.i)
-    .map((entry) => entry.card);
+    .sort((a, b) => b.at - a.at || a.i - b.i);
+}
+
+/** The published posts' cards, newest first: the sitemap's list, and the blog's everywhere but a preview. Drafts
+    aren't here. */
+export function postCards(sources = SOURCES()): PostCard[] {
+  return inOrder(sources, (post) => !post.draft).map((entry) => entry.card);
+}
+
+/** Whether the blog lists drafts: only on a Vercel preview build, so Taylor can read them on the site before they're
+    published. Production (trykiron.com), local builds and the tests leave them off. */
+export const draftsListed = () => process.env.VERCEL_ENV === "preview";
+
+/** The blog's list, newest first: the published posts, and the drafts too when `withDrafts`, each card saying whether
+    it's a draft so the list can mark it. The sitemap uses postCards(), which never has drafts. */
+export function listedCards(sources = SOURCES(), withDrafts = draftsListed()): (PostCard & { draft: boolean })[] {
+  return inOrder(sources, (post) => withDrafts || !post.draft).map((entry) => ({ ...entry.card, draft: Boolean(entry.post.draft) }));
 }
 
 /** Every post's slug, drafts too: the addresses /blog/<slug>.html serves. */

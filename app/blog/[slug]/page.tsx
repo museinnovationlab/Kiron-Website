@@ -12,8 +12,8 @@ import { OG_IMAGES } from "@/lib/og";
    (content/blog, docs/POSTS.md), with Kiron's facts filled in. Any table in it scrolls sideways inside its own box
    (lib/blog.ts, wrapTables).
 
-   A draft is built here too, so it can be read on a preview: marked noindex, with a Draft badge by its crumbs, and left
-   off the blog's list and the sitemap until its "draft" is false. */
+   A draft is built here too, so it can be read on a preview: marked noindex, with a Draft badge by its crumbs, listed
+   on the blog only on a preview build, and never in the sitemap, until its "draft" is false. */
 
 export const dynamicParams = false;
 export const generateStaticParams = () => postSlugs().map((slug) => ({ slug }));

@@ -8,7 +8,19 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
-import { fillFacts, findPost, legacyPosts, newPosts, postCard, postCards, postSlugs, published, wrapTables } from "../lib/blog.ts";
+import {
+  draftsListed,
+  fillFacts,
+  findPost,
+  legacyPosts,
+  listedCards,
+  newPosts,
+  postCard,
+  postCards,
+  postSlugs,
+  published,
+  wrapTables,
+} from "../lib/blog.ts";
 
 const SAMPLE = fileURLToPath(new URL("./fixtures/blog", import.meta.url));
 const SITE = "https://trykiron.com";
@@ -143,6 +155,36 @@ test("a draft is built at its address but left off the blog's list", () => {
   assert.ok(postSlugs(sources).includes("sample-draft"), "but its page is built");
   assert.equal(findPost("sample-draft", sources)?.draft, true);
   assert.equal(postCard("sample-draft", sources)?.meta, "November 20, 2026 · Comparisons");
+});
+
+test("a preview build's blog lists the drafts too, each marked, while the sitemap's list never has them", () => {
+  const sources = [newPosts(SAMPLE), legacyPosts()];
+  const plain = listedCards(sources, false);
+  assert.deepEqual(
+    plain.map((c) => c.slug),
+    postCards(sources).map((c) => c.slug),
+    "without drafts, the blog lists exactly the sitemap's posts",
+  );
+  assert.ok(plain.every((c) => c.draft === false));
+  const preview = listedCards(sources, true);
+  assert.equal(preview.length, plain.length + 1, "the one sample draft joins the list");
+  assert.equal(preview.find((c) => c.slug === "sample-draft")?.draft, true, "marked as a draft");
+  assert.ok(preview.filter((c) => c.slug !== "sample-draft").every((c) => c.draft === false));
+  assert.equal(postCards(sources).length, 6, "the sitemap's list still has no drafts");
+});
+
+test("drafts are listed only when VERCEL_ENV is preview", () => {
+  const before = process.env.VERCEL_ENV;
+  try {
+    for (const [env, listed] of [["preview", true], ["production", false], ["development", false], [undefined, false]]) {
+      if (env === undefined) delete process.env.VERCEL_ENV;
+      else process.env.VERCEL_ENV = env;
+      assert.equal(draftsListed(), listed, `VERCEL_ENV=${env}`);
+    }
+  } finally {
+    if (before === undefined) delete process.env.VERCEL_ENV;
+    else process.env.VERCEL_ENV = before;
+  }
 });
 
 test("no content/blog folder means no new posts, not an error", () => {

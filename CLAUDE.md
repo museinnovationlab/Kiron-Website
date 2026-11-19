@@ -22,7 +22,9 @@ npm run build    # runs the tests, then builds
   unreachable until DNS moves. `kiron-website.vercel.app` redirects to trykiron.com because Vercel's login doesn't
   cover production addresses: so `vercel deploy --prod` publishes nothing before the switch, but check deployments
   through a preview (`docs/SWITCH.md`). For Taylor, the newest site is always at
-  https://kiron-website-berkeley-labs.vercel.app (behind Vercel's login): redeploy production after changes.
+  https://kiron-website-berkeley-labs.vercel.app (behind Vercel's login). Until the switch it points at the latest
+  preview, so the drafts show: after `vercel deploy`, run `vercel alias set <preview-url>
+  kiron-website-berkeley-labs.vercel.app`. A `vercel deploy --prod` moves it back to production.
 - The branch is local only: GitHub shows no Netlify statuses for any branch, so whether Netlify builds pushed
   branches couldn't be confirmed. It's pushed on release day, after Netlify's builds are stopped (SWITCH.md §5).
 
@@ -46,7 +48,8 @@ HTML on `main`'s side and import again. After the switch, edit the JSON's `body`
 
 **New posts** need no code: `content/blog/<slug>.json` (the old posts' shape) plus a card in `content/blog/index.json`,
 newest first; Kiron's prices and plans come from `content/blog/kiron.json` as `{{kiron:<key>}}`, and `"draft": true`
-builds a post for review without listing it (`docs/POSTS.md`, read by `lib/blog.ts`, checked by `npm test`). They
+builds a post for review: listed with a Draft badge on preview builds only, never on the live site or in the sitemap
+(`docs/POSTS.md`, read by `lib/blog.ts`, checked by `npm test`). They
 describe Kiron 1.2, so they go live with the switch, which waits for 1.2 in both stores.
 
 ## The look is the app's

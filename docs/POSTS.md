@@ -10,7 +10,7 @@ ones with no code. New posts live in `content/blog/`:
 | `content/blog/kiron.json` | Kiron's own facts (prices, plans) that posts quote, so one file changes when they do |
 
 Add the post and its card, run `npm test`, and the post is at its address, on the blog's list and in the sitemap (or,
-as a draft, only at its address). `lib/blog.ts` reads them; nothing else needs to change.
+as a draft, at its address and, on preview builds only, on the blog's list with a Draft badge). `lib/blog.ts` reads them; nothing else needs to change.
 
 **The repository is public.** Everything committed here, comments and commit messages included, can be read by
 anyone, and so can a page's HTML once it's live. Write nothing about Kiron's unreleased plans, in a post or around one.
@@ -79,7 +79,10 @@ Recovery, Programming and Tracking (all dated July 17, 2026).
 A post with `"draft": true` is built at its address, so it can be read on a preview, but it's:
 
 - marked `<meta name="robots" content="noindex">`, so search engines leave it out;
-- left off the blog's list and the sitemap (and `llms.txt`, which lists no posts);
+- never in the sitemap (nor `llms.txt`, which lists no posts), and never on the live site's blog list;
+- on the blog's list **only on a preview build** (`VERCEL_ENV` "preview"), with a **Draft** badge on its card, so the
+  blog can be read as it will look once the post is published (Taylor's ask, 2026-11-19: "can we go ahead and post
+  the blog posts to the new site so i can review them there?");
 - marked with a **Draft** badge beside "Blog" at the top of its page.
 
 Its card stays in `index.json`. Publishing is setting `"draft": false` (or removing it) and its dates to the day it goes
@@ -172,8 +175,8 @@ All inside the post's sheet, drawn in the app's look, light and dark (`app/globa
   the tests first.
 - `scripts/check-site.mjs` reads `content/blog/index.json` from the checkout and checks each post on a deployment: a
   published one like the old ones (its `h1`, canonical address, Article data and preview image, the blog's link to it,
-  its line in the sitemap); a draft the other way round (its page answers, marked noindex, and neither the blog nor the
-  sitemap has it).
+  its line in the sitemap); a draft the other way round (its page answers, marked noindex, the sitemap doesn't have it,
+  and the blog lists it with a Draft badge on a `*.vercel.app` preview and not at all anywhere else).
 - The look of every block, and of a draft: `test/fixtures/blog` holds a sample post built from all of them, a sample
   draft and a sample `kiron.json` (never served). Copy the folder's files into `content/blog` to see them on
   `npm run dev` at `/blog/sample-post-with-a-table.html` and `/blog/sample-draft.html`, then take them out again.
