@@ -229,8 +229,9 @@ export const BEATS: Beat[] = [
     eyebrow: "Progress",
     heading: "Watch your lifts climb.",
     body: [
-      "Every lift gets a chart of its estimated one-rep max, with your best ever and your heaviest set, over a " +
-        "month, three months, a year or all time. Kiron marks a new record on the set you lift it.",
+      "Progress shows whether you're getting stronger: the average change across your lifts, and for each muscle " +
+        "group. Every lift gets a chart of its estimated one-rep max, with your best ever and your heaviest set, " +
+        "over a month, three months, a year or all time. Kiron marks a new record on the set you lift it.",
       "Body weight, body fat and lean mass come in from Apple Health or Health Connect, each with its own chart, " +
         "read when you look and never stored.",
     ],

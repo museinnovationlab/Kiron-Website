@@ -98,6 +98,7 @@ add up") and `KIRON_ROADMAP.md` Part 1. Every claim was checked in the app's cod
 | Warm-up sets, plates for each side, rest timer on a ticked set, supersets, notes, reps in reserve | the workout screen; "3 or more to spare" raises the next weight ~5% |
 | Runs, rides, swims and rows in the plan; shorter or longer for the day | cardio logging; `feature/cardio-time` |
 | Other apps' runs, rides and ski days count toward recovery, read on the phone, never stored; it's a switch | `feature/outside-workouts` ("Count workouts from other apps") |
+| Whether you're getting stronger: the average change across your lifts, and for each muscle group | Progress's Strength and By muscle cards (`app/progress.tsx`, `summarizeProgress` and `progressByGroup`, on `release/1.2.0`); stretches and warm-up drills are left out since `ccd9386` |
 | A chart per lift: estimated one-rep max, best ever, heaviest set, 1M/3M/1Y/All; a record marked on the set | Progress (`feature/progress-charts`), the STRONGEST SET YET stamp |
 | Body weight, body fat, lean mass from Health | `feature/health-body` (waist too on iPhone; not claimed on the page) |
 | A report for every week, month and year; set targets per muscle; 27 badges up to a million pounds; streak of weeks | `app/reports.tsx` (Week / Month / Year), `feature/set-targets`, `feature/badges`; the Badges screen's own sentence is quoted |

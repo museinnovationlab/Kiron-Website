@@ -34,7 +34,7 @@ Set-by-set logging with each lift's weight filled in, warm-up sets, supersets, n
 ## Recovery and progress
 
 - A muscle recovery map built from every set and every cardio session. With permission, it also counts workouts other apps save to Apple Health or Health Connect (runs, rides, ski days), and offers an easier session when today's muscles are still tired. Those are read on the phone and never stored.
-- A chart for every lift (estimated one-rep max, best ever, heaviest set), new records marked as they happen, weekly, monthly and yearly reports, weekly set targets per muscle, 27 badges and a streak of weeks in a row.
+- The average change in estimated one-rep max across your lifts and for each muscle group (warm-ups left out), a chart for every lift (estimated one-rep max, best ever, heaviest set), new records marked as they happen, weekly, monthly and yearly reports, weekly set targets per muscle, 27 badges and a streak of weeks in a row.
 - Body weight, body fat and lean mass from Apple Health or Health Connect (waist too, on iPhone), read on the phone and never stored.
 
 ## Works with
