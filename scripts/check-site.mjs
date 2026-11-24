@@ -313,6 +313,21 @@ for (const [path, want] of Object.entries(APP_LINK_FILES)) {
   });
 }
 
+// The screen recording app reviewers are pointed at. Nothing on the site links to it, so nothing else here would notice
+// it going missing: the same bytes as this checkout's, as a video, and not for search engines.
+await check("review recording", "/review/health-connect.mp4", {
+  status: 200,
+  type: /^video\/mp4/,
+  body: [
+    (r) =>
+      sha256(r.buf) === sha256(readFileSync(new URL("../public/review/health-connect.mp4", import.meta.url)))
+        ? null
+        : `bytes differ from public/review/health-connect.mp4 (${r.buf.length} bytes)`,
+    (r) => (/noindex/i.test(r.robots || "") ? null : "not marked noindex"),
+  ],
+  ok: "byte-identical, video/mp4, noindex",
+});
+
 // Share links. Any id answers 200; an id with no share says it has expired.
 for (const [letter, kind] of [
   ["w", "workout"],

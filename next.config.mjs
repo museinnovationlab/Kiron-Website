@@ -38,6 +38,8 @@ const nextConfig = {
     return [
       { source: "/.well-known/apple-app-site-association", headers: json },
       { source: "/.well-known/assetlinks.json", headers: json },
+      // Screen recordings app reviewers are pointed at. Nothing links to them, and search engines are told to skip them.
+      { source: "/review/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex" }] },
     ];
   },
 };

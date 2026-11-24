@@ -20,6 +20,15 @@ test("the app-link files are unchanged", () => {
   assert.equal(sha("public/.well-known/assetlinks.json"), "20ac20e92432e57a5b1e396b19477680240447de793f84f8d0b0c3f2c8f936a8");
 });
 
+/* App reviewers are pointed at this address, and nothing on the site links to it, so nothing else would notice it going
+   missing. scripts/check-site.mjs checks that the running site serves it. */
+test("the screen recording app reviewers are pointed at is here", () => {
+  const video = readFileSync("public/review/health-connect.mp4");
+  assert.equal(video.subarray(4, 8).toString("latin1"), "ftyp", "an MP4 file");
+  assert.ok(video.length > 500_000, "the whole recording");
+  assert.match(readFileSync("next.config.mjs", "utf8"), /source: "\/review\/:path\*".*noindex/);
+});
+
 test("the old site's pages were imported whole", () => {
   for (const name of ["privacy", "terms", "delete-data"]) {
     const page = JSON.parse(readFileSync(`content/legacy/${name}.json`, "utf8"));

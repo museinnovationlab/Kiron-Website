@@ -39,7 +39,7 @@ Set-by-set logging with each lift's weight filled in, warm-up sets, supersets, n
 
 ## Works with
 
-- Apple Health and Google Health Connect: finished workouts are saved there when sync is on.
+- Apple Health and Health Connect: finished workouts are saved there when sync is on.
 - Workout history import from Fitbod, Strong and Hevy (their export files). History only: those exports carry no program.
 - Share a workout or a gym's equipment list as a link (trykiron.com/w/… and /g/…), which opens in Kiron. A shared copy holds no personal details and expires after 180 days.
 

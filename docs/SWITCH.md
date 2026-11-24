@@ -57,11 +57,13 @@ Until then, trykiron.com is the old site on Netlify, built from `main` of musein
    the Monthly card out. The posts' prices come from `content/blog/kiron.json`, which still had the weekly plan on
    2026-11-18: change it before publishing any post. `npm test` checks the program count, not prices, so read them.
 4. **Pick up any edits made to the old site since 2026-11-14** (the privacy policy changes with features; last
-   imported from `eb74577` on 2026-11-18):
+   imported from `a4aba03` on 2026-11-24):
    ```bash
    git fetch origin && npm run import:legacy
    ```
-   then `git diff content/legacy`. Commit what changed.
+   then `git diff content/legacy`. Commit what changed. The import copies pages' words only. One file comes over by
+   hand: `review/health-connect.mp4`, the screen recording app reviewers are pointed at, is
+   `public/review/health-connect.mp4` here (added 2026-11-24). If the old site's copy changes, copy it again.
 5. **Optional: lower the `www` TTL** (how long the internet caches an answer): Namecheap → Domain List → trykiron.com
    → Manage → Advanced DNS → the `www` CNAME → TTL **5 min**. The `@` A records, the ones that matter, were already at
    5 minutes on 2026-11-18; `www` was at 30, so without this `www` takes up to half an hour to follow (it only
