@@ -3,3 +3,6 @@
 
 /.well-known/assetlinks.json
   Content-Type: application/json
+
+/review/*
+  X-Robots-Tag: noindex
