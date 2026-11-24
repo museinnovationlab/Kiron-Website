@@ -13,7 +13,7 @@ Kiron solves a specific problem: AI chatbots like ChatGPT and Claude can write d
 - **Gym workout logger**: log sets, weights, and reps with an interface designed for the gym floor
 - **Exercise library**: 1,000+ exercises with muscle targeting, instructions, cardio, carries, and timed holds
 - **Progress tracking**: workout history, volume trends, and personal records in one place
-- **Apple Health sync**: completed workouts automatically write to Apple Health (iOS) and Google Health Connect (Android)
+- **Apple Health sync**: completed workouts automatically write to Apple Health (iOS) and Health Connect (Android)
 
 ## How it works
 
