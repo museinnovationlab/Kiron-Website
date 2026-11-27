@@ -1,0 +1,28 @@
+{
+  "draft": true,
+  "title": "A Sample Draft — Kiron",
+  "description": "Not a real post: a draft, built at its address for review but on no list.",
+  "canonical": "https://trykiron.com/blog/sample-draft.html",
+  "slug": "sample-draft",
+  "h1": "A Sample Draft",
+  "date": "November 20, 2026",
+  "og": { "title": "A Sample Draft", "description": "A draft, for review." },
+  "twitter": { "title": "A Sample Draft", "description": "A draft, for review." },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "A Sample Draft",
+    "description": "Not a real post: a draft.",
+    "datePublished": "2026-11-20",
+    "dateModified": "2026-11-20",
+    "author": { "@type": "Organization", "name": "Kiron" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kiron",
+      "url": "https://trykiron.com",
+      "logo": { "@type": "ImageObject", "url": "https://trykiron.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://trykiron.com/blog/sample-draft.html"
+  },
+  "body": "<p class=\"disclosure\">We make Kiron. This is a draft: it's built at its address so it can be read on a preview, marked noindex, and left off the blog's list and the sitemap until its \"draft\" is false.</p>\n<p>Kiron is {{kiron:price-weekly}}.</p>"
+}

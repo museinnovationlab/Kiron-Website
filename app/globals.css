@@ -1,0 +1,491 @@
+/* Bearing's site's format (Bearing-Website/app/globals.css: the page's order, the icon field, the scroll story, the
+   pinned phone) drawn in Kiron's own UI, "Soft Log": the app's tokens, shadows, radii, type and hand-drawn marks
+   (Kiron src/theme and src/components/ui on release/1.2.0). docs/DESIGN.md maps every app token to its variable here.
+   Fonts are loaded by next/font in layout.tsx, under the variable names used below.
+
+   Light and dark follow the visitor's system setting, as the app follows the phone's: the dark block at the bottom of
+   the tokens swaps in the app's dark palette and its dark-mode depth (lighter surfaces, a faint top highlight, no
+   drop shadows). Nothing below the tokens names a colour of its own. */
+
+:root{
+  color-scheme:light dark;
+  /* palette.js, light */
+  --canvas:#F2EDE6; --surface:#FFFFFF; --sunken:#E9E2D8; --line:#E3DCD1; --rule:#CCD8E3; --margin:#E7B3AB;
+  --line-strong:#7F756B; --ink:#23201C; --navy:#33495A; --muted:#655C54;
+  --accent:#A8463A; --accent-dark:#8F3A30; --accent-soft:#F9E7E2; --on-accent:#FFFFFF;
+  --success:#466A52; --success-soft:#DDE9DF; --pill:#23201C; --on-pill:#F2EDE6; --ring:#F29B88;
+  /* elevation.ts, light: soft shadows, and a red glow under the primary button */
+  --shadow-card:0 1px 2px rgba(35,32,28,.06), 0 8px 22px rgba(35,32,28,.08);
+  --shadow-button:0 6px 14px rgba(168,70,58,.28), 0 1px 2px rgba(168,70,58,.2);
+  --shadow-float:0 12px 28px rgba(35,32,28,.28), 0 2px 6px rgba(35,32,28,.2);
+  --shadow-button-hover:0 10px 22px rgba(168,70,58,.34), 0 1px 2px rgba(168,70,58,.2);
+  /* the site's own: the dark band and the footer use the app's rest-timer pill and its dark canvas */
+  --band:#23201C; --band-card:#2C2824; --band-ink:#F2EDE6; --band-muted:#B7ADA3; --band-line:rgba(255,255,255,.1);
+  --footer:#141210; --bezel:#0B0B0C;
+  /* tailwind.config.js: cards 22, sheets 28, wells 12, buttons and chips are pills */
+  --r-card:22px; --r-sheet:28px; --r-well:12px;
+  --display:var(--font-display),"Oswald","Arial Narrow",Impact,sans-serif;
+  --mono:var(--font-mono),ui-monospace,Menlo,monospace;
+  --hand:var(--font-hand),"Bradley Hand",cursive;
+  /* typography.ts: body text is the phone's own face */
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    /* palette.js, dark */
+    --canvas:#141210; --surface:#2C2824; --sunken:#211E1B; --line:#36312C; --rule:#3B414A; --margin:#6A3E37;
+    --line-strong:#8F857A; --ink:#F2EDE6; --navy:#C3D1DB; --muted:#B7ADA3;
+    --accent:#F29B88; --accent-dark:#EC8873; --accent-soft:#43261F; --on-accent:#1F0E0A;
+    --success:#92CCA2; --success-soft:#213A2B; --pill:#3A3530; --on-pill:#F2EDE6; --ring:#F29B88;
+    /* elevation.ts, dark: shadows vanish on a dark page, so raised things get a faint highlight along the top */
+    --shadow-card:inset 0 1px 0 rgba(255,255,255,.06);
+    --shadow-button:inset 0 1px 0 rgba(255,255,255,.22);
+    --shadow-float:inset 0 1px 0 rgba(255,255,255,.08);
+    --shadow-button-hover:inset 0 1px 0 rgba(255,255,255,.3);
+    --band:#0E0C0B; --band-card:#2C2824; --footer:#0B0A09;
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+/* League Gothic in capitals, tracked a little, as the app sets its titles ("TODAY", "WEEK 1: SQUAT + BENCH") */
+h1,h2,h3{font-family:var(--display);font-weight:400;text-transform:uppercase;color:var(--ink);letter-spacing:.025em;margin:0;text-wrap:balance}
+h1{font-size:clamp(54px,8.6vw,108px);line-height:.94}
+h2{font-size:clamp(40px,5.4vw,68px);line-height:.98}
+h3{font-size:clamp(26px,2.6vw,32px);line-height:1.04}
+h1 em,h2 em{font-style:normal;color:var(--accent)}
+p{line-height:1.65;margin:0;text-wrap:pretty}
+a{color:inherit}
+.nowrap{white-space:nowrap}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* the app's labels ("THIS WEEK", "2 OF 4 DONE", "ESTIMATED ONE-REP MAX"): Plex Mono capitals in muted ink */
+.eyebrow{font-family:var(--mono);font-size:13.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.lede{font-size:clamp(17px,1.9vw,20.5px);color:var(--navy);max-width:56ch}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* ---------- the app's hand-drawn marks (components/marks.tsx): the red pen and the pencil ---------- */
+.mark{display:inline-block;flex:0 0 auto;overflow:visible}
+.mark path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pen-stroke{stroke:var(--accent)}
+.pencil-stroke{stroke:var(--line-strong)}
+/* every pen stroke has pathLength 100, so it can be drawn in */
+.pen-stroke,.tally-stroke{stroke-dasharray:100 100;stroke-dashoffset:0;
+  transition:stroke-dashoffset .5s cubic-bezier(.4,0,.2,1) calc(var(--i,0) * 90ms + var(--delay,0ms))}
+/* below the screen at load (components/pen-ink.tsx): hidden until it scrolls into view, then drawn */
+[data-ink="wait"] .pen-stroke,[data-ink="wait"] .tally-stroke{stroke-dashoffset:100}
+/* a title and its red pencil line (components/pen-title.tsx, the app's SectionHeader + PencilUnderline) */
+.pen-title{display:flex;flex-direction:column;align-items:flex-start}
+.pen-title.pen-center{align-items:center}
+.pen-underline{display:block;height:12px;max-width:100%;margin-top:4px;overflow:visible}
+.pen-underline path{fill:none;stroke-linecap:round;--delay:120ms}
+/* the title's handwritten second line ("Meet yours."): Caveat in the red pen, tilted as a note in the margin is */
+.pen-hand{font-family:var(--hand);font-weight:700;font-size:clamp(42px,5.6vw,68px);line-height:1;color:var(--accent);
+          margin:12px 0 0;transform:rotate(-2deg)}
+/* the PR stamp ("STRONGEST SET YET"): a double border in red pen, pressed in at -3°; it lands with a little bounce */
+.stamp{display:inline-block;border:1px solid var(--accent);border-radius:11px;padding:2px;background:var(--surface);
+       transform:rotate(-3deg);transition:opacity .34s ease, transform .34s cubic-bezier(.3,1.5,.6,1)}
+.stamp-inner{display:flex;align-items:center;gap:10px;border:2px solid var(--accent);border-radius:8px;padding:3px 12px 1px}
+.stamp-label{font-family:var(--display);font-size:24px;line-height:30px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.stamp-detail{font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+[data-ink="wait"].stamp{opacity:0;transform:rotate(-3deg) scale(1.6)}
+/* lists ticked like logged sets, and the small pen check */
+.ticks,.checks{list-style:none;margin:20px 0 0;padding:0}
+.ticks li{display:flex;align-items:center;gap:12px;margin-bottom:8px;font-size:16.5px;max-width:44ch}
+.checks li{display:flex;align-items:baseline;gap:11px;margin-bottom:11px;font-size:15.5px;line-height:1.5}
+.checks .pen-check{transform:translateY(2px)}
+@media (prefers-reduced-motion: reduce){
+  .pen-stroke,.tally-stroke,.stamp{transition:none}
+}
+
+/* ---------- buttons, chips, badges, cards: the app's kit (Button, Chip, Badge, Card) ---------- */
+/* Pills that shrink a touch while pressed. Secondary is tinted rather than outlined; neutral is the quieter choice. */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:56px;padding:0 28px;border:0;border-radius:999px;
+     background:var(--accent);color:var(--on-accent);font:600 17px/1.2 var(--sans);text-decoration:none;cursor:pointer;
+     box-shadow:var(--shadow-button);transition:transform .15s ease, box-shadow .18s ease, background .18s ease}
+.btn:hover{background:var(--accent-dark);box-shadow:var(--shadow-button-hover)}
+.btn:active{transform:scale(.97)}
+.btn-soft{background:var(--accent-soft);color:var(--accent);box-shadow:none}
+.btn-soft:hover{background:var(--accent-soft);box-shadow:none;filter:brightness(.97)}
+.btn-neutral{background:var(--sunken);color:var(--ink);box-shadow:none}
+.btn-neutral:hover{background:var(--sunken);box-shadow:none;filter:brightness(.97)}
+.btn-sm{min-height:48px;padding:0 20px;font-size:16px}
+.btn svg{width:17px;height:17px;flex:0 0 auto}
+/* A CTA with nowhere to go yet is a statement, not a button: no pointer, muted. */
+.btn-waiting{background:var(--sunken);color:var(--muted);box-shadow:none;cursor:default}
+.btn-waiting:hover{background:var(--sunken);box-shadow:none}
+.btn-waiting:active{transform:none}
+/* Chip: one of a set, a sunken pill; a chosen one fills red with a pen check */
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 18px;border-radius:999px;background:var(--sunken);
+      color:var(--ink);font-weight:600;font-size:15.5px;text-decoration:none;transition:transform .15s ease, filter .15s ease}
+a.chip:hover{filter:brightness(.96)}
+a.chip:active{transform:scale(.97)}
+.chip .pen-check .pen-stroke{stroke:currentColor}
+/* Badge: a short status in a soft pill, set like a typed label */
+.badge{display:inline-flex;align-items:center;align-self:flex-start;border-radius:999px;padding:4px 12px;background:var(--sunken);color:var(--ink);
+       font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;line-height:1.4}
+.badge-success{background:var(--success-soft);color:var(--success)}
+.badge-accent{background:var(--accent-soft);color:var(--accent)}
+.badge-info{color:var(--navy)}
+/* Card: raised, rounded 22, a soft shadow in light and a lighter surface in dark. No borders, as in the app. */
+.card{background:var(--surface);border-radius:var(--r-card);box-shadow:var(--shadow-card)}
+
+/* ============ THE GLYPH FIELD ============
+   The page's ground is a live canvas of training glyphs and the app's own pen marks that part around the cursor and
+   warm as it passes (glyph-field.tsx). Fixed behind everything, so the light sections are translucent and let it show
+   through: the field IS the background. The dark band and the footer carry their own. It fades out under the sticky
+   nav, so the nav needs no backdrop blur (which re-samples a canvas that repaints every frame, and flickered). */
+.field{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
+       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 92px);
+       mask-image:linear-gradient(180deg,transparent 0,#000 92px)}
+.band-field{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+section{padding:clamp(78px,10vw,132px) 0;position:relative;z-index:1}
+/* Translucent so the field reads through. Cards stay opaque, so their words never sit on it. */
+.band-white{background:color-mix(in srgb,var(--surface) 72%,transparent)}
+.band-green{background:linear-gradient(180deg,color-mix(in srgb,var(--success-soft) 88%,transparent) 0%,color-mix(in srgb,var(--canvas) 50%,transparent) 100%)}
+.band-red{background:linear-gradient(180deg,color-mix(in srgb,var(--accent-soft) 92%,transparent) 0%,color-mix(in srgb,var(--canvas) 50%,transparent) 100%)}
+.band-dark{background:var(--band);color:var(--band-muted);overflow:hidden}
+.band-dark h2,.band-dark h3{color:var(--band-ink)}
+.band-dark .eyebrow{color:var(--band-muted)}
+.band-dark .lede{color:var(--band-muted)}
+/* on the dark band the red pen is the rest timer's coral ring, as in the app's dark mode */
+.band-dark .pen-stroke{stroke:var(--ring)}
+.band-dark .pencil-stroke{stroke:var(--band-ink)}
+
+/* ---------- preview bar: only on preview builds, while the page still has placeholders ---------- */
+.preview-bar{position:relative;z-index:60;background:var(--pill);color:var(--on-pill);font-family:var(--mono);font-size:12.5px;
+             letter-spacing:.03em;text-align:center;padding:9px 16px;line-height:1.5}
+.preview-bar b{color:var(--ring);font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-right:8px}
+.preview-bar .short{display:none}
+@media(max-width:600px){ .preview-bar .long{display:none} .preview-bar .short{display:inline} }
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:var(--canvas);border-bottom:1px solid transparent;transition:border-color .25s ease}
+.nav.stuck{border-bottom-color:var(--line)}
+/* Vertical padding only: the shorthand would override .wrap's gutters and put the logo against the screen edge. */
+.nav .inner{display:flex;align-items:center;justify-content:space-between;padding-top:12px;padding-bottom:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand img{display:block;height:44px;width:auto}
+.brand span{font-family:var(--display);font-size:34px;line-height:1;letter-spacing:.06em;text-transform:uppercase}
+@media(max-width:520px){.brand img{height:38px}.brand span{font-size:29px}}
+/* the links sit in a soft red pill when pointed at, as the app's tab bar marks its current tab */
+.navlinks{display:flex;gap:4px;font-size:15px}
+.navlinks a{text-decoration:none;color:var(--navy);padding:9px 14px;border-radius:999px;transition:background .18s ease,color .18s ease}
+.navlinks a:hover{background:var(--accent-soft);color:var(--accent)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-actions .btn{min-height:46px;padding:0 20px;font-size:15.5px}
+/* the burger is the app's round sunken icon button, only at the width where the inline links are hidden */
+.burger{display:none;width:46px;height:46px;padding:0;border:0;border-radius:999px;background:var(--sunken);cursor:pointer;
+        align-items:center;justify-content:center;flex-direction:column;gap:5px;transition:transform .15s ease}
+.burger:active{transform:scale(.94)}
+.burger span{display:block;width:18px;height:1.8px;background:var(--ink);border-radius:2px;
+             transition:transform .26s cubic-bezier(.2,.7,.3,1), opacity .18s ease}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.8px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.8px) rotate(-45deg)}
+/* the menu is one of the app's floating sheets: a raised card out of the burger's corner. Opacity + visibility, with
+   visibility delayed on the way out so the fade finishes before the panel stops being hit-testable. */
+.mobilemenu{position:absolute;top:100%;left:auto;right:28px;width:min(74vw,270px);margin-top:6px;background:var(--surface);
+            border-radius:var(--r-card);box-shadow:var(--shadow-float);overflow:hidden;
+            opacity:0;visibility:hidden;transform:translateY(-8px) scale(.97);transform-origin:top right;
+            transition:opacity .22s ease, transform .24s cubic-bezier(.2,.7,.3,1), visibility 0s linear .24s}
+.mobilemenu.open{opacity:1;visibility:visible;transform:none;transition-delay:0s,0s,0s}
+.mobilemenu ul{list-style:none;margin:0;padding:6px 20px 8px}
+.mobilemenu a{display:block;padding:14px 0;font-size:17px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.mobilemenu li:last-child a{border-bottom:0}
+@media(max-width:880px){ .navlinks{display:none} .burger{display:inline-flex} }
+@media(min-width:881px){ .mobilemenu{display:none} }
+@media(max-width:400px){ .nav-actions .btn{min-height:44px;padding:0 15px;font-size:15px} .wrap{padding:0 20px} .mobilemenu{right:20px} }
+
+/* ---------- hero ---------- */
+.hero{padding:76px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero h1{max-width:14.5ch}
+.hero .lede{margin:22px auto 0;text-align:center}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+/* where the name comes from ("Named for Chiron, who trained Achilles."): small, under the buttons */
+.hero-story{margin:20px auto 0;font-size:14.5px;color:var(--muted)}
+/* The trio is deliberately cropped: you see the top of each screen and it fades out, so the crop reads as intended
+   (Bearing: sliced flat by the next section's edge, it read as a mistake). Height follows width, capped. */
+.trio{display:flex;justify-content:center;align-items:flex-start;gap:min(3vw,34px);
+      margin:64px auto 0;perspective:1500px;position:relative;z-index:1;
+      -webkit-mask-image:linear-gradient(180deg,#000 80%,transparent 100%);
+      mask-image:linear-gradient(180deg,#000 80%,transparent 100%)}
+.trio .phone{width:min(24vw,250px);flex:0 0 auto}
+.trio .phone img{width:100%;height:auto;aspect-ratio:1320/2868;max-height:520px;object-fit:cover;object-position:top center}
+.trio .phone:nth-child(1){transform:translateY(34px) rotateY(12deg) rotateZ(-1.5deg)}
+.trio .phone:nth-child(3){transform:translateY(34px) rotateY(-12deg) rotateZ(1.5deg)}
+/* The middle phone is the hero: wider than its neighbours and in front of them. */
+.trio .phone:nth-child(2){z-index:2;width:min(29vw,300px)}
+@media(max-width:760px){
+  .trio{gap:12px}
+  .trio .phone:nth-child(1),.trio .phone:nth-child(3){display:none}
+  .trio .phone:nth-child(2){width:min(70vw,320px)}
+}
+.phone{position:relative;border-radius:34px;background:var(--bezel);padding:8px;
+       box-shadow:0 30px 66px rgba(35,32,28,.24), 0 3px 10px rgba(35,32,28,.10)}
+.phone img{display:block;width:100%;height:auto;border-radius:27px}
+@media (prefers-color-scheme: dark){
+  /* a dark bezel on a dark page needs an edge to read */
+  .phone{box-shadow:0 0 0 1px rgba(255,255,255,.1), 0 30px 66px rgba(0,0,0,.5)}
+}
+
+/* ---------- why (dark band): the five value props on the app's dark-mode cards, counted in tally marks ---------- */
+/* Five cards: one column on a phone; two on a tablet, the fifth across both; on a computer three, then two wider ones,
+   so no card sits alone on a row. */
+.problem-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:48px}
+@media(min-width:600px){
+  .problem-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .problem-grid .pcard:last-child{grid-column:1 / -1}
+}
+@media(min-width:1000px){
+  .problem-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .problem-grid .pcard{grid-column:span 2}
+  .problem-grid .pcard:nth-child(n+4),.problem-grid .pcard:last-child{grid-column:span 3}
+}
+.pcard{background:var(--band-card);border-radius:var(--r-card);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);padding:26px;
+       display:flex;flex-direction:column;gap:10px}
+.pcard .count{display:flex;align-items:center;gap:12px;min-height:30px}
+.pcard .count .eyebrow{margin:0}
+.pcard h3{font-size:30px}
+.pcard p{font-size:15.5px;color:var(--band-muted)}
+
+/* ---------- scroll story ---------- */
+.story-head{margin-bottom:8px}
+.story-inner{display:grid;grid-template-columns:1fr minmax(280px,392px);gap:clamp(32px,6vw,92px);align-items:start}
+.beat{min-height:76vh;display:flex;flex-direction:column;justify-content:center;padding:4vh 0}
+/* "03 / 07" with a set's tick that draws in when the beat is reached, like ticking sets as you go */
+.beat .step{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.beat .step .eyebrow{margin:0}
+.beat:not(.done) .step .pen-stroke{stroke-dashoffset:100}
+.beat h2{max-width:15ch}
+.beat p{margin-top:16px;max-width:46ch;font-size:17px}
+/* a note in the margin: on a card, behind the workout log's red margin line */
+.quote{margin-top:22px;padding:16px 20px 16px 30px;background:var(--surface);border-radius:var(--r-well);box-shadow:var(--shadow-card);
+       position:relative;max-width:46ch}
+.quote::before{content:"";position:absolute;left:14px;top:10px;bottom:10px;width:1.5px;background:var(--margin)}
+.quote p{margin:0;font-size:15.5px;color:var(--navy)}
+.quote .who{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+/* Sized by HEIGHT, not width: sized by width the phone could compute taller than the sticky viewport and run off
+   the bottom; constraining the image height and letting width follow keeps the whole device on screen. */
+.story-stage{position:sticky;top:9vh;height:82vh;display:flex;align-items:center;justify-content:center}
+.stage-phone{position:relative;width:100%;height:100%}
+.stage-phone .phone{position:absolute;top:50%;left:50%;opacity:0;
+                    transform:translate(-50%,-50%) translateY(26px) scale(.97);
+                    transition:opacity .55s ease, transform .55s cubic-bezier(.2,.7,.3,1);pointer-events:none}
+.stage-phone .phone img{height:min(78vh,700px);width:auto;max-width:none}
+.stage-phone .phone.on{opacity:1;transform:translate(-50%,-50%)}
+/* Mobile keeps the theatre, turned on its side: the phone pins to the BOTTOM of the screen and the copy scrolls
+   above it, both swapping together. `svh`, not `vh`: on a phone they differ by the browser's toolbar, and `vh` makes
+   the phone taller than the space it really has. position:fixed, not sticky, because the stage is the LAST grid
+   item: sticky would only engage after all the copy had scrolled past. */
+@media(max-width:900px){
+  .story-inner{grid-template-columns:1fr}
+  .story-copy{padding-bottom:46svh}
+  .story-stage{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;z-index:3;
+               pointer-events:none;opacity:0;transform:translateY(16px);
+               transition:opacity .35s ease, transform .35s ease}
+  .story-stage.pinned{opacity:1;transform:none}
+  /* A scrim, so the copy fades out before it reaches the phone instead of showing through. It reaches the FULL page
+     colour by the top of the device. Stops in px, not %: as percentages, full colour landed below the device's top
+     and the next beat's label ghosted through beside the bezel. scroll-story.tsx reads this `top` to know when to pin. */
+  .story-stage::before{content:"";position:absolute;inset:-84px 0 0 0;
+    background:linear-gradient(180deg,color-mix(in srgb,var(--canvas) 0%,transparent) 0,color-mix(in srgb,var(--canvas) 40%,transparent) 42px,
+      color-mix(in srgb,var(--canvas) 80%,transparent) 66px,var(--canvas) 82px)}
+  /* EVERY phone absolutely positioned on the same point (a mix of in-flow and absolute made the outgoing phone jump
+     beside the incoming one during the cross-fade). The container gets an explicit height for the same reason. */
+  .stage-phone{position:relative;display:block;max-width:none;height:calc(38svh + 12px)}
+  .stage-phone .phone{position:absolute;left:50%;bottom:0;top:auto;opacity:0;transform:translateX(-50%) translateY(14px) scale(.98);
+                      border-radius:26px;padding:6px;pointer-events:none}
+  .stage-phone .phone.on{opacity:1;transform:translateX(-50%)}
+  .stage-phone .phone img{height:38svh;width:auto;border-radius:21px}
+  /* Top-aligned: the pinned phone owns the bottom of the screen, so copy sits high in its box. min-height keeps one
+     beat per screenful, so the swap reads beat by beat rather than as a blur. */
+  .beat{min-height:64svh;justify-content:flex-start;padding:0 0 12px}
+  .beat + .beat{margin-top:20px}
+  .beat p{font-size:16.5px}
+  .quote{margin-top:18px;padding:14px 17px 14px 28px}
+  .quote p{font-size:14.5px}
+}
+/* Phones get a bigger device, just under half the screen (Bearing 775a414: at a third, the screenshot's own text was
+   too small to read, and reading it is the point). */
+@media(max-width:520px){
+  .stage-phone{height:calc(44svh + 12px)}
+  .stage-phone .phone img{height:44svh}
+  .story-copy{padding-bottom:52svh}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .stage-phone .phone,.story-stage{transition:opacity .2s linear}
+  .stage-phone .phone,.stage-phone .phone.on{transform:translate(-50%,-50%)}
+}
+@media (prefers-reduced-motion: reduce) and (max-width:900px){
+  .stage-phone .phone,.stage-phone .phone.on{transform:translateX(-50%)}
+  .story-stage,.story-stage.pinned{transform:none}
+}
+
+/* ---------- connections band (Apple Health, Health Connect, Strava) ---------- */
+.sync{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
+@media(max-width:900px){.sync{grid-template-columns:1fr}}
+.sync-list{display:grid;gap:14px}
+.sync-card{padding:20px 22px}
+.sync-card .badge{margin-bottom:10px}
+.sync-card h3{font-size:28px}
+.sync-card p{margin-top:6px;font-size:15.5px;color:var(--navy)}
+
+/* ---------- pricing: the paywall's two packages as cards, the annual one chosen (a red outline) ---------- */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:44px auto 0;max-width:860px;align-items:stretch;text-align:left}
+@media(max-width:820px){.plans{grid-template-columns:1fr}}
+.plan{padding:32px;display:flex;flex-direction:column;position:relative;border:2px solid transparent}
+.plan.feature{border-color:var(--accent)}
+.plan .stamp{position:absolute;top:-20px;right:22px}
+.plan .name{font-family:var(--mono);font-weight:500;font-size:13.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.plan .price{font-family:var(--display);font-size:64px;line-height:1;color:var(--ink);margin:14px 0 6px;letter-spacing:.02em}
+.plan .price small{font-family:var(--sans);font-size:15px;color:var(--muted);letter-spacing:0;text-transform:none}
+.plan .sub{display:flex;flex-wrap:wrap;align-items:center;gap:10px;min-height:30px}
+/* handwriting, for one or two words at display size only, as the app uses it (the streak caption) */
+.hand{font-family:var(--hand);font-weight:700;font-size:27px;line-height:1;color:var(--accent);display:inline-block;transform:rotate(-2deg)}
+.plan .checks{margin:24px 0 28px}
+.plan .foot{margin-top:auto}
+.plan .btn{width:100%}
+.fine-print{margin:22px auto 0;font-size:13.5px;color:var(--muted);max-width:60ch}
+
+/* ---------- get kiron ---------- */
+.storelinks{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.store-note{max-width:52ch;margin:0 auto;color:var(--muted);font-size:15.5px}
+
+/* ---------- faq: the app's sheet rows ---------- */
+.faq{max-width:790px;margin:40px auto 0;padding:6px 26px}
+.faq details{border-bottom:1px solid var(--line);padding:20px 0}
+.faq details:last-child{border-bottom:0}
+.faq summary{cursor:pointer;list-style:none;font-size:17.5px;color:var(--ink);font-weight:600;display:flex;justify-content:space-between;gap:20px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent);font-size:24px;line-height:1;font-weight:400}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin-top:12px;font-size:16px;max-width:62ch;color:var(--navy)}
+
+/* ---------- footer ---------- */
+footer{background:var(--footer);color:var(--band-muted);padding:60px 0 42px;position:relative;overflow:hidden;border-top:1px solid var(--band-line)}
+footer a{color:var(--band-muted);text-decoration:none;font-size:14.5px}
+footer a:hover{color:var(--band-ink)}
+.fgrid{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between}
+.fnav{display:flex;flex-wrap:wrap;gap:22px}
+.fbrand{font-family:var(--display);font-size:40px;line-height:1;letter-spacing:.06em;color:var(--band-ink);text-transform:uppercase}
+.fine{margin-top:36px;padding-top:22px;border-top:1px solid var(--band-line);font-size:13px;color:#8F857A;max-width:72ch;line-height:1.6}
+
+/* ---------- pages: blog, legal, support, share, 404 ---------- */
+.page{padding:64px 0 clamp(72px,9vw,120px)}
+.page .wrap{max-width:820px}
+.crumbs{display:flex;gap:9px;align-items:center;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.crumbs a{color:var(--accent);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.page h1{font-size:clamp(46px,7vw,84px)}
+.page .lede{margin-top:16px}
+/* An article on a sheet of the app's paper: a raised sheet, with the log's red margin line down its left edge. */
+.sheet{margin-top:34px;background:var(--surface);border-radius:var(--r-sheet);padding:clamp(24px,4.5vw,48px);position:relative;box-shadow:var(--shadow-card)}
+.sheet::before{content:"";position:absolute;top:0;bottom:0;left:clamp(12px,2.2vw,24px);width:1.5px;background:var(--margin)}
+.prose{font-size:17px;color:var(--ink)}
+.prose > *:first-child{margin-top:0}
+.prose h2{font-size:clamp(28px,3.4vw,38px);margin:40px 0 12px}
+.prose h3{font-size:24px;margin:30px 0 10px}
+.prose p{margin:14px 0 0}
+.prose ul,.prose ol{margin:14px 0 0;padding-left:24px;color:var(--ink)}
+.prose li{margin-bottom:9px;line-height:1.6}
+.prose a{color:var(--accent);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--accent) 40%,transparent);text-underline-offset:3px}
+.prose a:hover{text-decoration-color:currentColor}
+.prose strong{font-weight:650}
+.prose code{font-family:var(--mono);font-size:.9em;background:var(--sunken);padding:1px 6px;border-radius:5px}
+/* A table in a post (the comparison posts), in its box <div class="table-wrap"> (lib/blog.ts adds one if a post
+   didn't, and makes it focusable and named): the box scrolls sideways by itself, so on a
+   phone the table scrolls and the page doesn't; the first column stays put while the others pass under it. A table
+   of three or more columns keeps a minimum width, so its cells stay readable instead of squeezing to a word a line;
+   up to five columns still fit the article's column on a computer (666 px), so only a phone or a narrow window
+   scrolls. The header row is the app's mono label on a sunken band, as the app heads a set's columns (SET · LB · REPS).
+   A caption shows as a label above the box (it would scroll away inside it); the table keeps its own for screen
+   readers, hidden from view. */
+.prose .table-caption{margin:22px 0 8px;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.prose .table-wrap{margin:22px 0 0;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--line);border-radius:var(--r-well)}
+.prose .table-caption + .table-wrap{margin-top:0}
+.prose .table-wrap:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.prose table{width:100%;border-collapse:separate;border-spacing:0;font-size:15px;line-height:1.45}
+.prose table:has(tr > :nth-child(3)){min-width:28rem}
+.prose table:has(tr > :nth-child(4)){min-width:34rem}
+.prose table:has(tr > :nth-child(5)){min-width:40rem}
+.prose table:has(tr > :nth-child(6)){min-width:46rem}
+.prose caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.prose th,.prose td{padding:11px 16px;text-align:left;vertical-align:top;border-top:1px solid var(--line)}
+.prose tr:first-child > *{border-top:0}
+.prose thead th{background:var(--sunken);font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-wrap:balance}
+.prose tbody th{font-weight:650}
+.prose tr > :first-child{position:sticky;left:0;z-index:1;background:var(--surface);box-shadow:inset -1px 0 0 var(--line)}
+.prose thead tr > :first-child{background:var(--sunken)}
+/* The blocks a comparison post is built from (docs/POSTS.md), light and dark from the tokens:
+   - <p class="disclosure">, its first line, saying who wrote it: small and muted.
+   - <aside class="verdict"> (an h2, a ul, a p), the quick verdict near the top: one of the app's cards, on the app's
+     paper inside the sheet, its list ticked with the app's pen check (components/marks.tsx, CHECK) in the red pen.
+   - <div class="sources"> (an h2 and a ul of links) and <p class="updated"> at the end: smaller, under a rule, and a
+     long address wraps instead of widening a phone's page. */
+.prose .disclosure{font-size:14.5px;line-height:1.55;color:var(--muted)}
+.prose .verdict{margin:26px 0 0;padding:22px 24px 24px;background:var(--canvas);border-radius:var(--r-card);box-shadow:inset 0 0 0 1px var(--line)}
+.prose .verdict h2{font-size:clamp(24px,2.8vw,30px);margin:0}
+.prose .verdict ul{list-style:none;padding-left:0;margin-top:12px}
+.prose .verdict li{position:relative;padding-left:32px}
+.prose .verdict li::before{content:"";position:absolute;left:0;top:.28em;width:21px;height:19px;background:var(--accent);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 16'%3E%3Cpath d='M2.5 8.6 C 4.2 9.6, 5.6 11.2, 6.6 13.2 C 9 8.2, 11.8 4.6, 16 2' fill='none' stroke='black' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 16'%3E%3Cpath d='M2.5 8.6 C 4.2 9.6, 5.6 11.2, 6.6 13.2 C 9 8.2, 11.8 4.6, 16 2' fill='none' stroke='black' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.prose .verdict p{font-size:16px;color:var(--navy)}
+.prose .sources{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-size:15px}
+.prose .sources h2{font-size:24px;margin:0}
+.prose .sources ul{margin-top:10px}
+.prose .sources li{margin-bottom:6px;line-height:1.5;overflow-wrap:anywhere}
+.prose .updated{margin-top:18px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.dateline{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+
+.posts{display:grid;gap:16px;margin-top:34px}
+.post-card{display:flex;flex-direction:column;gap:10px;padding:24px 26px;text-decoration:none;border:2px solid transparent;
+           transition:transform .15s ease, border-color .18s ease}
+.post-card:hover{border-color:var(--accent)}
+.post-card:active{transform:scale(.98)}
+.post-card .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.post-card .date{font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.post-card h2{font-size:clamp(26px,3vw,34px)}
+.post-card p{font-size:15.5px;color:var(--navy)}
+.post-end{margin-top:40px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+.contact{display:grid;gap:16px;margin-top:34px}
+.contact .sheet{margin-top:0}
+.contact h2{font-size:30px}
+.contact p{margin-top:8px;color:var(--navy)}
+.contact .btn{margin-top:18px}
+.contact a:not(.btn):not(.chip){color:var(--accent);text-underline-offset:3px}
+.address{font-family:var(--mono);font-size:15px;color:var(--ink);user-select:all}
+
+/* the share page: what was shared, as a card of rows like the app's plan page */
+.share-list{list-style:none;margin:26px 0 0;padding:4px 22px}
+.share-list li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.share-list li:last-child{border-bottom:0}
+.share-list .name{font-weight:600;overflow-wrap:anywhere}
+.share-list .line{font-family:var(--mono);font-size:15px;white-space:nowrap;color:var(--navy)}
+.share-meta{color:var(--muted);margin-top:10px}
+.share-status{color:var(--muted);margin-top:26px}
+.share-get{margin-top:40px;padding:28px;background:var(--accent-soft);border-radius:var(--r-card)}
+.share-get h2{font-size:clamp(32px,4vw,44px)}
+.share-get p{margin:8px 0 20px;color:var(--ink)}
+.share-get .storelinks{justify-content:flex-start}
+/* inside the soft red box the soft buttons need the card's ground to show */
+.share-get .btn-soft{background:var(--surface)}
+.share h1{overflow-wrap:anywhere}
+[hidden]{display:none !important}
+@media(max-width:600px){
+  .share-list li{flex-wrap:wrap;gap:2px 16px}
+  .share-get{padding:22px 18px}
+}
+
+.nf{min-height:62vh;display:flex;align-items:center;text-align:center;padding:72px 0 96px}
+.nf .wrap{width:100%}
+.nf h1{max-width:14ch}
+.nf .lede{margin:22px auto 0}
+
+/* ---------- placeholder marks (only while something is a placeholder; see docs/PLACEHOLDERS.md) ---------- */
+.ph-note{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
